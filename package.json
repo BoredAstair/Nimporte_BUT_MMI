@@ -1,0 +1,20 @@
+{
+  "name": "nimporte_but_mmi",
+  "version": "1.0.0",
+  "description": "Projet de Seconde année de BUT MMI, réalisation par groupe d'un site qui reprend le concept de Twitter",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx sass --watch --style=compressed scss/index.scss css/index.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoredAstair/Nimporte_BUT_MMI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BoredAstair/Nimporte_BUT_MMI/issues"
+  },
+  "homepage": "https://github.com/BoredAstair/Nimporte_BUT_MMI#readme"
+}
