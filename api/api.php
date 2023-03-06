@@ -28,9 +28,6 @@ if(count($segments_uri) == 2){
             $username = $_POST['username'];
             $pseudo = $_POST['pseudo'];
             $password = sha1($_POST['password']);
-            echo($username.'<br>');
-            echo($pseudo.'<br>');
-            echo($password.'<br>');
             $token = generateToken(16);
             $usernames = select("username", "user");
             $erreur = [];
