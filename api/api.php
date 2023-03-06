@@ -23,6 +23,18 @@ if(count($segments_uri) == 2){
         $allPlume = select("*", "plume");
         encodeJson($allPlume);
     }
+    else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){
+        echo("test");
+        if(isset($_POST['username']) && isset($_POST['pseudo']) && isset($_POST['password'])){
+            $username = $_POST['username'];
+            $pseudo = $_POST['pseudo'];
+            $password = sha1($_POST['password']);
+            $token = generateToken(16);
+            if($username <= 30 && $pseudo <= 30 && $password > 5){
+                
+            }
+        }
+    }
     else{
         echo "erreur 404";
     }
