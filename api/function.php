@@ -20,4 +20,7 @@ function generateToken($longueur){ //génère un token
     }
     return $random;
 }
+function veriftoken(){
+    
+}
 ?>
