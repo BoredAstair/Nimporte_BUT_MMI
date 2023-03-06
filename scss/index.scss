@@ -72,7 +72,6 @@ html{
                     }
                 }
             }
-
             .onglet{
                 @include flex(row, normal, center);
                 img{
@@ -94,5 +93,8 @@ html{
             background-color: $fond-plumes;
             width: 83%;
         }
+    }
+    .none{
+        display: none;
     }
 }
