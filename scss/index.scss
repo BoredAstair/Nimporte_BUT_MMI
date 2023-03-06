@@ -1,0 +1,36 @@
+$fond : #232A3C;
+$fond-plumes : #262C3E;
+
+html{
+    height: 100%;
+    body{
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        #para{
+            display: flex;
+            background-color: $fond-plumes;
+            height: 100%    ;
+            .menu{
+                display: flex;
+                flex-direction: column;
+                background-color: $fond;
+                color: white;
+                width: 17%;
+                height: 100%;
+                #menu-btn{
+                    align-items: center;
+                    height: 60%;
+                }
+                #logo{
+                    width: 150px;
+                    align-self: center;
+                }
+                .onglet{
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
