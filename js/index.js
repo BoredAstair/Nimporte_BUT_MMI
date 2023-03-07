@@ -3,12 +3,12 @@ function ongletsMenu(menu){
     for (const tab of menuElements){
         tab.classList.remove('actif');
     }
-    document.getElementById(`${menu}`).classList.add('actif');
+    document.getElementById(`${menu}-btn`).classList.add('actif');
+    console.log(menu);
 
     contenu = document.getElementsByClassName('contenu');
     for (const tab of contenu){
         if (!tab.classList.contains('none')){
-            tab.classList.add('none');
             tab.classList.add('none');
         }
     }
