@@ -23,14 +23,14 @@ if(count($segments_uri) == 2){
         $allPlume = select("*", "plume");
         encodeJson($allPlume);
     }
-    else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){
+    else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){ // inscription d'un utilisateur
+        $erreur = [];
         if(isset($_POST['username']) && isset($_POST['pseudo']) && isset($_POST['password'])){
             $username = $_POST['username'];
             $pseudo = $_POST['pseudo'];
             $password = sha1($_POST['password']);
             $token = generateToken(16);
             $usernames = select("username", "user");
-            $erreur = [];
             if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($_POST['password']) > 5 && !in_array($username, $usernames)){
                 $request = 'INSERT INTO user(username, pseudo, password, token, token_date) VALUES(:username, :pseudo, :password, :token, :token_date)';
                 $insert = $bdd -> prepare($request);
@@ -61,6 +61,50 @@ if(count($segments_uri) == 2){
                 }    
                 encodeJson($erreur);
             }    
+        }
+        else{
+            $erreurInput = "Merci de remplir tous les champs";
+            array_push($erreur, $erreurInput);
+            encodeJson($erreur);
+        }
+    }
+    else if($segments_uri[0] == "post" && $segments_uri[1] == "login"){ // connexion d'un utilisateur
+        $erreur = [];
+        if(isset($_POST['username']) && isset($_POST['password'])){
+            $username = $_POST['username'];
+            $password = sha1($_POST['password']);
+            $usernames = select("username", "user");
+            $request = "SELECT * FROM user WHERE username=:username";
+            $select = $bdd -> prepare($request);
+            $select -> execute([
+                ":username"=> $username
+            ]);
+            $user = $select -> fetchAll(PDO::FETCH_ASSOC);
+            if(count($user) == 1){
+                if($user[0]["password"] == $password){
+                    $request = "UPDATE user SET token=:token, token_date=:date_token WHERE username=:username";
+                    $update = $bdd -> prepare($request);
+                    $update -> execute([
+                        ":token"=> generateToken(16),
+                        ":date_token"=> date("Y-m-d H:i:s"),
+                        ":username"=>$username
+                    ]);
+                    echo("connecté");
+                    // rediriger à la bonne page
+                }
+                else{
+                    array_push($erreur, "Le mot de passe est erronné");
+                    encodeJson($erreur);
+                }
+            }
+            else{
+                array_push($erreur, "Le nom d'utilisateur n'existe pas");
+                encodeJson($erreur);
+            }
+        }
+        else{
+            array_push($erreur, "Merci de remplir tous les champs");
+            encodeJson($erreur);
         }
     }
     else{
