@@ -1,0 +1,100 @@
+// variables
+$fond : #232A3C;
+$fond-plumes : #262C3E;
+$darkest-blue : #1B202D;
+$theme-color : #FFF48E;
+
+//mixin
+@mixin btn-select{
+    background-color: $darkest-blue;
+    border-radius: 0 15px 15px 0;
+    transition: 0.2s;
+}
+@mixin flex($direction, $justify, $align){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin font($size){
+    font-family: 'Outfit', sans-serif;
+    font-size: $size;
+}
+
+// le code
+html{
+    height: 100%;
+    body{
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family: 'Outfit', sans-serif;
+        @include flex(row, normal, normal);
+        .menu{
+            @include flex(column, normal, normal);
+            background-color: $fond;
+            color: white;
+            width: 17%;
+            font-size: 20px;
+            padding-top: 3%;
+            #logo{
+                width: 150px;
+                align-self: center;
+                margin-bottom: 10%;
+            }
+            form{
+                @include flex(row, center, normal);
+                position: relative;
+                img{
+                    position: absolute;
+                    top: 50%;
+                    left: 35px;
+                    transform: translateY(-50%);
+                }
+                #recherche{
+                    border-radius: 15px;
+                    width: 80%;
+                    height: 35px;
+                    color: $darkest-blue;
+                    padding-left: 15px;
+                    text-indent: 30px;
+                    background-color: #CCCCCC;
+                    @include font(15px);
+                    &::placeholder{
+                        color: $darkest-blue;
+                        @include font(15px);
+                    }
+                    &:focus{
+                        outline: none;
+                        background-color: $theme-color;
+                        transition: background-color 0.5s;
+                    }
+                }
+            }
+            .onglet{
+                @include flex(row, normal, center);
+                img{
+                    padding: 5%;
+                }
+                &:hover{
+                    @include btn-select;
+                }
+            }
+            .actif{
+                @include btn-select;
+            }
+            #menu-btn{
+                @include flex(column, center, normal);
+                height: 50%;
+            }
+        }
+        #parameters{
+            background-color: $fond-plumes;
+            width: 83%;
+        }
+    }
+    .none{
+        display: none;
+    }
+}
