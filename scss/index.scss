@@ -3,6 +3,8 @@ $fond : #232A3C;
 $fond-plumes : #262C3E;
 $darkest-blue : #1B202D;
 $theme-color : #FFF48E;
+$white : white;
+$disabled-text : #A5A5A5;
 
 //mixin
 @mixin btn-select{
@@ -17,9 +19,21 @@ $theme-color : #FFF48E;
     align-items: $align;
 }
 
-@mixin font($size){
+@mixin font($size, $color, $weight){
     font-family: 'Outfit', sans-serif;
     font-size: $size;
+    color: $color;
+    font-weight: $weight;
+}
+
+@mixin inputProfil($height, $width){
+    background-color: #343B4C;
+    box-shadow: none;
+    border: none;
+    height: $height;
+    width: $width;
+    border-radius: 15px;
+    text-indent: 15px;
 }
 
 // le code
@@ -31,10 +45,13 @@ html{
         height: 100%;
         font-family: 'Outfit', sans-serif;
         @include flex(row, normal, normal);
+        .none{
+            display: none;
+        }
         .menu{
             @include flex(column, normal, normal);
             background-color: $fond;
-            color: white;
+            color: $white;
             width: 17%;
             font-size: 20px;
             padding-top: 3%;
@@ -56,14 +73,12 @@ html{
                     border-radius: 15px;
                     width: 80%;
                     height: 35px;
-                    color: $darkest-blue;
                     padding-left: 15px;
                     text-indent: 30px;
                     background-color: #CCCCCC;
-                    @include font(15px);
+                    @include font(15px, $darkest-blue, normal);
                     &::placeholder{
-                        color: $darkest-blue;
-                        @include font(15px);
+                        @include font(15px, $darkest-blue, normal);
                     }
                     &:focus{
                         outline: none;
@@ -90,11 +105,78 @@ html{
             }
         }
         #parameters{
+            @include font(22px, $white, normal);
             background-color: $fond-plumes;
             width: 83%;
+            overflow-y: scroll;
+            @include flex(row, normal, normal);
+            #all-parameters{
+                @include flex(column, normal, center);
+                width: 50%;
+                margin-left: 10%;
+                h2{
+                    @include font(30px, $white, bold);
+                    align-self: self-start;
+                }
+                #profile-part1{
+                    @include flex(row, space-between, center);
+                    height: 30%;
+                    width: 100%;
+                    .user{
+                        @include flex(column, space-evenly, space-evenly);
+                        height: 100%;
+                        position: relative;
+                        #username, #pseudo{
+                            @include inputProfil(45px, 300px);
+                            @include font(16px, $white, normal);
+                            &:disabled{
+                                @include font(16px, $disabled-text, normal);
+                            }
+                        }
+                        #change-avatar{
+                            position: absolute;
+                            top: 34%;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 152px;
+                            height: 152px;
+                            border-radius: 50%;
+                            background-color: $darkest-blue;
+                            @include flex(row, center, center);
+                            opacity: 0;
+                            #avatar{
+                                display: none;
+                            }
+                            &:hover{
+                                opacity: 0.8;
+                                transition: opacity 0.5s;
+                            }
+                            #label-file:hover{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    #default-profile{
+                        border-radius: 50%;
+                        width: 150px;
+                        height: 150px;
+                    }
+                }
+                #profile-part2{
+                    margin-top: 8%;
+                    @include flex(column, space-between, normal);
+                    width: 100%;
+                    #biography{
+                        @include inputProfil(120px, 100%);
+                        resize: none;
+                        padding-top: 15px;
+                        @include font(16px, $white, normal);
+                        &::placeholder{
+                            @include font(16px, $white, normal);
+                        }
+                    }
+                }
+            }
         }
-    }
-    .none{
-        display: none;
     }
 }

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <title>OwlTree | Paramètres</title>
 </head>
 <body>
@@ -51,8 +51,36 @@
         <p>C'est le profil</p>
     </section>
     <section class="contenu" id="parameters">
-        <p>C'est les paramètres</p>
+        <div id="all-parameters">
+            <h2>Profil</h2>
+            <div id="profile-part1">
+                <div class="user">
+                    <p>Nom d'utilisateur</p>
+                    <input type="text" id="username" value="@utilisateur" disabled>        
+                
+                    <p>Pseudo</p>
+                    <input type="text" id="pseudo" value="Pseudo">
+                </div>
+                <div class="user">
+                    <span>Photo de profil</span>
+                    <img id="default-profile" src="ressource/icones/default-profile.jpg" alt="photo de profil">
+
+                    <div id="change-avatar">
+                        <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" id="avatar" accept="image/*">
+                    </div>
+                </div>
+            </div>
+            <div id="profile-part2">
+                <p>Biographie</p>
+                <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
+
+                <p>Bannière</p>
+                <img src="" alt="bannière de votre profil">
+            </div>
+        </div>
     </section>
+
     <script src="js/index.js"></script>
 </body>
 </html>
