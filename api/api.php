@@ -27,4 +27,13 @@ if(count($segments_uri) == 2){
         echo "erreur 404";
     }
 }
+if(count($segments_uri) == 3){
+    if($segments_uri[0] == "get" && $segments_uri[1] == "save" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur
+        $savedPlume = selectConditionJoin("*", "save_plume", "savePlume = {$segments_uri[2]}");
+        encodeJson($savedPlume);
+    }
+    else{
+        echo "erreur 404";
+    }
+}
 ?>
