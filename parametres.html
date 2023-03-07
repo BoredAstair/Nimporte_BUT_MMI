@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <title>OwlTree | Paramètres</title>
+</head>
+<body>
+    <div class="menu">
+        <img id="logo" src="ressource/icones/logo.png" alt="logo">
+        <form>
+            <img src="ressource/icones/loupe.png">
+            <input type="text" id="recherche" placeholder="Recherchez...">
+        </form>
+
+        <div id="menu-btn">
+            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
+                <img src="ressource/icones/accueil.png" alt="accueil">
+                <span>Accueil</span>
+            </div>
+            <div class="onglet" id="save-btn" onclick="ongletsMenu('save')">
+                <img src="ressource/icones/enregistrer.png" alt="enregistrer">
+                <span>Enregistrés</span>
+            </div>
+            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
+                <img src="ressource/icones/compte.png" alt="votre profil">
+                <span>Profil</span>
+            </div>
+            <div class="onglet actif" id="parameters-btn" onclick="ongletsMenu('parameters')">
+                <img src="ressource/icones/parametres.png" alt="paramètres">
+                <span>Paramètres</span>
+            </div>
+            <div class="onglet" id="deconnexion">
+                <img src="ressource/icones/deconnexion.png" alt="déconnexion">
+                <span>Se déconnecter</span>
+            </div>
+        </div>
+    </div>
+    <section class="contenu none" id="home">
+        <p>C'est l'accueil</p>
+    </section>
+    <section class="contenu none" id="save">
+        <p>C'est les signets</p>
+    </section>
+    <section class="contenu none" id="profile">
+        <p>C'est le profil</p>
+    </section>
+    <section class="contenu" id="parameters">
+        <p>C'est les paramètres</p>
+    </section>
+    <script src="js/index.js"></script>
+</body>
+</html>
