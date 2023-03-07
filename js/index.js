@@ -4,7 +4,6 @@ function ongletsMenu(menu){
         tab.classList.remove('actif');
     }
     document.getElementById(`${menu}-btn`).classList.add('actif');
-    console.log(menu);
 
     contenu = document.getElementsByClassName('contenu');
     for (const tab of contenu){
