@@ -40,7 +40,6 @@ body{
 
 #ButtonSwitch{
     display: flex;
-    align-items: center;
     
 }
 
@@ -48,8 +47,11 @@ body{
     color: white;
     border: none;
     width: 100%;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: large;
 }
+
 
 #ButtonConnexion{
     border-top-left-radius: 20px;
@@ -74,6 +76,7 @@ body{
 }
 
 #SideConnexion form input,#SideInscription form input{
+    font-family: 'Outfit', sans-serif;
     color: white;
     padding: 10px;
     margin: 10px;
@@ -86,11 +89,10 @@ body{
 button{
     font-family: 'Outfit', sans-serif;
     background-color: #FFF48E;
-    padding: 15px;
-    margin-top: 10px;
+    margin-top: 40px;
     border: none;
-    border-radius: 30px;
-    height: auto;
+    border-radius: 15px;
+    height: 35px;
     width: 150px;
 }
 
