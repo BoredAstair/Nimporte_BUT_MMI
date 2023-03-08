@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ressource/icones/logo.png">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <title>OwlTree | Paramètres</title>
+</head>
+<body>
+    
+    <div class="menu">
+        <img id="logo" src="ressource/icones/logo.png" alt="logo">
+        <form>
+            <img src="ressource/icones/loupe.png">
+            <input type="text" id="recherche" placeholder="Recherchez...">
+        </form>
+
+        <div id="menu-btn">
+            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
+                <img src="ressource/icones/accueil.png" alt="accueil">
+                <span>Accueil</span>
+            </div>
+            <div class="onglet" id="save-btn" onclick="ongletsMenu('save')">
+                <img src="ressource/icones/enregistrer.png" alt="enregistrer">
+                <span>Enregistrés</span>
+            </div>
+            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
+                <img src="ressource/icones/compte.png" alt="votre profil">
+                <span>Profil</span>
+            </div>
+            <div class="onglet actif" id="parameters-btn" onclick="ongletsMenu('parameters')">
+                <img src="ressource/icones/parametres.png" alt="paramètres">
+                <span>Paramètres</span>
+            </div>
+            <div class="onglet" id="deconnexion">
+                <img src="ressource/icones/deconnexion.png" alt="déconnexion">
+                <span>Se déconnecter</span>
+            </div>
+        </div>
+    </div>
+    <section class="contenu none" id="home">
+        <p>C'est l'accueil</p>
+    </section>
+    <section class="contenu none" id="save">
+        <p>C'est les signets</p>
+    </section>
+    <section class="contenu none" id="profile">
+        <p>C'est le profil</p>
+    </section>
+    <section class="contenu" id="parameters">
+        <div id="all-parameters">
+            <h2>Profil</h2>
+            <div id="profile-part1">
+                <div class="user">
+                    <p>Nom d'utilisateur</p>
+                    <input type="text" id="username" value="@utilisateur" disabled>        
+                
+                    <p>Pseudo</p>
+                    <input type="text" id="pseudo" value="Pseudo">
+                </div>
+                <div class="user">
+                    <span>Photo de profil</span>
+                    <img id="default-profile" src="ressource/icones/default-profile.jpg" alt="photo de profil">
+
+                    <div class="change-image">
+                        <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" class="imageProfile" id="avatar" accept="image/*">
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-part2">
+                <p>Biographie</p>
+                <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
+
+                <p>Bannière</p>
+                <div id="banner-input">
+                    <img id="bannerProfile" src="ressource/images/default-banner.webp" alt="bannière de votre profil">
+                    <div class="change-image">
+                        <label for="banner" id="label-banner"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" class="imageProfile" id="banner" accept="image/*">
+                    </div>
+                </div>
+                <button id="enregistrer-modif">Enregistrer les modifications</button>
+            </div>
+
+            <div id="profile-part3">
+                <div class="mail-mdp">
+                    <div>
+                        <p>Adresse mail associée</p>
+                        <input type="text" id="email" value="mail@exemple.com" disabled>  
+                    </div>
+                    <span>Supprimer le compte</span>
+                </div>
+
+                <div class="mail-mdp">
+                    <p>Modifier le mot de passe</p>
+                    <input type="password" placeholder="Mot de passe actuel">
+                    <input type="password" placeholder="Nouveau mot de passe">
+                    <button>Modifier</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
