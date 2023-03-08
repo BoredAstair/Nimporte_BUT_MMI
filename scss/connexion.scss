@@ -1,0 +1,99 @@
+//VARIABLES
+$background-clair : #232A3C;
+$background-fonce : #1B202D;
+$background-inscription : #343B4D;
+$text-color : white;
+$button-color: #FFF48E;
+$button-hover-color: #a9a267;
+$font-principal : 'Outfit', sans-serif;
+
+//MIXIN
+@mixin flex($justify-content, $align-items, $flex-direction){
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    flex-direction: $flex-direction;
+}
+@mixin side($bg-color, $bg-color-input){
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: $bg-color;
+    form{
+        @include flex(start, center, column);
+        padding: 50px;
+        input{
+            color: $text-color;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            height: auto;
+            width: 400px;
+            background-color: $bg-color-input;
+        }
+        button{
+            font-family: $font-principal;
+            background-color: $button-color;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 30px;
+            height: auto;
+            width: 150px;
+            &:hover{
+                background-color: #a9a267;
+            }
+        }
+    }
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    body{
+        margin: 0;
+        padding: 0;
+        @include flex(left, start, row);
+        font-family: $font-principal;
+        background-color: $background-clair;
+        #DivDeGauche{
+            background-color: #1B202D;
+            width: 400px;
+            height: 720px;
+            img{
+                position: absolute;
+                height: 150px;
+                left: 100px;
+                top: 275px;
+            }
+        }
+        #DivDeDroite{
+            height: fit-content;
+            width: 600px;
+            margin-top: 200px;
+            margin-left: 300px;
+            border-radius: 20px;
+            #ButtonSwitch{
+                @include flex(start, center, row);
+                div{
+                    color: $text-color;
+                    border: none;
+                    width: 100%;
+                    padding: 20px;
+                    &#ButtonConnexion{
+                        border-top-left-radius: 20px;
+                    }
+                    &#ButtonInscription{
+                        border-top-right-radius: 20px;
+                    }
+                }
+            }
+            #SideConnexion{
+                @include side($background-fonce, $background-inscription);
+            }
+            #SideInscription{
+                @include side($background-inscription, $background-fonce);
+            }
+        }
+    }
+}
