@@ -17,4 +17,13 @@ function selectCondition($select, $table, $condition){ // selection dans une tab
     $tableau = $select -> fetchAll(PDO::FETCH_ASSOC);
     return $tableau;
 }
+function selectConditionJoin($select, $tableA, $tableB, $condition, $join, $cleA, $cleB){
+    include("connectBDD.php");
+    $request = "SELECT {$select} FROM {$tableA} {$join} JOIN {$tableB} ON {$cleA} = {$cleB} WHERE {$condition}";
+    $select = $bdd -> prepare($request);
+    $select -> execute();
+    $tableau = $select -> fetchAll(PDO::FETCH_ASSOC);
+    return $tableau;
+}
+function 
 ?>

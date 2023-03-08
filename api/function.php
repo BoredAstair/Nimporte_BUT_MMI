@@ -21,9 +21,6 @@ function generateToken($longueur){ //génère un token
     setcookie("tokenCookie", $random, 86400); //Stocke le token dans les cookies du navigateur de l'utilisateur avec une durée de vie de 1 jours
     return $random;
 }
-/*function getSavedPlume($user){
-    $req = 
-}*/
 function verifToken(){ //Vérifie si un token existe chez un utilisateur et si ce dernier est encore valable
     include("request.php");
     if (isset($_COOKIE['tokenCookie'])){ //Verif presence token COOKIES
@@ -34,6 +31,7 @@ function verifToken(){ //Vérifie si un token existe chez un utilisateur et si c
             die();
             }
         } else {
+            
             header("Location: ../index.html");
             die();
         }

@@ -29,8 +29,16 @@ if(count($segments_uri) == 2){
 }
 if(count($segments_uri) == 3){
     if($segments_uri[0] == "get" && $segments_uri[1] == "save" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur
-        $savedPlume = selectConditionJoin("*", "save_plume", "savePlume = {$segments_uri[2]}");
+        $savedPlume = selectConditionJoin("*","save_plume","plume","save_plume.user = '{$segments_uri[2]}'","RIGHT","save_plume.plume_id","plume.id");
         encodeJson($savedPlume);
+    }
+    else if ($segments_uri[0] == "get" && $segments_uri[1] == "like" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
+        encodeJson($likedPlume);
+    }
+    else if ($segments_uri[0] == "get" && $segments_uri[1] == "plume" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $plumeUser = selectCondition("*","plume","plume.user = '{$segments_uri[2]}'");
+        encodeJson($plumeUser);
     }
     else{
         echo "erreur 404";
