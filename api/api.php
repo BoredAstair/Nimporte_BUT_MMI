@@ -41,6 +41,7 @@ if(count($segments_uri) == 2){
                     ":token" => generateToken(16),
                     ":token_date" => date("Y-m-d H:i:s")
                 ]);
+                header("http://localhost/owlTree/Nimporte_BUT_MMI/index.html");
             }
             else{
                 if(strlen($username) > 30){
