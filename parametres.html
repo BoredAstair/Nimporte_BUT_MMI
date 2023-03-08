@@ -65,9 +65,9 @@
                     <span>Photo de profil</span>
                     <img id="default-profile" src="ressource/icones/default-profile.jpg" alt="photo de profil">
 
-                    <div id="change-avatar">
+                    <div class="change-image">
                         <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
-                        <input type="file" id="avatar" accept="image/*">
+                        <input type="file" class="imageProfile" id="avatar" accept="image/*">
                     </div>
                 </div>
             </div>
@@ -76,7 +76,13 @@
                 <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
 
                 <p>Bannière</p>
-                <img src="" alt="bannière de votre profil">
+                <div id="banner-input">
+                    <img id="bannerProfile" src="ressource/images/default-banner.webp" alt="bannière de votre profil">
+                    <div class="change-image">
+                        <label for="banner" id="label-banner"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" class="imageProfile" id="banner" accept="image/*">
+                    </div>
+                </div>
             </div>
         </div>
     </section>

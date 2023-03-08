@@ -18,14 +18,12 @@ $disabled-text : #A5A5A5;
     justify-content: $justify;
     align-items: $align;
 }
-
 @mixin font($size, $color, $weight){
     font-family: 'Outfit', sans-serif;
     font-size: $size;
     color: $color;
     font-weight: $weight;
 }
-
 @mixin inputProfil($height, $width){
     background-color: #343B4C;
     box-shadow: none;
@@ -34,6 +32,37 @@ $disabled-text : #A5A5A5;
     width: $width;
     border-radius: 15px;
     text-indent: 15px;
+}
+@mixin InputHover($width, $height, $radius, $transform, $top, $left){
+    @include flex(row, center, center);
+    position: absolute;
+    background-color: $fond-plumes;
+    width: $width;
+    height: $height;
+    border-radius: $radius;
+    transform: $transform;
+    top: $top;
+    left : $left;
+    opacity: 0;
+    .change-image{
+        position: relative;
+    }
+    .imageProfile{
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    &:hover{
+        opacity: 0.9;
+        transition: opacity 0.5s;
+    }
+    #label-file, #label-banner{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
 }
 
 // le code
@@ -46,7 +75,7 @@ html{
         font-family: 'Outfit', sans-serif;
         @include flex(row, normal, normal);
         .none{
-            display: none;
+            display: none !important;
         }
         .menu{
             @include flex(column, normal, normal);
@@ -120,7 +149,6 @@ html{
                 }
                 #profile-part1{
                     @include flex(row, space-between, center);
-                    height: 30%;
                     width: 100%;
                     .user{
                         @include flex(column, space-evenly, space-evenly);
@@ -133,27 +161,8 @@ html{
                                 @include font(16px, $disabled-text, normal);
                             }
                         }
-                        #change-avatar{
-                            position: absolute;
-                            top: 34%;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            width: 152px;
-                            height: 152px;
-                            border-radius: 50%;
-                            background-color: $darkest-blue;
-                            @include flex(row, center, center);
-                            opacity: 0;
-                            #avatar{
-                                display: none;
-                            }
-                            &:hover{
-                                opacity: 0.8;
-                                transition: opacity 0.5s;
-                            }
-                            #label-file:hover{
-                                cursor: pointer;
-                            }
+                        .change-image{
+                            @include InputHover(152px, 152px, 50%, translateX(-50%), 28%, 50%);
                         }
                     }
                     #default-profile{
@@ -173,6 +182,18 @@ html{
                         @include font(16px, $white, normal);
                         &::placeholder{
                             @include font(16px, $white, normal);
+                        }
+                    }
+                    #banner-input{
+                        position: relative;
+                        #bannerProfile{
+                            width: 100%;
+                            max-height: 300px;
+                            object-fit: cover;
+                            border-radius: 15px;
+                        }
+                        .change-image{
+                            @include InputHover(100%, 100%, 15px, translateY(-50%) translateX(-50%), 50%, 50%);
                         }
                     }
                 }
