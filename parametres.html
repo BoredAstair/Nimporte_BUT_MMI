@@ -12,7 +12,16 @@
     <title>OwlTree | Paramètres</title>
 </head>
 <body>
-    
+    <div id="popup-fond" class="none">
+        <div id="popup">
+            <p>Etes vous sûr de vouloir supprimer votre compte? Cette action est irréversible.</p>
+            <div id="btn-popup">
+                <button id="btn-non" onclick="quit()">Non</button>
+                <button id="btn-oui">Oui</button>
+            </div>
+        </div>
+    </div>
+
     <div class="menu">
         <img id="logo" src="ressource/icones/logo.png" alt="logo">
         <form>
@@ -95,7 +104,7 @@
                         <p>Adresse mail associée</p>
                         <input type="text" id="email" value="mail@exemple.com" disabled>  
                     </div>
-                    <span>Supprimer le compte</span>
+                    <span onclick="affiche()">Supprimer le compte</span>
                 </div>
 
                 <div class="mail-mdp">
