@@ -78,7 +78,7 @@
 
                     <div class="change-image">
                         <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
-                        <input type="file" class="imageProfile" id="avatar" accept="image/*">
+                        <input type="file" class="imageProfile" id="avatar" accept="image/*" onchange="previewAvatar()">
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                     <img id="bannerProfile" src="ressource/images/default-banner.webp" alt="bannière de votre profil">
                     <div class="change-image">
                         <label for="banner" id="label-banner"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
-                        <input type="file" class="imageProfile" id="banner" accept="image/*">
+                        <input type="file" class="imageProfile" id="banner" accept="image/*" onchange="previewBanner()">
                     </div>
                 </div>
                 <button id="enregistrer-modif">Enregistrer les modifications</button>
