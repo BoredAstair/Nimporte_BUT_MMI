@@ -69,6 +69,7 @@ body{
 }
 
 #SideConnexion form,#SideInscription form{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,7 +86,6 @@ body{
     height: auto;
     width: 400px;
 }
-
 button{
     font-family: 'Outfit', sans-serif;
     background-color: #FFF48E;
@@ -126,4 +126,12 @@ button:hover{
 
 #SideConnexion form input{
     background-color: #343B4C;
+}
+
+#SideConnexion form p{
+    position: absolute;
+    top: 10px;
+    left: 90px;
+    color: red;
+    font-size: 15px;
 }
