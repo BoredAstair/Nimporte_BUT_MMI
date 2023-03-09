@@ -190,6 +190,7 @@ html{
             #all-parameters{
                 @include flex(column, normal, center);
                 width: 50%;
+                height: fit-content;
                 margin-left: 10%;
                 position: relative;
                 h2{
