@@ -23,6 +23,10 @@ if(count($segments_uri) == 2){
         $allPlume = select("*", "plume");
         encodeJson($allPlume);
     }
+    else if ($segments_uri[0] == "get" && explode("?",$segments_uri[1])[0] == "data"){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $dataUser = selectCondition("username,pseudo,pp,banner,bio", "user", "username = '{$_GET['user']}'");
+        encodeJson($dataUser);
+    }
     else{
         echo "erreur 404";
     }

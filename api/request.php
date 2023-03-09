@@ -25,5 +25,4 @@ function selectConditionJoin($select, $tableA, $tableB, $condition, $join, $cleA
     $tableau = $select -> fetchAll(PDO::FETCH_ASSOC);
     return $tableau;
 }
-function 
 ?>
