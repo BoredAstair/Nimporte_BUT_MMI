@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx sass --watch --style=compressed scss/index.scss css/index.css",
-    "connexion": "npx sass --watch --style=compressed scss/connexion.scss css/connexion_2.css"
+    "connexion": "npx sass --watch --style=compressed scss/connexion.scss css/connexion.css"
   },
   "repository": {
     "type": "git",
