@@ -24,14 +24,16 @@ if(count($segments_uri) == 2){
         encodeJson($allPlume);
     }
     else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){ // inscription d'un utilisateur
+        $request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
+        $data = json_decode($request_body, true);
         $erreur = [];
-        if(isset($_POST['username']) && isset($_POST['pseudo']) && isset($_POST['password'])){
-            $username = $_POST['username'];
-            $pseudo = $_POST['pseudo'];
-            $password = sha1($_POST['password']);
+        if(isset($data['username']) && isset($data['pseudo']) && isset($data['password'])){
+            $username = $data['username'];
+            $pseudo = $data['pseudo'];
+            $password = sha1($data['password']);
             $token = generateToken(16);
             $usernames = select("username", "user");
-            if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($_POST['password']) > 5 && !in_array($username, $usernames)){
+            if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($data['password']) > 5 && !in_array($username, $usernames)){
                 $request = 'INSERT INTO user(username, pseudo, password, token, token_date) VALUES(:username, :pseudo, :password, :token, :token_date)';
                 $insert = $bdd -> prepare($request);
                 $insert -> execute([
@@ -41,7 +43,6 @@ if(count($segments_uri) == 2){
                     ":token" => generateToken(16),
                     ":token_date" => date("Y-m-d H:i:s")
                 ]);
-                header("http://localhost/owlTree/Nimporte_BUT_MMI/index.html");
             }
             else{
                 if(strlen($username) > 30){
@@ -64,6 +65,18 @@ if(count($segments_uri) == 2){
             }    
         }
         else{
+            if(!isset($_POST["password"])){
+                $erreurPass = "Merci de remplir le password";
+                array_push($erreur, $erreurPass);
+            }
+            if(!isset($_POST["username"])){
+                $erreurUser = "Merci de remplir le username";
+                array_push($erreur, $erreurUser);
+            }
+            if(!isset($_POST["pseudo"])){
+                $erreurPseudo = "Merci de remplir le pseudo";
+                array_push($erreur, $erreurPseudo);
+            }
             $erreurInput = "Merci de remplir tous les champs";
             array_push($erreur, $erreurInput);
             encodeJson($erreur);
