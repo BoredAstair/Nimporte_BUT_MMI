@@ -17,16 +17,30 @@ function ongletsMenu(menu){
 document.addEventListener("DOMContentLoaded", request());
 
 function request(){
+    wut = "Astair";
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitement;
-    httpRequest.open('GET', 'http://localhost/owltree/api/api.php/get/data/user', true);
+    httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
     httpRequest.send();
 }
 
 function traitement(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-            alert(httpRequest.responseText);
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+            document.getElementById("username").value = "@" + response[0]["username"];
+            document.getElementById("pseudo").value = response[0]["pseudo"];
+            document.getElementById("email").value = response[0]["mail"];
+            if(response[0]["pp"]){
+                document.getElementById("avatar").src = response[0]["pp"]; //faut que je vois quoi mettre ici avec tessa !
+            }
+            if(response[0]["banner"]){
+                document.getElementById("bannerProfile").src = response[0]["banner"]; //la aussi faut que je vois avec tessa !
+            }
+            if(response[0]["bio"]){
+                document.getElementById("biography").value = response[0]["banner"];
+            }
         } else {
         alert('Il y a eu un problème avec la requête.');
         }
