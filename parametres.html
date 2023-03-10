@@ -66,10 +66,10 @@
             <h2>Profil</h2>
             <div id="profile-part1">
                 <div class="user">
-                    <p>Nom d'utilisateur</p>
+                    <span>Nom d'utilisateur</span>
                     <input type="text" id="username" value="@utilisateur" disabled>        
                 
-                    <p>Pseudo</p>
+                    <span>Pseudo</span>
                     <input type="text" id="pseudo" value="Pseudo">
                 </div>
                 <div class="user">
@@ -104,7 +104,6 @@
                         <p>Adresse mail associée</p>
                         <input type="text" id="email" value="mail@exemple.com" disabled>  
                     </div>
-                    <span onclick="affiche()">Supprimer le compte</span>
                 </div>
 
                 <div class="mail-mdp">
@@ -114,6 +113,7 @@
                     <button>Modifier</button>
                 </div>
             </div>
+            <span id="supprimer" onclick="affiche()">Supprimer le compte</span>
         </div>
     </section>
 
