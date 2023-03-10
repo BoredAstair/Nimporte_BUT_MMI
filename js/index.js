@@ -30,6 +30,7 @@ function closeTweetPopup(e){
       const popupContainer = document.querySelector('.popup-container');
       popupContainer.style.display = 'none';
     }
+    html[0].style.overflowY='visible';
 }  
 
 function textCounter(champ, champ2, maxlimit) {
