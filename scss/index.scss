@@ -100,6 +100,7 @@ html{
             top: 0;
             left: 0;
             z-index: 10;
+            backdrop-filter: blur(2px);
             @include flex(column, center, center);
             #popup{
                 background-color: $fond;
@@ -110,7 +111,7 @@ html{
                 text-align: center;
                 @include flex(column, space-evenly, center);
                 #btn-popup{
-                    width: 40%;
+                    width: 50%;
                     @include flex(row, space-evenly, normal);
                     #btn-non{
                         @include buttonPara($darkest-blue, 35px, 100px, 20px);
