@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/26ea5e183e.js" crossorigin="anonymous"></script>
+    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Accueil</title>
+</head>
+
+<body>
+    <section class="container-gauche">
+    </section>
+
+    <section class="container-centre">
+        <section class="top">
+            <h2 class="title-top">Followers</h2>
+            <h2 class="title-top">Dernière plumes</h2>
+            <h2 class="title-top">Tendances</h2>
+        </section>
+        <section class="tweet">
+            <section class="tweet-profil">
+                <section class="tweet-title">
+                    <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                    <h3>PSEUDO</h3>
+                    <span>@pseudo</span>
+                </section>
+                <section class="tweet-save">
+                    <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
+                </section>
+            </section>       
+            <section class="tweet-message">
+                <p>dbzqzdqzdqdqipjdipqpdipdqidpqhidqhipqhdiqhdipdqpidhqpihqipdd</p>
+            </section>
+            <section class="tweet-icons">
+                <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
+                <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
+                <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
+            </section>
+        </section>
+
+        <section class="tweet">
+            <section class="tweet-profil">
+                <section class="tweet-title">
+                    <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                    <h3>PSEUDO</h3>
+                    <span>@pseudo</span>
+                </section>
+                <section class="tweet-save">
+                    <span>Enregistrer</span>&ensp;<i class="fa-regular fa-bookmark"></i>
+                </section>
+            </section>       
+            <section class="tweet-message">
+                <p>dbzqzdqzdqdqipjdipqpdipdqidpqhidqhipqhdiqhdipdqpidhqpihqipdd</p>
+            </section>
+            <section class="tweet-icons">
+                <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
+                <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
+                <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
+            </section>
+        </section>
+
+        <section class="tweet">
+            <section class="tweet-profil">
+                <section class="tweet-title">
+                    <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                    <h3>PSEUDO</h3>
+                    <span>@pseudo</span>
+                </section>
+                <section class="tweet-save">
+                    <span>Enregistrer</span>&ensp;<i class="fa-regular fa-bookmark"></i>
+                </section>
+            </section>       
+            <section class="tweet-message">
+                <p>dbzqzdqzdqdqipjdipqpdipdqidpqhidqhipqhdiqhdipdqpidhqpihqipdd</p>
+            </section>
+            <section class="tweet-icons">
+                <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
+                <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
+                <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
+            </section>
+        </section>
+        
+        <section class="tweet">
+            <section class="tweet-profil">
+                <section class="tweet-title">
+                    <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                    <h3>PSEUDO</h3>
+                    <span>@pseudo</span>
+                </section>
+                <section class="tweet-save">
+                    <span>Enregistrer</span>&ensp;<i class="fa-regular fa-bookmark"></i>
+                </section>
+            </section>       
+            <section class="tweet-message">
+                <p>dbzqzdqzdqdqipjdipqpdipdqidpqhidqhipqhdiqhdipdqpidhqpihqipdd</p>
+            </section>
+            <section class="tweet-icons">
+                <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
+                <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
+                <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
+            </section>
+        </section>
+
+    </section>
+
+    <section class="container-droite">
+        <i class="fa-solid fa-magnifying-glass icon"></i>
+        <input id="searchbar" onkeyup="search()" type="text"
+        name="search" placeholder="Recherchez...">
+        <section class="rapide">
+            <h3>Ces profils pourraient vous intéresser...</h3>
+            <section class="account">
+                <img src="https://dummyimage.com/500x500/000/fff" class="photo">
+                    <section class="account-title">
+                        <h3>PSEUDO</h3>
+                        <span>@pseudo</span>
+                    </section>
+            </section>
+            <section class="account">
+                <img src="https://dummyimage.com/500x500/000/fff" class="photo">
+                    <section class="account-title">
+                        <h3>PSEUDO</h3>
+                        <span>@pseudo</span>
+                    </section>
+            </section>
+            <section class="account">
+                <img src="https://dummyimage.com/500x500/000/fff" class="photo">
+                    <section class="account-title">
+                        <h3>PSEUDO</h3>
+                        <span>@pseudo</span>
+                    </section>
+            </section>
+            <section class="account">
+                <img src="https://dummyimage.com/500x500/000/fff" class="photo">
+                    <section class="account-title">
+                        <h3>PSEUDO</h3>
+                        <span>@pseudo</span>
+                    </section>
+            </section>
+        </section>
+        <section class="tweeter" onclick="DoTweet()">
+            <i class="fa-solid fa-feather plumez"></i>
+        </section>
+    </section>
+
+    <section class="popup-container" onclick="closeTweetPopup(event)">
+        <section class="container-tweet">
+            <section class="tweet-title">
+                <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                <h3>PSEUDO</h3>
+                <span>@pseudo</span>
+            </section>
+            <section class="tweet-send">
+                <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                <input disabled maxlength="3" size="3" value="256" id="counter">
+            </section>
+            <section class="bottom-tweet">
+                <section class="bottom-left">
+                    <i class="fa-regular fa-image" onclick="insertImage()"></i>
+                    <p onclick="insertImage()">Ajouter une image</p>
+                </section>
+                <section class="bottom-right">
+                    <button id="btn-send">Envoyer</button>
+                </section>
+            </section>
+            <section class="space-image">
+                <img id="image" src="">
+            </section>
+        </section>
+    </section>
+
+</body>
+</html>
