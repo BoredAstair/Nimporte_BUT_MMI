@@ -1,0 +1,127 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #232A3C;
+    display: flex;
+    justify-content: left;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* *********DIV DE GAUCHE*********** */
+
+#DivDeGauche{
+    background-color: #1B202D;
+    width: 400px;
+    height: 720px;
+}
+
+#DivDeGauche img{
+    position: absolute;
+    height: 150px;
+    left: 100px;
+    top: 275px;
+}
+
+/* **********DIV DE DROITE*********** */
+
+#DivDeDroite{
+    height: fit-content;
+    width: 600px;
+    margin-top: 200px;
+    margin-left: 300px;
+    border-radius: 20px;
+}
+
+
+/* **********SWITCHS*************** */
+
+#ButtonSwitch{
+    display: flex;
+    align-items: center;
+    
+}
+
+#ButtonSwitch div{
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 20px;
+}
+
+#ButtonConnexion{
+    border-top-left-radius: 20px;
+}
+
+#ButtonInscription{
+    border-top-right-radius: 20px;
+}
+
+/* **********INSCRIPTION ET CONNEXION************* */
+
+#SideConnexion,#SideInscription{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#SideConnexion form,#SideInscription form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+}
+
+#SideConnexion form input,#SideInscription form input{
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    height: auto;
+    width: 400px;
+}
+
+button{
+    font-family: 'Outfit', sans-serif;
+    background-color: #FFF48E;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 30px;
+    height: auto;
+    width: 150px;
+}
+
+button:hover{
+    background-color: #a9a267;
+}
+
+/* *************INSCRIPTION****************** */
+
+#SideInscription{
+    background-color: #343B4D;
+}
+
+#ButtonInscription{
+    background-color: #343B4D;
+}
+
+#SideInscription form input{
+    background-color: #1B202D;
+}
+
+/* **********CONNEXION********************** */
+
+#SideConnexion{
+    background-color: #1B202D;
+}
+
+#ButtonConnexion{
+    background-color: #1B202D;
+}
+
+#SideConnexion form input{
+    background-color: #343B4C;
+}
