@@ -15,18 +15,19 @@ function changeRetweet() {
     retweetElement.classList.toggle("rotate");
 }
 
+html = document.getElementsByTagName('html');
 function DoTweet() {
     const popupContainer = document.querySelector('.popup-container');
     const tweetForm = document.createElement('form');
     popupContainer.appendChild(tweetForm);
     popupContainer.style.display = 'flex';
+    html[0].style.overflowY='hidden';
 }
 
 function closeTweetPopup(e){
     const element = e.srcElement;
     if(element.classList.contains("popup-container")){
       const popupContainer = document.querySelector('.popup-container');
-      popupContainer.innerHTML = '';
       popupContainer.style.display = 'none';
     }
 }  
