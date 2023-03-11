@@ -3,6 +3,8 @@ include("function.php");
 include("request.php");
 include("connectBDD.php");
 
+header("Access-Control-Allow-Origin: *");
+
 $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
 $uri_segments = explode('/', $request_uri); //séparé l'uri --> bien pensé à le var_dump au début de la construction de l'API pour savoir d'où il part
@@ -24,7 +26,7 @@ if(count($segments_uri) == 2){
         encodeJson($allPlume);
     }
     else if ($segments_uri[0] == "get" && explode("?",$segments_uri[1])[0] == "data"){ // récup toutes les plumes sauvegardé par un utilisateur)
-        $dataUser = selectCondition("username,pseudo,pp,banner,bio", "user", "username = '{$_GET['user']}'");
+        $dataUser = selectCondition("username,pseudo,mail,pp,banner,bio", "user", "username = '{$_GET['user']}'");
         encodeJson($dataUser);
     }
     else{
