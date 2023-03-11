@@ -419,6 +419,68 @@ html{
                 }
             }
         }
+        #profile{
+            @include DecalOnglet();
+            @include flex(row, normal, normal);
+            background-color: $fond-plumes;
+            min-height: 100vh;
+            #infos-profil{
+                position: relative;
+                width: 100%;
+                @include flex(column, normal, normal);
+                #profile-picture{
+                    position: absolute;
+                    top: 25%;
+                    left: 15%;
+                    transform: translateX(-50%) translateY(-50%);
+                    border-radius: 50%;
+                    width: 180px;
+                    height: 180px;
+                }
+                #banniere-profil{
+                    width: 100%;
+                    max-height: 220px;
+                    object-fit: fill;
+                }
+                #stats-profil{
+                    align-self: center;
+                    width: 60%;
+                    height: 50px;
+                    @include flex(row, space-evenly, center);
+                    @include font(22px, $white, normal);
+                }
+                #desc-profile{
+                    width: 100%;
+                    height: 250px;
+                    padding-top: 25px;
+                    @include font(19px, $white, normal);
+                    background-color: $darkest-blue;
+                    @include flex(column, center, center);
+                    #profile-container{
+                        width: 80%;
+                        @include flex(row, space-between, center);
+                        #name-profile{
+                            min-width: 20%;
+                            width: fit-content;
+                            @include flex(row, space-between, end);
+                            #pseudo-profile{
+                                @include font(27px, $white, bold);
+                                margin-right: 40px;
+                            }
+                            #username-profile{
+                                @include font(18px, $disabled-text, normal);
+                            }
+                        }
+                        button{
+                            @include buttonPara($theme-color, 35px, 100px, 18px);
+                        }
+                    }
+                    #biography-profile{
+                        width: 80%;
+                    }
+                }
+            }
+        }
         #parameters{
             @include font(22px, $white, normal);
             background-color: $fond-plumes;
