@@ -99,6 +99,7 @@ html{
                         font-size: 15px;
                         resize: none;
                         padding: 10px 10px 10px 10px;
+                        position: relative;
                         &::placeholder{
                             padding-top: 1px;
                         }
@@ -107,13 +108,13 @@ html{
                         background-color: $fond;
                         color: $white;
                         border-radius: 20px;
-                        width: auto;
+                        width: 40px;
                         height: auto;
-                        text-align: right;
+                        text-align: center;
                         font-size: 20px;
                         position: absolute;
-                        left: 67%;
-                        top: 57%;
+                        right: 30%;
+                        margin: 12% 4px;
                     }
                 }
                 .bottom-tweet{
@@ -153,7 +154,7 @@ html{
                 .space-image{
                     margin: 0px 0px 20px 0px;
                     #image {
-                        width: 200px;
+                        width: 150px;
                         height: auto;
                       }
                 }

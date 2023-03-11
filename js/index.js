@@ -1,20 +1,24 @@
+// save
 function changeSave() {
     var SaveElement = document.getElementById("SaveElement");
     SaveElement.classList.toggle("fa-regular");
     SaveElement.classList.toggle("fa-solid");
 }
 
+// like
 function changeHeart() {
     var HeartElement = document.getElementById("HeartElement");
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
 
+// retweet
 function changeRetweet() {
     var retweetElement = document.getElementById("RetweetElement");
     retweetElement.classList.toggle("rotate");
 }
 
+// open pop-up
 html = document.getElementsByTagName('html');
 function DoTweet() {
     const popupContainer = document.querySelector('.popup-container');
@@ -24,6 +28,7 @@ function DoTweet() {
     html[0].style.overflowY='hidden';
 }
 
+// close pop-up
 function closeTweetPopup(e){
     const element = e.srcElement;
     if(element.classList.contains("popup-container")){
@@ -33,6 +38,7 @@ function closeTweetPopup(e){
     html[0].style.overflowY='visible';
 }  
 
+//compteur de caractère
 function textCounter(champ, champ2, maxlimit) {
     var countchamp = document.getElementById(champ2);
     if (champ.value.length > maxlimit) {
@@ -43,6 +49,7 @@ function textCounter(champ, champ2, maxlimit) {
     }
 }
 
+//insertion d'image
 function insertImage() {
     var input = document.createElement('input');
     input.type = 'file';
