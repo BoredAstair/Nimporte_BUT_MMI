@@ -96,6 +96,7 @@ if(count($segments_uri) == 2){
                         ":username"=>$username
                     ]);
                     $erreur["state"] = "valide";
+                    encodeJson($erreur);
                 }
                 else{
                     $erreur['password'] = "Le mot de passe est erronné";

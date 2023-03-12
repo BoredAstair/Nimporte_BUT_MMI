@@ -4,7 +4,7 @@ function con(){
         <p id="erreur"></p>
         <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
         <input type="password" name="password" id="password" placeholder="Mot de Passe">
-        <button type="submit">Se Connecter</button>
+        <button type="submit" onclick="requeteConnexion()">Se Connecter</button>
     </div>
 </div>`;
 }
@@ -98,7 +98,6 @@ function traitementConnexion(){
                     document.getElementById("erreur").style.display = "block";                       
                 }
             }
-            //redirection
         } 
         else {
             alert('Il y a eu un problème avec la requête.');
