@@ -120,3 +120,20 @@ function preview(img, input){
         reader.readAsDataURL(file)
     }  
 }
+
+//la jolie barre jaune au hover
+function OngletBarre(number){
+    menubar = document.getElementsByClassName('selecteur');
+    for (const tab of menubar){
+        tab.classList.remove('selecteur-actif');
+    }
+    document.getElementById(`btn${number}`).classList.add('selecteur-actif');
+    plumes = document.getElementsByClassName('plumes');
+    for (const tab of plumes){
+        if (!tab.classList.contains('none')){
+            tab.classList.add('none');
+        }
+    }
+    document.getElementById(`${number}`).classList.remove('none');
+    ResteEnHaut();
+}
