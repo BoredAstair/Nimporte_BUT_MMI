@@ -4,7 +4,8 @@
   "description": "Projet de Seconde année de BUT MMI, réalisation par groupe d'un site qui reprend le concept de Twitter",
   "main": "index.js",
   "scripts": {
-    "start": "npx sass --watch --style=compressed scss/index.scss css/index.css"
+    "start": "npx sass --watch --style=compressed scss/index.scss css/index.css",
+    "connexion": "npx sass --watch --style=compressed scss/connexion.scss css/connexion.css"
   },
   "repository": {
     "type": "git",

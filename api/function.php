@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 //TOUTES LES FONCTIONS UTILITAIRES TRIE PAR ORDRE ALPHABETIQUE
 
 function debug($tableau){ // affichage des tableaux pour débuger
@@ -13,6 +12,7 @@ function encodeJson($tableau){ // encode un tableau en format JSON
     echo $json_data;                 
 }
 function generateToken($longueur){ //génère un token
+
     $random = random_bytes($longueur);
     $json_data = json_encode($random);
     echo $json_data;
