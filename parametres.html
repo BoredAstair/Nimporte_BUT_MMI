@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ressource/icones/logo.png">
     <link rel="stylesheet" href="css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <title>OwlTree | Paramètres</title>
 </head>
 <body>
+    
     <div class="menu">
         <img id="logo" src="ressource/icones/logo.png" alt="logo">
         <form>
@@ -51,8 +53,61 @@
         <p>C'est le profil</p>
     </section>
     <section class="contenu" id="parameters">
-        <p>C'est les paramètres</p>
+        <div id="all-parameters">
+            <h2>Profil</h2>
+            <div id="profile-part1">
+                <div class="user">
+                    <p>Nom d'utilisateur</p>
+                    <input type="text" id="username" value="@utilisateur" disabled>        
+                
+                    <p>Pseudo</p>
+                    <input type="text" id="pseudo" value="Pseudo">
+                </div>
+                <div class="user">
+                    <span>Photo de profil</span>
+                    <img id="default-profile" src="ressource/icones/default-profile.jpg" alt="photo de profil">
+
+                    <div class="change-image">
+                        <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" class="imageProfile" id="avatar" accept="image/*">
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-part2">
+                <p>Biographie</p>
+                <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
+
+                <p>Bannière</p>
+                <div id="banner-input">
+                    <img id="bannerProfile" src="ressource/images/default-banner.webp" alt="bannière de votre profil">
+                    <div class="change-image">
+                        <label for="banner" id="label-banner"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
+                        <input type="file" class="imageProfile" id="banner" accept="image/*">
+                    </div>
+                </div>
+                <button id="enregistrer-modif">Enregistrer les modifications</button>
+            </div>
+
+            <div id="profile-part3">
+                <div class="mail-mdp">
+                    <div>
+                        <p>Adresse mail associée</p>
+                        <input type="text" id="email" value="mail@exemple.com" disabled>  
+                    </div>
+                    <span>Supprimer le compte</span>
+                </div>
+
+                <div class="mail-mdp">
+                    <p>Modifier le mot de passe</p>
+                    <input type="password" placeholder="Mot de passe actuel">
+                    <input type="password" placeholder="Nouveau mot de passe">
+                    <button>Modifier</button>
+                </div>
+            </div>
+        </div>
     </section>
+
     <script src="js/index.js"></script>
 </body>
 </html>
