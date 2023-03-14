@@ -12,14 +12,15 @@ function encodeJson($tableau){ // encode un tableau en format JSON
     echo $json_data;                 
 }
 function generateToken($longueur){ //génère un token
-    $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+/*$caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $longueurMax = strlen($caracteres);
     $random ='';
     for($i=0; $i<$longueur; $i++){
         $random .= $caracteres[rand(0, $longueurMax - 1)];
-    }
-    setcookie("tokenCookie", $random, 86400); //Stocke le token dans les cookies du navigateur de l'utilisateur avec une durée de vie de 1 jours
-    return $random;
+    }*/
+    $random = random_bytes($longueur);
+    $json_data = json_encode($random);
+    echo $json_data;
 }
 function verifToken(){ //Vérifie si un token existe chez un utilisateur et si ce dernier est encore valable
     include("request.php");

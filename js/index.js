@@ -33,10 +33,10 @@ function traitement(){
             document.getElementById("pseudo").value = response[0]["pseudo"];
             document.getElementById("email").value = response[0]["mail"];
             if(response[0]["pp"]){
-                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"]; //faut que je vois quoi mettre ici avec tessa !
+                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
             }
             if(response[0]["banner"]){
-                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"]; //la aussi faut que je vois avec tessa !
+                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
             }
             if(response[0]["bio"]){
                 document.getElementById("biography").value = response[0]["bio"];
