@@ -49,6 +49,7 @@ if(count($segments_uri) == 2){
                     ":token_date" => date("Y-m-d H:i:s")
                 ]);
                 $erreur['state'] = "valide";
+                $erreur['token'] = $token;
                 encodeJson($erreur);
             }
             else{
@@ -88,14 +89,17 @@ if(count($segments_uri) == 2){
             $user = $select -> fetchAll(PDO::FETCH_ASSOC);
             if(count($user) == 1){
                 if($user[0]["password"] == $password){
+                    $token = generateToken(16);
                     $request = "UPDATE user SET token=:token, token_date=:date_token WHERE username=:username";
                     $update = $bdd -> prepare($request);
                     $update -> execute([
-                        ":token"=> generateToken(16),
+                        ":token"=> $token,
                         ":date_token"=> date("Y-m-d H:i:s"),
                         ":username"=>$username
                     ]);
                     $erreur["state"] = "valide";
+                    $erreur["token"] = $token;
+
                     encodeJson($erreur);
                 }
                 else{
@@ -112,7 +116,7 @@ if(count($segments_uri) == 2){
             $erreur['champ'] = "Merci de remplir tous les champs";
             encodeJson($erreur);
         }
-
+    }
     else if ($segments_uri[0] == "get" && explode("?",$segments_uri[1])[0] == "data"){ // récup toutes les plumes sauvegardé par un utilisateur)
         $dataUser = selectCondition("username,pseudo,mail,pp,banner,bio", "user", "username = '{$_GET['user']}'");
         encodeJson($dataUser);
