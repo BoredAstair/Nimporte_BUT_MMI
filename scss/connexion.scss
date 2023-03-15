@@ -24,8 +24,14 @@ $font-principal : 'Outfit', sans-serif;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     background-color: $bg-color;
-    @include flex(center, center, row);
+    @include flex(center, center, column);
     height: 450px;
+    p{
+        background-color: #c06767;
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin: 0;
+    }
     #form{
         @include flex(space-between, center, column);
         width: 100%;
@@ -61,12 +67,6 @@ $font-principal : 'Outfit', sans-serif;
             height: 40px;
             width: 150px;
             cursor: pointer;
-        }
-        p{
-            color: $erreur;
-            font-size: 15px;
-            margin: 0;
-            font-family: $font-principal;
         }
     }
 }
@@ -118,6 +118,9 @@ html{
                 }
                 #SideConnexion{
                     @include side($background-fonce, $background-inscription);
+                    #form{
+                        margin-top: 30px;
+                    }
                 }
                 #SideInscription{
                     @include side($background-inscription, $background-fonce);

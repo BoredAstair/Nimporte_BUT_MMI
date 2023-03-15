@@ -1,10 +1,11 @@
 function con(){
     document.getElementById("patate").innerHTML =`<div id="SideConnexion">
+    <div id="AfficheErreur">
+        <p id="erreur">Veuillez entrer un mot de passe entre 5 et 30 caractères.</p>
+    </div>
     <div id="form">
         <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" autocomplete="off">
-        <p id="erreur">Ceci est une erreur</p>
         <input type="password" name="password" id="password" placeholder="Mot de Passe">
-        <p id="erreur">Ceci est une erreur</p>
         <button type="submit" onclick="requeteConnexion()">Se Connecter</button>
     </div>
 </div>`;
@@ -12,19 +13,14 @@ function con(){
 
 function ins(){
     document.getElementById("patate").innerHTML =`<div id="SideInscription">
+    <div id="AfficheErreur">
+        <p id="erreur">Merci de rentrer un nom d'utilisateur inférieur à 30 caractères. </br> Merci de rentrer un pseudo inférieur à 30caractères. </br>Le nom d'utilisateur est déjà utilisé, veuillez en utiliser un autre.</p>
+    </div>
     <div id="form">
         <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" autocomplete="off">
-        <p id="erreur">Ceci est une erreur</p>
-
         <input type="mail" name="mail" id="mail" placeholder="Mail" autocomplete="off">    
-        <p id="erreur">Ceci est une erreur</p>
-   
         <input type="text" name="pseudo" id="pseudo" placeholder="Pseudo">
-        <p id="erreur">Ceci est une erreur</p>
-
         <input type="password" name="password" id="password" placeholder="Mot de Passe">
-        <p id="erreur">Ceci est une erreur</p>
-
         <button onclick="requeteInscription()" type="submit">S'inscrire</button>
     </div>
 </div>`;
