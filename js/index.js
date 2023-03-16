@@ -1,3 +1,71 @@
+// save
+function changeSave() {
+    var SaveElement = document.getElementById("SaveElement");
+    SaveElement.classList.toggle("fa-regular");
+    SaveElement.classList.toggle("fa-solid");
+}
+
+// like
+function changeHeart() {
+    var HeartElement = document.getElementById("HeartElement");
+    HeartElement.classList.toggle("fa-regular");
+    HeartElement.classList.toggle("fa-solid");
+}
+
+// retweet
+function changeRetweet() {
+    var retweetElement = document.getElementById("RetweetElement");
+    retweetElement.classList.toggle("rotate");
+}
+
+// open pop-up
+html = document.getElementsByTagName('html');
+function DoTweet() {
+    const popupContainer = document.querySelector('.popup-container');
+    const tweetForm = document.createElement('form');
+    popupContainer.appendChild(tweetForm);
+    popupContainer.style.display = 'flex';
+    html[0].style.overflowY='hidden';
+}
+
+// close pop-up
+function closeTweetPopup(e){
+    const element = e.srcElement;
+    if(element.classList.contains("popup-container")){
+      const popupContainer = document.querySelector('.popup-container');
+      popupContainer.style.display = 'none';
+    }
+    html[0].style.overflowY='visible';
+}  
+
+//compteur de caractère
+function textCounter(champ, champ2, maxlimit) {
+    var countchamp = document.getElementById(champ2);
+    if (champ.value.length > maxlimit) {
+      champ.value = champ.value.substring(0, maxlimit);
+      return false;
+    } else {
+      countchamp.value = maxlimit - champ.value.length;
+    }
+}
+
+//insertion d'image
+function insertImage() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = function() {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+            document.getElementById('image').src = reader.result;
+        };
+    };
+    input.click();
+}
+
+//onglets du menu
 function ongletsMenu(menu){
     menuElements = document.getElementsByClassName('onglet');
     for (const tab of menuElements){
@@ -13,6 +81,7 @@ function ongletsMenu(menu){
     }
     document.getElementById(`${menu}`).classList.remove('none');
 }
+
 
 document.addEventListener("DOMContentLoaded", request());
 
@@ -45,4 +114,35 @@ function traitement(){
         alert('Il y a eu un problème avec la requête.');
         }
     }
+
+//popup suppression de compte
+popup = document.getElementById('popup-fond');
+html = document.getElementsByTagName('html');
+
+//permet d'afficher le popup
+function affiche(){
+    html[0].style.overflowY='hidden';
+    popup.classList.toggle('none');
+}
+
+//permet de fermer le popup
+function quit(){
+    html[0].style.overflowY='visible';
+    popup.classList.toggle('none');
+}
+
+//Changement des images avec celle ajoutée par l'utilisateur
+
+function preview(img, input){
+    var preview = document.querySelector(img);
+    var file = document.querySelector(input).files[0];
+    var reader = new FileReader(); //permet de lire le contenu du fichier sélectionné
+
+    reader.addEventListener('load', function (){
+        preview.src = reader.result;
+    }, false);
+
+    if (file){
+        reader.readAsDataURL(file)
+    }  
 }

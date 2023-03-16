@@ -23,7 +23,22 @@ $request_body = file_get_contents('php://input'); //récup les infos rempli par 
 if(count($segments_uri) == 2){
     if($segments_uri[0] == "get" && $segments_uri[1] == "plume"){ // récup toutes les plumes
         $allPlume = select("*", "plume");
-        encodeJson($allPlume);
+        $returnPlume = [];
+        foreach($allPlume as $plume){
+            if(empty($plume["answer_to"])){
+                $returnPlume[$plume['id']]['user'] = $plume['user'];
+                $returnPlume[$plume['id']]['content'] = $plume['content'];
+                $returnPlume[$plume['id']]['hashtag'] = $plume['hashtag'];
+                $returnPlume[$plume['id']]['posted_at'] = $plume['posted_at'];
+            }
+            else{
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['user'] = $plume['user'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['content'] = $plume['content'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['hashtag'] = $plume['hashtag'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['posted_at'] = $plume['posted_at'];
+            }
+        }
+        encodeJson($returnPlume);
     }
 
     else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){ // inscription d'un utilisateur
@@ -140,6 +155,10 @@ if(count($segments_uri) == 3){
     }
     else{
         echo "erreur 404";
+    }
+}
+else if(count($segments_uri) == 3){
+    if($segments_uri[0] == "post" && $segments_uri[1] == "reply"){
     }
 }
 ?>
