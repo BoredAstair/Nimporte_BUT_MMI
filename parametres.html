@@ -9,12 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-    <title>OwlTree | Paramètres</title>
+    <title>OwlTree</title>
 </head>
 <body>
     <div id="popup-fond" class="none">
         <div id="popup">
-            <p>Etes vous sûr de vouloir supprimer votre compte? Cette action est irréversible.</p>
+            <p id="texte-popup"></p>
             <div id="btn-popup">
                 <button id="btn-non" onclick="quit()">Non</button>
                 <button id="btn-oui">Oui</button>
@@ -30,7 +30,7 @@
         </form>
 
         <div id="menu-btn">
-            <div class="onglet actif" id="home-btn" onclick="ongletsMenu('home')">
+            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
                 <img src="ressource/icones/accueil.png" alt="accueil">
                 <span>Accueil</span>
             </div>
@@ -38,7 +38,7 @@
                 <img src="ressource/icones/enregistrer.png" alt="enregistrer">
                 <span>Enregistrés</span>
             </div>
-            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
+            <div class="onglet actif" id="profile-btn" onclick="ongletsMenu('profile')">
                 <img src="ressource/icones/compte.png" alt="votre profil">
                 <span>Profil</span>
             </div>
@@ -46,13 +46,13 @@
                 <img src="ressource/icones/parametres.png" alt="paramètres">
                 <span>Paramètres</span>
             </div>
-            <div class="onglet" id="deconnexion">
+            <div class="onglet" id="deconnexion" onclick="deconnexion()">
                 <img src="ressource/icones/deconnexion.png" alt="déconnexion">
                 <span>Se déconnecter</span>
             </div>
         </div>
     </div>
-    <section class="contenu" id="home">
+    <section class="contenu none" id="home">
         <section class="container-centre">
             <section class="top">
                 <h2 class="title-top">Followers</h2>
@@ -327,9 +327,53 @@
         </section>
         </div>
     </section>
+    <section class="contenu" id="profile">
+        <div id="infos-profil">
+            <img id="profile-picture" src="ressource/icones/default-profile.jpg" alt="photo de profil">
+            <img id="banniere-profil" src="ressource/images/default-banner.webp" alt="bannière du profil">
+            <div id="stats-profil">
+                <span>666 Plumes</span>
+                <span>2 followers</span>
+                <span>42 abonnements</span>
+            </div>
+            <div id="desc-profile">
+                <div id="profile-container">
+                    <div id="name-profile">
+                        <span id="pseudo-profile">Pseudo</span>
+                        <span id="username-profile">@utilisateur</span>
+                    </div>
+                    <button><i class="fa-solid fa-plus"></i> Suivre</button>
+                </div>
+                <p id="biography-profile">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium impedit tenetur aspernatur architecto, fuga modi facere dolorem harum ullam? Quam expedita ex asperiores molestias velit aperiam dicta aliquam unde temporibus!</p>
+            </div>
+        </div>
 
-    <section class="contenu none" id="profile">
-        <p>C'est le profil</p>
+        <div id="plumes-profil">
+            <div id="menu-profil">
+                <div class="btn-menu-profil" onclick="OngletBarre('1')">
+                    <span>Dernières plumes</span>
+                    <div class="selecteur selecteur-actif" id="btn1"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarre('2')">
+                    <span>Plumes likés</span>
+                    <div class="selecteur" id="btn2"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarre('3')">
+                    <span>Enregistrés</span>
+                    <div class="selecteur" id="btn3"></div>
+                </div>
+            </div>
+
+            <div class="plumes" id="1">
+                <p>Ceci est un test</p>
+            </div>
+            <div class="plumes none" id="2">
+                <p>Test numéro 2</p>
+            </div>
+            <div class="plumes none" id="3">
+                <p>oui bon ça marche</p>
+            </div>
+        </div>
     </section>
 
     <section class="contenu none" id="parameters">
@@ -384,7 +428,7 @@
                     <button>Modifier</button>
                 </div>
             </div>
-            <span id="supprimer" onclick="affiche()">Supprimer le compte</span>
+            <span id="supprimer" onclick="suppression()">Supprimer le compte</span>
         </div>
     </section>
     <section class="popup-container" onclick="closeTweetPopup(event)">
