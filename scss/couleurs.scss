@@ -1,0 +1,85 @@
+$fond : #232A3C;
+$fond-plumes : #262C3E;
+$darkest-blue : #1B202D;
+$theme-color : #FFF48E;
+$white : white;
+$disabled-text : #B0B0B0;
+$red : #c51313;
+
+//mixin
+// pour le flex
+@mixin flex($direction, $justify, $align){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+// pour la police
+@mixin font($size, $color, $weight){
+    font-family: 'Outfit', sans-serif;
+    font-size: $size;
+    color: $color;
+    font-weight: $weight;
+}
+//les inputs
+@mixin inputProfil($height, $width){
+    background-color: #343B4C;
+    box-shadow: none;
+    border: none;
+    height: $height;
+    width: $width;
+    border-radius: 15px;
+    text-indent: 15px;
+    &:focus{
+        outline: solid $darkest-blue;
+    }
+    &:focus::placeholder{
+        color: transparent;
+    }
+}
+// pour décaler le contenu par rapport au menu
+@mixin DecalOnglet(){
+    width: 100%;
+    padding-left: 17%;
+}
+// pour les boutons
+@mixin buttonPara($color, $height, $width, $size){
+    background-color: $color;
+    border: none;
+    border-radius: 15px;
+    height: $height;
+    width: $width;
+    @include font($size, $fond, normal);
+    cursor: pointer;
+}
+// la barre de recherche
+@mixin searchBar($margin, $left, $width){
+    form{
+        @include flex(row, center, normal);
+        position: relative;
+        margin-top: $margin;
+        img{
+            position: absolute;
+            top: 50%;
+            left: $left;
+            transform: translateY(-50%);
+        }
+        #recherche{
+            border-radius: 15px;
+            width: $width;
+            height: 35px;
+            padding-left: 15px;
+            text-indent: 30px;
+            background-color: #CCCCCC;
+            @include font(15px, $darkest-blue, normal);
+            &::placeholder{
+                @include font(15px, $darkest-blue, normal);
+            }
+            &:focus{
+                outline: none;
+                background-color: $theme-color;
+                transition: background-color 0.5s;
+            }
+        }
+    }
+}

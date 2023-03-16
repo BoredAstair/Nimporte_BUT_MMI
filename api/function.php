@@ -12,10 +12,9 @@ function encodeJson($tableau){ // encode un tableau en format JSON
     echo $json_data;                 
 }
 function generateToken($longueur){ //génère un token
-
-    $random = random_bytes($longueur);
+    $random = uniqid();
     $json_data = json_encode($random);
-    echo $json_data;
+    return $json_data;
 }
 function verifToken(){ //Vérifie si un token existe chez un utilisateur et si ce dernier est encore valable
     include("request.php");
