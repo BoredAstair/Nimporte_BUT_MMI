@@ -17,7 +17,7 @@ if(isset($_GET['user'])&&isset($_GET['plume'])&&isset($_POST['content'])){
 
     $requestUser = "SELECT * FROM user";
     $selectUser = $bdd -> prepare($requestUser);
-    $selectUser -> execute([':username'=>$user]);
+    $selectUser -> execute();
     $users = $selectUser -> fetchAll(PDO::FETCH_ASSOC);
     $verifUser = false;
     $verifPlume = false;
@@ -29,7 +29,7 @@ if(isset($_GET['user'])&&isset($_GET['plume'])&&isset($_POST['content'])){
 
     $requestPlume = "SELECT * FROM plume";
     $selectPlume = $bdd -> prepare($requestPlume);
-    $selectPlume -> execute([':id' => $plume]);
+    $selectPlume -> execute();
     $plumes = $selectPlume -> fetchAll(PDO::FETCH_ASSOC);
     foreach($plumes as $onePlume){
         if($onePlume['id'] == $plume){
