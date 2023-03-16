@@ -83,3 +83,25 @@ $red : #c51313;
         }
     }
 }
+
+//pour le menu avec la joli barre
+@mixin menu(){
+    .btn-menu-profil{
+        &:hover{
+            cursor: pointer;
+        }
+        &:hover .selecteur{
+            width: 100%;
+        }
+        .selecteur{
+            background-color: $theme-color;
+            width: 0;
+            height: 5px;
+            border-radius: 5px;
+            transition: width 0.2s linear;
+        }
+        .selecteur-actif{
+            width: 100%;
+        }
+    }
+}

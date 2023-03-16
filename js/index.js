@@ -34,8 +34,8 @@ function closeTweetPopup(e){
     if(element.classList.contains("popup-container")){
       const popupContainer = document.querySelector('.popup-container');
       popupContainer.style.display = 'none';
+      html[0].style.overflowY='visible';
     }
-    html[0].style.overflowY='visible';
 }  
 
 //compteur de caractère
@@ -87,8 +87,6 @@ function ResteEnHaut(){
     window.scrollTo(0,0);
 }
 
-
-document.addEventListener("DOMContentLoaded", request());
 
 function request(){
     wut = "Astair";

@@ -30,7 +30,7 @@
         </form>
 
         <div id="menu-btn">
-            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
+            <div class="onglet actif" id="home-btn" onclick="ongletsMenu('home')">
                 <img src="ressource/icones/accueil.png" alt="accueil">
                 <span>Accueil</span>
             </div>
@@ -38,7 +38,7 @@
                 <img src="ressource/icones/enregistrer.png" alt="enregistrer">
                 <span>Enregistrés</span>
             </div>
-            <div class="onglet actif" id="profile-btn" onclick="ongletsMenu('profile')">
+            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
                 <img src="ressource/icones/compte.png" alt="votre profil">
                 <span>Profil</span>
             </div>
@@ -52,13 +52,23 @@
             </div>
         </div>
     </div>
-    <section class="contenu none" id="home">
+    <section class="contenu" id="home">
         <section class="container-centre">
             <section class="top">
-                <h2 class="title-top">Followers</h2>
-                <h2 class="title-top">Dernière plumes</h2>
-                <h2 class="title-top">Tendances</h2>
+                <div class="btn-menu-profil" onclick="OngletBarre('4')">
+                    <h2 class="title-top">Followers</h2>
+                    <div class="selecteur selecteur-actif" id="btn4"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarre('5')">
+                    <h2 class="title-top">Dernière plumes</h2>
+                    <div class="selecteur" id="btn5"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarre('6')">
+                    <h2 class="title-top">Tendances</h2>
+                    <div class="selecteur" id="btn6"></div>
+                </div>
             </section>
+            
             <section class="tweet">
                 <section class="tweet-profil">
                     <section class="tweet-title">
@@ -327,7 +337,7 @@
         </section>
         </div>
     </section>
-    <section class="contenu" id="profile">
+    <section class="contenu none" id="profile">
         <div id="infos-profil">
             <img id="profile-picture" src="ressource/icones/default-profile.jpg" alt="photo de profil">
             <img id="banniere-profil" src="ressource/images/default-banner.webp" alt="bannière du profil">

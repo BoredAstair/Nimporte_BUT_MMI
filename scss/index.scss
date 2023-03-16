@@ -257,22 +257,17 @@ html{
                         height: 8vh;
                         background-color: $darkest-blue;
                         color: $white;
-                        flex-direction: row;
-                        display: flex;
-                        justify-content: space-around;
+                        @include flex(row, space-around, center);
                         border-radius: 0 0 20px 20px;
                         position: fixed;
                         top: 0;
                         width: 66%;
                             .title-top{
                                 margin-top: auto;
-                                cursor:pointer;  
+                                margin-bottom: 0;
+                                cursor:pointer;
                             }
-                            .title-top:hover{
-                                font-weight: 900;
-                                    transition: color 100ms;
-                                    box-shadow: inset 0 -5px 0 $theme-color;
-                            }
+                        @include menu();
                     }
                     .tweet{
                         width: 80%;
@@ -607,8 +602,7 @@ html{
                     }
                 }
             }
-        }
-                            
+        }                 
         #profile{
             @include DecalOnglet();
             @include flex(column, normal, normal);
@@ -620,12 +614,12 @@ html{
                 @include flex(column, normal, normal);
                 #profile-picture{
                     position: absolute;
-                    top: 45%;
+                    top: 50%;
                     left: 15%;
                     transform: translateX(-50%) translateY(-50%);
                     border-radius: 50%;
-                    width: 180px;
-                    height: 180px;
+                    width: 150px;
+                    height: 150px;
                 }
                 #banniere-profil{
                     width: 100%;
@@ -635,19 +629,19 @@ html{
                 #stats-profil{
                     align-self: center;
                     width: 60%;
-                    height: 50px;
+                    height: 40px;
                     @include flex(row, space-evenly, center);
-                    @include font(22px, $white, normal);
+                    @include font(20px, $white, normal);
                 }
                 #desc-profile{
                     width: 100%;
-                    height: 250px;
-                    padding-top: 25px;
+                    height: 200px;
                     @include font(19px, $white, normal);
                     background-color: $darkest-blue;
                     @include flex(column, center, center);
                     #profile-container{
                         width: 80%;
+                        margin-top: 35px;
                         @include flex(row, space-between, center);
                         #name-profile{
                             min-width: 20%;
@@ -677,24 +671,7 @@ html{
                     @include font(20px, $white, bold);
                     width: 80%;
                     height: 80px;
-                    .btn-menu-profil{
-                        &:hover{
-                            cursor: pointer;
-                        }
-                        &:hover .selecteur{
-                            width: 100%;
-                        }
-                        .selecteur{
-                            background-color: $theme-color;
-                            width: 0;
-                            height: 5px;
-                            border-radius: 5px;
-                            transition: width 0.2s linear;
-                        }
-                        .selecteur-actif{
-                            width: 100%;
-                        }
-                    }
+                    @include menu();
                 }
             }
         }
