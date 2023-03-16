@@ -12,12 +12,25 @@ function encodeJson($tableau){ // encode un tableau en format JSON
     echo $json_data;                 
 }
 function generateToken($longueur){ //génère un token
-    $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $longueurMax = strlen($caracteres);
-    $random ='';
-    for($i=0; $i<$longueur; $i++){
-        $random .= $caracteres[rand(0, $longueurMax - 1)];
+    $random = uniqid();
+    $json_data = json_encode($random);
+    return $json_data;
+}
+function verifToken(){ //Vérifie si un token existe chez un utilisateur et si ce dernier est encore valable
+    include("request.php");
+    $userID = null;
+    $isAuth = false;
+    foreach(getallheaders() as $name => $value){
+        if($name == "autorization"){
+            $res = selectCondition("*", "session", "token = {$value}");
+            if(sizeof($res) == 0){
+                http_response_code(401);
+                echo "the token is not valid";
+            } else {
+                $isAuth = true;
+                $userID = $res[0]['userID'];
+            }
+        }
     }
-    return $random;
 }
 ?>

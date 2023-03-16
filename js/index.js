@@ -1,20 +1,24 @@
+// save
 function changeSave() {
     var SaveElement = document.getElementById("SaveElement");
     SaveElement.classList.toggle("fa-regular");
     SaveElement.classList.toggle("fa-solid");
 }
 
+// like
 function changeHeart() {
     var HeartElement = document.getElementById("HeartElement");
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
 
+// retweet
 function changeRetweet() {
     var retweetElement = document.getElementById("RetweetElement");
     retweetElement.classList.toggle("rotate");
 }
 
+// open pop-up
 html = document.getElementsByTagName('html');
 function DoTweet() {
     const popupContainer = document.querySelector('.popup-container');
@@ -24,6 +28,7 @@ function DoTweet() {
     html[0].style.overflowY='hidden';
 }
 
+// close pop-up
 function closeTweetPopup(e){
     const element = e.srcElement;
     if(element.classList.contains("popup-container")){
@@ -33,6 +38,7 @@ function closeTweetPopup(e){
     html[0].style.overflowY='visible';
 }  
 
+//compteur de caractère
 function textCounter(champ, champ2, maxlimit) {
     var countchamp = document.getElementById(champ2);
     if (champ.value.length > maxlimit) {
@@ -43,6 +49,7 @@ function textCounter(champ, champ2, maxlimit) {
     }
 }
 
+//insertion d'image
 function insertImage() {
     var input = document.createElement('input');
     input.type = 'file';
@@ -78,6 +85,40 @@ function ongletsMenu(menu){
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
+}
+
+
+document.addEventListener("DOMContentLoaded", request());
+
+function request(){
+    wut = "Astair";
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = traitement;
+    httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
+    httpRequest.send();
+}
+
+function traitement(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+            document.getElementById("username").value = "@" + response[0]["username"];
+            document.getElementById("pseudo").value = response[0]["pseudo"];
+            document.getElementById("email").value = response[0]["mail"];
+            if(response[0]["pp"]){
+                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
+            }
+            if(response[0]["banner"]){
+                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
+            }
+            if(response[0]["bio"]){
+                document.getElementById("biography").value = response[0]["bio"];
+            }
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
 }
 
 //popup suppression de compte
@@ -120,7 +161,6 @@ function preview(img, input){
         reader.readAsDataURL(file)
     }  
 }
-
 //la jolie barre jaune au hover
 function OngletBarre(number){
     menubar = document.getElementsByClassName('selecteur');
