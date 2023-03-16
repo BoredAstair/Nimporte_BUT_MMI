@@ -34,7 +34,7 @@ function requeteInscription(){
     let password = document.getElementById("password").value;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementInscription;
-    httpRequest.open('POST', 'api/api.php/post/inscription', true);
+    httpRequest.open('POST', 'api/inscription.php', true);
     httpRequest.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"username": username, "mail":mail, "pseudo": pseudo, "password": password});
     httpRequest.send(data);
@@ -78,7 +78,7 @@ function requeteConnexion(){
     let password = document.getElementById("password").value;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementConnexion;
-    httpRequest.open('POST', 'api/api.php/post/login', true);
+    httpRequest.open('POST', 'api/connexion.php', true);
     httpRequest.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"username": username, "password": password});
     httpRequest.send(data);
