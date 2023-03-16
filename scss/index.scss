@@ -603,6 +603,11 @@ html{
                             color: $darkest-blue;
                             font-size: 40px;
                             cursor:pointer;
+                        }
+                    }
+                }
+            }
+        }
                             
         #profile{
             @include DecalOnglet();
