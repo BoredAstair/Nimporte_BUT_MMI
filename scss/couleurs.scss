@@ -90,10 +90,10 @@ $red : #c51313;
         &:hover{
             cursor: pointer;
         }
-        &:hover .selecteur{
+        &:hover .selecteur, &:hover .selecteur-menu{
             width: 100%;
         }
-        .selecteur{
+        .selecteur, .selecteur-menu{
             background-color: $theme-color;
             width: 0;
             height: 5px;

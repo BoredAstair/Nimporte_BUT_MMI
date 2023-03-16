@@ -175,3 +175,20 @@ function OngletBarre(number){
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
 }
+
+//pareil pour la page d'accueil
+function OngletBarreMenu(number){
+    menubar = document.getElementsByClassName('selecteur-menu');
+    for (const tab of menubar){
+        tab.classList.remove('selecteur-actif');
+    }
+    document.getElementById(`btn${number}`).classList.add('selecteur-actif');
+    plumes = document.getElementsByClassName('plumes-accueil');
+    for (const tab of plumes){
+        if (!tab.classList.contains('none')){
+            tab.classList.add('none');
+        }
+    }
+    document.getElementById(`${number}`).classList.remove('none');
+    ResteEnHaut();
+}
