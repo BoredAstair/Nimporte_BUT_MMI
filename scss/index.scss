@@ -3,6 +3,8 @@ $fond : #232A3C;
 $fond-plumes : #262C3E;
 $darkest-blue : #1B202D;
 $theme-color : #FFF48E;
+$white : white;
+$disabled-text : #A5A5A5;
 
 //mixin
 @mixin btn-select{
@@ -16,10 +18,66 @@ $theme-color : #FFF48E;
     justify-content: $justify;
     align-items: $align;
 }
-
-@mixin font($size){
+@mixin font($size, $color, $weight){
     font-family: 'Outfit', sans-serif;
     font-size: $size;
+    color: $color;
+    font-weight: $weight;
+}
+@mixin inputProfil($height, $width){
+    background-color: #343B4C;
+    box-shadow: none;
+    border: none;
+    height: $height;
+    width: $width;
+    border-radius: 15px;
+    text-indent: 15px;
+    &:focus{
+        outline: solid $darkest-blue;
+    }
+    &:focus::placeholder{
+        color: transparent;
+    }
+}
+@mixin InputHover($width, $height, $radius, $transform, $top, $left){
+    @include flex(row, center, center);
+    position: absolute;
+    background-color: $fond-plumes;
+    width: $width;
+    height: $height;
+    border-radius: $radius;
+    transform: $transform;
+    top: $top;
+    left : $left;
+    opacity: 0;
+    .change-image{
+        position: relative;
+    }
+    .imageProfile{
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    &:hover{
+        opacity: 0.9;
+        transition: opacity 0.5s;
+    }
+    #label-file, #label-banner{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+@mixin buttonPara($height, $width, $size){
+    background-color: $theme-color;
+    border: none;
+    border-radius: 15px;
+    height: $height;
+    width: $width;
+    @include font($size, $fond, normal);
+    cursor: pointer;
 }
 
 // le code
@@ -31,10 +89,13 @@ html{
         height: 100%;
         font-family: 'Outfit', sans-serif;
         @include flex(row, normal, normal);
+        .none{
+            display: none !important;
+        }
         .menu{
             @include flex(column, normal, normal);
             background-color: $fond;
-            color: white;
+            color: $white;
             width: 17%;
             font-size: 20px;
             padding-top: 3%;
@@ -56,14 +117,12 @@ html{
                     border-radius: 15px;
                     width: 80%;
                     height: 35px;
-                    color: $darkest-blue;
                     padding-left: 15px;
                     text-indent: 30px;
                     background-color: #CCCCCC;
-                    @include font(15px);
+                    @include font(15px, $darkest-blue, normal);
                     &::placeholder{
-                        color: $darkest-blue;
-                        @include font(15px);
+                        @include font(15px, $darkest-blue, normal);
                     }
                     &:focus{
                         outline: none;
@@ -90,11 +149,108 @@ html{
             }
         }
         #parameters{
+            @include font(22px, $white, normal);
             background-color: $fond-plumes;
             width: 83%;
+            overflow-y: scroll;
+            @include flex(row, normal, normal);
+            #all-parameters{
+                @include flex(column, normal, center);
+                width: 50%;
+                margin-left: 10%;
+                position: relative;
+                h2{
+                    @include font(30px, $white, bold);
+                    align-self: self-start;
+                }
+                #profile-part1{
+                    @include flex(row, space-between, center);
+                    width: 100%;
+                    .user{
+                        @include flex(column, space-evenly, space-evenly);
+                        height: 100%;
+                        position: relative;
+                        #username, #pseudo{
+                            @include inputProfil(45px, 300px);
+                            @include font(16px, $white, normal);
+                            &:disabled{
+                                @include font(16px, $disabled-text, normal);
+                                cursor: not-allowed;
+                            }
+                        }
+                        .change-image{
+                            @include InputHover(152px, 152px, 50%, translateX(-50%), 28%, 50%);
+                        }
+                    }
+                    #default-profile{
+                        border-radius: 50%;
+                        width: 150px;
+                        height: 150px;
+                    }
+                }
+                #profile-part2{
+                    margin-top: 8%;
+                    @include flex(column, space-between, normal);
+                    width: 100%;
+                    #biography{
+                        @include inputProfil(120px, 100%);
+                        resize: none;
+                        padding-top: 15px;
+                        @include font(16px, $white, normal);
+                        &::placeholder{
+                            @include font(16px, $white, normal);
+                        }
+                    }
+                    #banner-input{
+                        position: relative;
+                        margin-bottom: 5%;
+                        #bannerProfile{
+                            width: 100%;
+                            max-height: 300px;
+                            object-fit: cover;
+                            border-radius: 15px;
+                        }
+                        .change-image{
+                            @include InputHover(100%, 100%, 15px, translateY(-50%) translateX(-50%), 50%, 50%);
+                        }
+                    }
+                }
+                #profile-part3{
+                    width: 100%;
+                    height: 70%;
+                    margin: 5% 0;
+                    @include flex(row, space-between, center);
+                    .mail-mdp{
+                        height: 100%;
+                        @include flex(column, space-between, space-between);
+                        input{
+                            @include inputProfil(45px, 300px);
+                            @include font(16px, $white, normal);
+                            margin-bottom: 5%;
+                            &::placeholder{
+                                @include font(16px, $white, normal);
+                            }
+                            &:disabled{
+                                @include font(16px, $disabled-text, normal);
+                                cursor: not-allowed;
+                                
+                            }
+                        }
+                        span{
+                            color: #c51313;
+                            margin-bottom: 2%;
+                        }
+                        button{
+                            align-self: center;
+                            @include buttonPara(35px, 50%, 18px);
+                        }
+                    }
+                }
+            }
+            #enregistrer-modif{
+                @include buttonPara(50px, 300px, 20px);
+                align-self: center;
+            }
         }
-    }
-    .none{
-        display: none;
     }
 }
