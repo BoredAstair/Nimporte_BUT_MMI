@@ -127,7 +127,7 @@ if(count($segments_uri) == 2){
             $erreur['champ'] = "Merci de remplir tous les champs";
             encodeJson($erreur);
         }
-
+    }
     else if ($segments_uri[0] == "get" && explode("?",$segments_uri[1])[0] == "data"){ // récup toutes les plumes sauvegardé par un utilisateur)
         $dataUser = selectCondition("username,pseudo,mail,pp,banner,bio", "user", "username = '{$_GET['user']}'");
         encodeJson($dataUser);
