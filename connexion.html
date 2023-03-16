@@ -20,17 +20,23 @@
     </div>
 
     <div id="DivDeDroite">
+        <div id="formulaire">
+            <div id="ButtonSwitch">
+                <div id="ButtonConnexion" onclick="con()"><p>Connexion</p></div>
+                <div id="ButtonInscription" onclick="ins()"><p>Inscription</p></div>
+            </div>
             
-        <div id="ButtonSwitch">
-            <div id="ButtonConnexion" onclick="con()">Connexion</div>
-            <div id="ButtonInscription" onclick="ins()">Inscription</div>
+            <div id="patate">
+                <div id="SideConnexion">
+                    <p id="erreur">Merci de rentrer un nom d'utilisateur inférieur à 30 caractères. Merci de rentrer un pseudo inférieur à 30caractères. Le nom d'utilisateur est déjà utilisé, veuillez en utiliser un autre.</p>
+                    <div id="form">
+                        <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" autocomplete="off">
+                        <input type="password" name="password" id="password" placeholder="Mot de Passe">
+                        <button type="submit" onclick="requeteConnexion()">Se Connecter</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-
-    <div id="patate">
-        
-    </div>
-
     </div>
 
 <script src="js/connexion.js"></script>

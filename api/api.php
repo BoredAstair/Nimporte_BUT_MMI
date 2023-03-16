@@ -2,6 +2,8 @@
 include("function.php");
 include("request.php");
 include("connectBDD.php");
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Headers:*");
 
 $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
@@ -23,56 +25,61 @@ if(count($segments_uri) == 2){
         $allPlume = select("*", "plume");
         encodeJson($allPlume);
     }
+
     else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){ // inscription d'un utilisateur
+        $request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
+        $data = json_decode($request_body, true);
         $erreur = [];
-        if(isset($_POST['username']) && isset($_POST['pseudo']) && isset($_POST['password'])){
-            $username = $_POST['username'];
-            $pseudo = $_POST['pseudo'];
-            $password = sha1($_POST['password']);
+        if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']) && isset($data['mail'])){
+            $username = $data['username'];
+            $pseudo = $data['pseudo'];
+            $password = sha1($data['password']);
+            $mail = $data['mail'];
             $token = generateToken(16);
             $usernames = select("username", "user");
-            if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($_POST['password']) > 5 && !in_array($username, $usernames)){
-                $request = 'INSERT INTO user(username, pseudo, password, token, token_date) VALUES(:username, :pseudo, :password, :token, :token_date)';
+            if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($data['password']) > 5 && !in_array($username, $usernames)){
+                $request = 'INSERT INTO user(username, mail, pseudo, password, token, token_date) VALUES(:username, :mail, :pseudo, :password, :token, :token_date)';
                 $insert = $bdd -> prepare($request);
                 $insert -> execute([
                     ":username" => $username,
+                    ":mail" => $mail,
                     ":pseudo" => $pseudo,
                     ":password" => $password,
                     ":token" => generateToken(16),
                     ":token_date" => date("Y-m-d H:i:s")
                 ]);
+                $erreur['state'] = "valide";
+                $erreur['token'] = $token;
+                encodeJson($erreur);
             }
             else{
                 if(strlen($username) > 30){
-                    $erreurUsername = "Merci de rentrer un nom d'utilisateur inférieur à 30 caractères";
-                    array_push($erreur, $erreurUsername);
+                    $erreur['username'] = "Merci de rentrer un nom d'utilisateur inférieur à 30 caractères";
                 }
                 if(strlen($pseudo) > 30){
-                    $erreurPseudo = "Merci de rentrer un pseudo inférieur à 30 caractères";
-                    array_push($erreur, $erreurPseudo);
+                    $erreur['pseudo'] = "Merci de rentrer un pseudo inférieur à 30 caractères";
                 }
-                if(strlen($_POST['password']) <= 5){
-                    $erreurPassword = "Merci de rentrer un mot de passe supérieur à 5 caractères";
-                    array_push($erreur, $erreurPassword);
+                if(strlen($data['password']) <= 5){
+                    $erreur['password'] = "Merci de rentrer un mot de passe supérieur à 5 caractères";
                 }
                 if(in_array($username, $usernames)){
-                    $erreurUsernameExist = "Le nom d'utilisateur est déjà utilisé veuillez en utilisé un autre";
-                    array_push($erreur, $erreurUsernameExist);
+                    $erreur['userExist'] = "Le nom d'utilisateur est déjà utilisé veuillez en utilisé un autre";
                 }    
                 encodeJson($erreur);
             }    
         }
         else{
-            $erreurInput = "Merci de remplir tous les champs";
-            array_push($erreur, $erreurInput);
+            $erreur['input'] = "Merci de remplir tous les champs";
             encodeJson($erreur);
         }
     }
     else if($segments_uri[0] == "post" && $segments_uri[1] == "login"){ // connexion d'un utilisateur
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body, true);
         $erreur = [];
-        if(isset($_POST['username']) && isset($_POST['password'])){
-            $username = $_POST['username'];
-            $password = sha1($_POST['password']);
+        if(isset($data['username']) && isset($data['password'])){
+            $username = $data['username'];
+            $password = sha1($data['password']);
             $usernames = select("username", "user");
             $request = "SELECT * FROM user WHERE username=:username";
             $select = $bdd -> prepare($request);
@@ -82,30 +89,54 @@ if(count($segments_uri) == 2){
             $user = $select -> fetchAll(PDO::FETCH_ASSOC);
             if(count($user) == 1){
                 if($user[0]["password"] == $password){
+                    $token = generateToken(16);
                     $request = "UPDATE user SET token=:token, token_date=:date_token WHERE username=:username";
                     $update = $bdd -> prepare($request);
                     $update -> execute([
-                        ":token"=> generateToken(16),
+                        ":token"=> $token,
                         ":date_token"=> date("Y-m-d H:i:s"),
                         ":username"=>$username
                     ]);
-                    echo("connecté");
-                    // rediriger à la bonne page
+                    $erreur["state"] = "valide";
+                    $erreur["token"] = $token;
+
+                    encodeJson($erreur);
                 }
                 else{
-                    array_push($erreur, "Le mot de passe est erronné");
+                    $erreur['password'] = "Le mot de passe est erronné";
                     encodeJson($erreur);
                 }
             }
             else{
-                array_push($erreur, "Le nom d'utilisateur n'existe pas");
+                $erreur['user'] = "Le nom d'utilisateur n'existe pas";
                 encodeJson($erreur);
             }
         }
         else{
-            array_push($erreur, "Merci de remplir tous les champs");
+            $erreur['champ'] = "Merci de remplir tous les champs";
             encodeJson($erreur);
         }
+    }
+    else if ($segments_uri[0] == "get" && explode("?",$segments_uri[1])[0] == "data"){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $dataUser = selectCondition("username,pseudo,mail,pp,banner,bio", "user", "username = '{$_GET['user']}'");
+        encodeJson($dataUser);
+    }
+    else{
+        echo "erreur 404";
+    }
+}
+if(count($segments_uri) == 3){
+    if($segments_uri[0] == "get" && $segments_uri[1] == "save" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur
+        $savedPlume = selectConditionJoin("*","save_plume","plume","save_plume.user = '{$segments_uri[2]}'","RIGHT","save_plume.plume_id","plume.id");
+        encodeJson($savedPlume);
+    }
+    else if ($segments_uri[0] == "get" && $segments_uri[1] == "like" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
+        encodeJson($likedPlume);
+    }
+    else if ($segments_uri[0] == "get" && $segments_uri[1] == "plume" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur)
+        $plumeUser = selectCondition("*","plume","plume.user = '{$segments_uri[2]}'");
+        encodeJson($plumeUser);
     }
     else{
         echo "erreur 404";
