@@ -114,6 +114,7 @@ function traitement(){
         alert('Il y a eu un problème avec la requête.');
         }
     }
+}
 
 //popup suppression de compte
 popup = document.getElementById('popup-fond');
