@@ -93,15 +93,22 @@ html{
                     #textarea{
                         background-color: $fond;
                         color: $white;
-                        border-radius: 20px;
+                        border-radius: 15px;
+                        border: none;
                         height: 200px;
                         width: 80%;
                         font-size: 15px;
                         resize: none;
-                        padding: 10px 10px 10px 10px;
+                        padding: 10px;
                         position: relative;
                         &::placeholder{
                             padding-top: 1px;
+                        }
+                        &:focus{
+                            outline: solid $theme-color;
+                        }
+                        &:focus::placeholder{
+                            color: transparent;
                         }
                     }
                     #counter{
@@ -138,13 +145,13 @@ html{
                     }
                     .bottom-right{
                         #btn-send{
+                            @include font(16px, $darkest-blue, normal);
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             margin: 25px 40px 20px 0px;
                             background-color: $theme-color;
-                            color: $darkest-blue;
-                            border-radius: 20px;
+                            border-radius: 15px;
                             height: 40px;
                             width: 80px;
                             cursor:pointer;
@@ -238,7 +245,7 @@ html{
                 padding-top: 8vh;
                 padding-left: 17%;
                 width: 66%;
-                min-height: 100%;
+                min-height: 100vh;
                 background-color: $fond-plumes;
                 flex-direction: column;
                 justify-content: center;
@@ -423,7 +430,7 @@ html{
             @include flex(row, normal, normal);
             #all-save{
                 width: 80%;
-                height: fit-content;
+                height: 100vh;
                 .save-container-centre {
                     padding-top: 2vh;
                     background-color: $fond-plumes;
