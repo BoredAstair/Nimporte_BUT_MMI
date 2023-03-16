@@ -83,3 +83,75 @@ $red : #c51313;
         }
     }
 }
+
+@mixin plume(){
+    .tweet{
+        width: 80%;
+        height: auto;
+        background-color: $darkest-blue;
+        border-radius: 20px;
+        margin: auto;	
+        margin-top: 50px;
+        margin-bottom: 20px;
+        @include flex(column, space-between, center);
+            .tweet-profil{
+                width: 90%;
+                max-height: 50%;
+                margin-top: 20px;
+                @include flex(row, space-between, normal);
+                    .tweet-title{
+                        @include flex(row, normal, center);
+                        img{
+                            border-radius: 50%;
+                            width: 70px;
+                            margin-left: 15px;
+                            cursor:pointer;
+                        }
+                        h3{
+                            color: $white;
+                            margin-left: 15px;
+                            cursor:pointer;
+                        }
+                        span{
+                            color: $disabled-text;
+                            margin-left: 15px;
+                        }
+                    }
+                    .tweet-save{
+                        @include flex(row, space-between, normal);
+                        margin-top: 20px;
+                            i{
+                                color: $theme-color;
+                                font-size: 30px;
+                                cursor:pointer;
+                            }
+                            span{
+                                color: $white;
+                                font-size: 20px;
+                            }
+                    }
+            }
+            
+            .tweet-message{
+                height: auto;
+                margin: 25px 0px 30px 0px;
+                width: 90%;
+                color: $white;
+                    p{
+                        font-size: 20px;
+                        width: 90%;
+                    }
+            }
+            .tweet-icons{  
+                width: 50%;
+                max-height: 20px;
+                @include flex(row, space-around, end);
+                margin-bottom: 20px;
+                    i{
+                        color: $theme-color;
+                        font-size: 20px;
+                        cursor:pointer;
+                    }
+            }
+    }
+}
