@@ -134,11 +134,12 @@ $red : #c51313;
             
             .tweet-message{
                 height: auto;
-                margin: 25px 0px 30px 0px;
+                margin: 20px 0px 25px 0px;
                 width: 90%;
                 color: $white;
                     p{
-                        font-size: 20px;
+                        font-size: 17px;
+                        text-align: justify;
                         width: 90%;
                     }
             }

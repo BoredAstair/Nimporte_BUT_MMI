@@ -213,6 +213,7 @@ html{
                 }
                 &:hover{
                     @include btn-select;
+                    cursor: pointer;
                 }
             }
             .actif{
@@ -348,19 +349,24 @@ html{
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
-                        position: absolute;
-                        z-index: 3;
-                        width: 60%;
-                        @include flex(row, center, center);
+                        width: 100%;
+                        @include flex(column, center, center);
                         height: 100vh;
-                        font-size: 24px;
-                        margin: 0 50px 0 50px;
+                        font-size: 27px;
                         text-align: center;
                         background-color: $fond-plumes;
+                        #yaR{
+                            width: 20%;
+                            height: auto;
+                            margin-bottom: 3%;
+                        }
+                        p{
+                            margin: 0 10% 0 10%;
+                        }
                         i{
                             color: $theme-color;
                         }
-                      }
+                    }
                     // #no-save{
                     //     display: none;
                     // }

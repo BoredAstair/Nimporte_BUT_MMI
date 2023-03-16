@@ -175,3 +175,6 @@ function OngletBarre(number){
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
 }
+
+//DivTweet
+
