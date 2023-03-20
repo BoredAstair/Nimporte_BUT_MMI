@@ -1,4 +1,27 @@
 // save
+
+addEventListener('DOMContentLoaded', traitementPermission());
+
+function traitementPermission(){
+    let token = localStorage.getItem('token');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = responsePermission;
+    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"autorization": localStorage.getItem("token")});
+    httpRequest.send(data);
+}
+
+function responsePermission(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            console.log(httpRequest.responseText);
+        } else if (httpRequest.status === 401){
+            //window.location.href = 'connexion.html';
+        }
+    }    
+}
+
 function changeSave() {
     var SaveElement = document.getElementById("SaveElement");
     SaveElement.classList.toggle("fa-regular");
@@ -81,6 +104,9 @@ function ongletsMenu(menu){
     }
     document.getElementById(`${menu}`).classList.remove('none');
     ResteEnHaut();
+    if(menu == 'parameters'){
+        getdatarequest();
+    }
 }
 
 function ResteEnHaut(){
@@ -120,6 +146,7 @@ function ResteEnHaut(){
 //         }
 //     }
 // }
+
 
 //popup suppression de compte
 popup = document.getElementById('popup-fond');

@@ -26,7 +26,7 @@ if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']
             ":mail" => $mail,
             ":pseudo" => $pseudo,
             ":password" => $password,
-            ":token" => generateToken(16),
+            ":token" => $token,
             ":token_date" => date("Y-m-d H:i:s")
         ]);
         $erreur['state'] = "valide";

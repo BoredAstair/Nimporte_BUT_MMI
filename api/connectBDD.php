@@ -5,4 +5,3 @@ try{
 catch (Exception $e){
     die('Erreur de connexion: '.$e->getMessage());
 }
-?>
