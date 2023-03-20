@@ -222,6 +222,7 @@ html{
             @include searchBar(0px, 35px, 80%);
             .onglet{
                 @include flex(row, normal, center);
+                height: 60px;
                 img{
                     padding: 5%;
                 }
@@ -234,7 +235,6 @@ html{
             }
             #menu-btn{
                 @include flex(column, center, normal);
-                height: 35%;
                 padding-top: 20%;
             }
         }
@@ -788,6 +788,37 @@ html{
                     cursor: pointer;
                     align-self: flex-start;
                 }
+                #theme{
+                    align-self: start;
+                    width: 50%;
+                    margin-bottom: 50px;
+                    #couleur-principale{
+                        @include flex(row, space-between, center);
+                        height: 67px;
+                        margin-top: 10px;
+                        @each $key, $value in $btn-colors{
+                            ##{$key}{
+                                background-color: map-get($map: $value, $key: "bgcolor");
+                            }
+                        }
+                        .theme-color{
+                            margin-top: 20px;
+                            border-radius: 15px;
+                            width: 60px;
+                            height: 60px;
+                            background-color: pink;
+                            cursor: pointer;
+                            transition: 0.3s linear;
+                            &.theme-color-select{
+                                width: 65px;
+                                height: 65px;
+                                background-color: $theme-color;
+                                border: 2px solid $white;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }

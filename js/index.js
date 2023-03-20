@@ -81,6 +81,16 @@ function ongletsMenu(menu){
     }
     document.getElementById(`${menu}`).classList.remove('none');
     ResteEnHaut();
+    search = document.getElementsByClassName('HideSearch')
+    if (menu == 'home' || menu =='save'){
+        for (const tab of search){
+            tab.classList.add('none');
+        }
+    }else{
+        for (const tab of search){
+            tab.classList.remove('none');
+        }
+    }
 }
 
 function ResteEnHaut(){
@@ -191,4 +201,13 @@ function OngletBarreMenu(number){
     }
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
+}
+
+//le changement de couleurs
+function ThemeColor(color){
+    btncolor = document.getElementsByClassName('theme-color');
+    for (const tab of btncolor){
+        tab.classList.remove('theme-color-select');
+    }
+    document.getElementById(`${color}`).classList.add('theme-color-select');
 }

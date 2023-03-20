@@ -1,11 +1,21 @@
+$yellow : #FFF48E;
+$pink : #F66EF9;
+$blue : #75AFE4;
+$green : #4DE289;
 $fond : #232A3C;
 $fond-plumes : #262C3E;
 $darkest-blue : #1B202D;
-$theme-color : #FFF48E;
+$theme-color : $yellow;
 $white : white;
 $disabled-text : #B0B0B0;
 $red : #c51313;
 
+//maps
+$yellowbtn : ("bgcolor": $yellow);
+$pinkbtn : ("bgcolor": $pink);
+$bluebtn : ("bgcolor": $blue);
+$greenbtn : ("bgcolor" : $green);
+$btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "green" : $greenbtn);
 //mixin
 // pour le flex
 @mixin flex($direction, $justify, $align){
@@ -57,6 +67,7 @@ $red : #c51313;
     form{
         @include flex(row, center, normal);
         position: relative;
+        height: 42px;
         margin-top: $margin;
         img{
             position: absolute;
@@ -66,6 +77,7 @@ $red : #c51313;
         }
         #recherche{
             border-radius: 15px;
+            border: none;
             width: $width;
             height: 35px;
             padding-left: 15px;
