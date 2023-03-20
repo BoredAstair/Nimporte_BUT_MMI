@@ -8,16 +8,17 @@ header("Access-Control-Allow-Headers:*");
 $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
 $request_headers = getallheaders(); // récup les en-têtes HTTP
-$request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
+$request_body = file_get_contents('php://input');
+$data = json_decode($request_body, true);
 $erreur = [];
 if($request_method == "GET"){
     $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
     encodeJson($likedPlume);
 }
 else if($request_method == "POST"){
-    if(isset($_GET['user']) && isset($_GET['plume'])){
-        $user = $_GET['user'];
-        $plume = $_GET['plume'];
+    if(isset($data['user']) && isset($data['plume'])){
+        $user = $data['user'];
+        $plume = $data['plume'];
         $verifUser = false;
         $verifPlume = false;
         $verifLiked = false;
@@ -48,6 +49,7 @@ else if($request_method == "POST"){
             ]);   
             $erreur["state"] = "valide"; 
             $erreur["type"] = "ajout";  
+            $erreur["idPlume"] = $plume;
             encodeJson($erreur);
         }
         else if($verifPlume == true && $verifUser == true && $verifLiked == true){
@@ -59,6 +61,7 @@ else if($request_method == "POST"){
             ]);
             $erreur['state'] = "valide";
             $erreur['type'] = "suppression";
+            $erreur["idPlume"] = $plume;
             encodeJson($erreur);
         }
         else{
