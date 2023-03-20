@@ -23,7 +23,7 @@ if(isset($data['username']) && isset($data['password'])){
     $user = $select -> fetchAll(PDO::FETCH_ASSOC);
     if(count($user) == 1){
         if($user[0]["password"] == $password){
-            $token = generateToken(16);
+            $token = preg_replace('/"/','',generateToken(16));
             $request = "UPDATE user SET token=:token, token_date=:date_token WHERE username=:username";
             $update = $bdd -> prepare($request);
             $update -> execute([
@@ -33,6 +33,7 @@ if(isset($data['username']) && isset($data['password'])){
             ]);
             $erreur["state"] = "valide";
             $erreur["token"] = $token;
+            
 
             encodeJson($erreur);
         }

@@ -1,4 +1,27 @@
 // save
+
+addEventListener('DOMContentLoaded', traitementPermission());
+
+function traitementPermission(){
+    let token = localStorage.getItem('token');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = responsePermission;
+    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"autorization": localStorage.getItem("token")});
+    httpRequest.send(data);
+}
+
+function responsePermission(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            console.log(httpRequest.responseText);
+        } else if (httpRequest.status === 401){
+            //window.location.href = 'connexion.html';
+        }
+    }    
+}
+
 function changeSave() {
     var SaveElement = document.getElementById("SaveElement");
     SaveElement.classList.toggle("fa-regular");
@@ -81,44 +104,13 @@ function ongletsMenu(menu){
     }
     document.getElementById(`${menu}`).classList.remove('none');
     ResteEnHaut();
+    if(menu == 'parameters'){
+        getdatarequest();
+    }
 }
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
-}
-
-
-document.addEventListener("DOMContentLoaded", request());
-
-function request(){
-    wut = "Astair";
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = traitement;
-    httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
-    httpRequest.send();
-}
-
-function traitement(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
-            document.getElementById("username").value = "@" + response[0]["username"];
-            document.getElementById("pseudo").value = response[0]["pseudo"];
-            document.getElementById("email").value = response[0]["mail"];
-            if(response[0]["pp"]){
-                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
-            }
-            if(response[0]["banner"]){
-                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
-            }
-            if(response[0]["bio"]){
-                document.getElementById("biography").value = response[0]["bio"];
-            }
-        } else {
-        alert('Il y a eu un problème avec la requête.');
-        }
-    }
 }
 
 //popup suppression de compte

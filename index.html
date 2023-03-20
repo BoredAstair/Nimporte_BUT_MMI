@@ -393,7 +393,7 @@
 
                     <div class="change-image">
                         <label for="avatar" id="label-file"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
-                        <input type="file" class="imageProfile" id="avatar" accept="image/*" onchange="preview('#default-profile', '#avatar')">
+                        <input type="file" class="imageProfile" id="avatar" name="avatar" accept="image/*" onchange="preview('#default-profile', '#avatar')">
                     </div>
                 </div>
             </div>
@@ -407,10 +407,10 @@
                     <img id="bannerProfile" src="ressource/images/default-banner.webp" alt="bannière de votre profil">
                     <div class="change-image">
                         <label for="banner" id="label-banner"><img src="ressource/icones/add-image.png" alt="ajouter une image"></label>
-                        <input type="file" class="imageProfile" id="banner" accept="image/*" onchange="preview('#bannerProfile', '#banner')">
+                        <input type="file" class="imageProfile" id="banner" accept="image/*" name='banner' onchange="preview('#bannerProfile', '#banner')">
                     </div>
                 </div>
-                <button id="enregistrer-modif">Enregistrer les modifications</button>
+                <button id="enregistrer-modif" onclick="reqsetdata()">Enregistrer les modifications</button>
             </div>
 
             <div id="profile-part3">
@@ -457,8 +457,10 @@
         </section>
     </section>
 
+    <script src="js/data.js"></script>
     <script src="js/index.js"></script>
     <script src="https://kit.fontawesome.com/26ea5e183e.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </body>
 </html>

@@ -16,21 +16,9 @@ function generateToken($longueur){ //génère un token
     $json_data = json_encode($random);
     return $json_data;
 }
-function verifToken(){ //Vérifie si un token existe chez un utilisateur et si ce dernier est encore valable
-    include("request.php");
-    $userID = null;
-    $isAuth = false;
-    foreach(getallheaders() as $name => $value){
-        if($name == "autorization"){
-            $res = selectCondition("*", "session", "token = {$value}");
-            if(sizeof($res) == 0){
-                http_response_code(401);
-                echo "the token is not valid";
-            } else {
-                $isAuth = true;
-                $userID = $res[0]['userID'];
-            }
-        }
+if(!function_exists('debugConsole')) {
+    function debugConsole($data) { 
+        if (is_array($data)) $output = "<script>console.log('Debug Objects: ".implode(',', $data)."');</script>"; 
+        else $output = "<script>console.log('Debug Objects: ".$data."');</script>"; echo $output; 
     }
 }
-?>
