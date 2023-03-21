@@ -70,5 +70,12 @@ else if($request_method == 'GET' && count($segments_uri) == 1){
         $nbComments = $countComment -> fetchAll(PDO::FETCH_ASSOC);
         encodeJson($nbComments);             
     }
+    else if($segments_uri[0]=="state_like"){
+        $requestState = 'SELECT * FROM plume INNER JOIN like_plume ON like_plume.plume_id = plume.id';
+        $stateLike = $bdd -> prepare($requestState);
+        $stateLike -> execute();
+        $states = $stateLike -> fetchAll(PDO::FETCH_ASSOC);
+        encodeJson($states);
+    }
 }
 ?>

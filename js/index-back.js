@@ -51,7 +51,7 @@ function traitementGetAll(){
 }
 
 function requeteLike(e){
-    let user = "nono";
+    let user = "chouette";
     let plume = e.srcElement.id.split("-");
     httpRequestPostLike = new XMLHttpRequest();
     httpRequestPostLike.onreadystatechange = traitementLike;
@@ -64,7 +64,7 @@ function traitementLike(){
     if (httpRequestPostLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostLike.status === 200) {
             responsePostLike = JSON.parse(httpRequestPostLike.responseText);
-            // console.log(responsePostLike);
+            // console.log(httpRequestPostLike.responseText);
             if(responsePostLike.state == "valide"){
                 changeHeart(responsePostLike.idPlume);
                 requeteNbLike();
@@ -108,6 +108,35 @@ function traitementNbLike(){
         }
     }       
 }
+
+function requeteStateLike(){
+    httpRequestStateLike = new XMLHttpRequest();
+    httpRequestStateLike.onreadystatechange = traitementStateLike;
+    httpRequestStateLike.open('GET', `api/plume.php/state_like`, true);
+    httpRequestStateLike.setRequestHeader("Content-Type", "application/json");
+    httpRequestStateLike.send();
+}
+function traitementStateLike(){
+    if (httpRequestStateLike.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestStateLike.status === 200) {
+            responseStateLike = JSON.parse(httpRequestStateLike.responseText);
+            // console.log(responseStateLike);
+            userLog = "chouette";
+            for(like of responseStateLike){
+                if(userLog == like["user_like"]){
+                    tweetLike = document.getElementById(`HeartElement-${like['plume_id']}`);
+                    if(tweetLike != null){
+                        changeHeart(like['plume_id']);
+                    }
+                }
+            }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
 
 function requeteNbPreen(){
     httpRequestPreen = new XMLHttpRequest();
@@ -170,6 +199,7 @@ function traitementNbComment(){
 
 requeteGetAll();
 setTimeout(()=>{
+    requeteStateLike();
     requeteNbLike();
     requeteNbPreen();
     requeteNbComment();
