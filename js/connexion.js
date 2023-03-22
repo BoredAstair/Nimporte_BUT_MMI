@@ -78,7 +78,7 @@ function requeteConnexion(){
     let password = document.getElementById("password").value;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementConnexion;
-    httpRequest.open('POST', 'http://localhost/Nimporte_BUT_MMI/api/connexion.php', true);
+    httpRequest.open('POST', 'http://localhost/owlTree/Nimporte_BUT_MMI/api/connexion.php', true);
     httpRequest.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"username": username, "password": password});
     httpRequest.send(data);
