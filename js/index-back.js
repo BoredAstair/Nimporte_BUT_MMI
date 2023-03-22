@@ -1,11 +1,14 @@
-function requeteGetAll(){
+logUser = "chouette";
+function requeteGetFollower(){
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = traitementGetAll;
-    httpRequest.open('GET', 'api/plume.php', true);
+    httpRequest.onreadystatechange = traitementGetFollower;
+    let user = logUser;
+    httpRequest.open('POST', `api/plume.php`, true);
+    let data = JSON.stringify({"user":user});
     httpRequest.setRequestHeader("Content-Type", "application/json");
-    httpRequest.send();
+    httpRequest.send(data);
 }
-function traitementGetAll(){
+function traitementGetFollower(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
@@ -50,8 +53,179 @@ function traitementGetAll(){
     }       
 }
 
+function requeteGetAll(){
+    httpRequestAll = new XMLHttpRequest();
+    httpRequestAll.onreadystatechange = traitementGetAll;
+    httpRequestAll.open('GET', `api/plume.php`, true);
+    httpRequestAll.setRequestHeader("Content-Type", "application/json");
+    httpRequestAll.send();
+}
+function traitementGetAll(){
+    if (httpRequestAll.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestAll.status === 200) {
+            let response = JSON.parse(httpRequestAll.responseText);
+            tableau = response;
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+function requeteGetTendance(){
+    httpRequestTendance = new XMLHttpRequest();
+    httpRequestTendance.onreadystatechange = traitementGetTendance;
+    httpRequestTendance.open('GET', `api/plume.php/tendance`, true);
+    httpRequestTendance.setRequestHeader("Content-Type", "application/json");
+    httpRequestTendance.send();
+}
+function traitementGetTendance(){
+    if (httpRequestTendance.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestTendance.status === 200) {
+            let response = JSON.parse(httpRequestTendance.responseText);
+            console.log(response);
+            requeteGetAll();
+            setTimeout(() => {
+                console.log(tableau);    
+                for(like of response){
+                    for(plume of tableau){
+                        if(like['plume_id']==plume['id']){
+                            if(plume['answer_to'] == null){
+                                if(plume['pp'] == null){
+                                    src = "ressource/icones/default-profile.jpg";
+                                }
+                                else{
+                                    src = plume['pp'];
+                                }
+                                document.getElementById("group-tweet").innerHTML += `
+                                <section class="tweet" id="id-${plume['id']}">
+                                    <section class="tweet-profil">
+                                        <section class="tweet-title">
+                                            <img src="${src}" classe="photo">
+                                            <h3>${plume['pseudo']}</h3>
+                                            <span>@${plume['user']}</span>
+                                        </section>
+                                        <section class="tweet-save">
+                                            <span>Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
+                                        </section>
+                                    </section>       
+                                    <section class="tweet-message">
+                                        <p>${plume['content']}</p>
+                                        <img id="" src="">
+                                    </section>
+                                    <section class="tweet-icons">
+                                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                                        <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
+                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                                    </section>
+                                </section> 
+                                `;    
+                            }
+                        }
+                    }
+                }    
+                setTimeout(() => {
+                    requeteStateLike();
+                    requeteNbLike();
+                    requeteNbPreen();
+                    requeteNbComment();                   
+                });          
+            }, 50);
+            // for(plume of response){
+            //     if(plume['answer_to'] == null){
+            //         if(plume['pp'] == null){
+            //             src = "ressource/icones/default-profile.jpg";
+            //         }
+            //         else{
+            //             src = plume['pp'];
+            //         }
+            //         document.getElementById("group-tweet").innerHTML += `
+            //         <section class="tweet" id="id-${plume['id']}">
+            //             <section class="tweet-profil">
+            //                 <section class="tweet-title">
+            //                     <img src="${src}" classe="photo">
+            //                     <h3>${plume['pseudo']}</h3>
+            //                     <span>@${plume['user']}</span>
+            //                 </section>
+            //                 <section class="tweet-save">
+            //                     <span>Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
+            //                 </section>
+            //             </section>       
+            //             <section class="tweet-message">
+            //                 <p>${plume['content']}</p>
+            //                 <img id="" src="">
+            //             </section>
+            //             <section class="tweet-icons">
+            //                 <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+            //                 <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
+            //                 <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+            //             </section>
+            //         </section> 
+            //         `;    
+            //     }
+            //}
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+function requeteGetRecent(){
+    httpRequestRecent = new XMLHttpRequest();
+    httpRequestRecent.onreadystatechange = traitementGetRecent;
+    httpRequestRecent.open('GET', `api/plume.php/recent`, true);
+    httpRequestRecent.setRequestHeader("Content-Type", "application/json");
+}
+function traitementGetRecent(){
+    if (httpRequestRecent.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestRecent.status === 200) {
+            let response = JSON.parse(httpRequestRecent.responseText);
+            // console.log(response);
+            for(plume of response){
+                if(plume['answer_to'] == null){
+                    if(plume['pp'] == null){
+                        src = "ressource/icones/default-profile.jpg";
+                    }
+                    else{
+                        src = plume['pp'];
+                    }
+                    document.getElementById("group-tweet").innerHTML += `
+                    <section class="tweet" id="id-${plume['id']}">
+                        <section class="tweet-profil">
+                            <section class="tweet-title">
+                                <img src="${src}" classe="photo">
+                                <h3>${plume['pseudo']}</h3>
+                                <span>@${plume['user']}</span>
+                            </section>
+                            <section class="tweet-save">
+                                <span>Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
+                            </section>
+                        </section>       
+                        <section class="tweet-message">
+                            <p>${plume['content']}</p>
+                            <img id="" src="">
+                        </section>
+                        <section class="tweet-icons">
+                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                            <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                        </section>
+                    </section> 
+                    `;    
+                }
+            }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+
+
 function requeteLike(e){
-    let user = "chouette";
+    let user = logUser;
     let plume = e.srcElement.id.split("-");
     httpRequestPostLike = new XMLHttpRequest();
     httpRequestPostLike.onreadystatechange = traitementLike;
@@ -87,7 +261,7 @@ function traitementNbLike(){
     if (httpRequestLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestLike.status === 200) {
             responseLike = JSON.parse(httpRequestLike.responseText);
-            console.log(responseLike);
+            // console.log(responseLike);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
                 exist = false;
@@ -121,9 +295,9 @@ function traitementStateLike(){
         if (httpRequestStateLike.status === 200) {
             responseStateLike = JSON.parse(httpRequestStateLike.responseText);
             // console.log(responseStateLike);
-            userLog = "chouette";
+            let user = logUser;
             for(like of responseStateLike){
-                if(userLog == like["user_like"]){
+                if(user == like["user_like"]){
                     tweetLike = document.getElementById(`HeartElement-${like['plume_id']}`);
                     if(tweetLike != null){
                         changeHeart(like['plume_id']);
@@ -197,10 +371,11 @@ function traitementNbComment(){
 }
 
 
-requeteGetAll();
+requeteGetTendance();
 setTimeout(()=>{
     requeteStateLike();
     requeteNbLike();
     requeteNbPreen();
     requeteNbComment();
+    // requeteGetTendance();
 });

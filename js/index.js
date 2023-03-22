@@ -15,7 +15,7 @@ function traitementPermission(){
 function responsePermission(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-            console.log(httpRequest.responseText);
+            // console.log(httpRequest.responseText);
         } else if (httpRequest.status === 401){
             //window.location.href = 'connexion.html';
         }
