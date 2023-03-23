@@ -22,8 +22,8 @@ function responsePermission(){
     }    
 }
 
-function changeSave() {
-    var SaveElement = document.getElementById("SaveElement");
+function changeSave(id) {
+    var SaveElement = document.getElementById(`SaveElement-${id}`);
     SaveElement.classList.toggle("fa-regular");
     SaveElement.classList.toggle("fa-solid");
 }
