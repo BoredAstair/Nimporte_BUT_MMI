@@ -50,8 +50,8 @@ function changeSave() {
 }
 
 // like
-function changeHeart() {
-    var HeartElement = document.getElementById("HeartElement");
+function changeHeart(id) {
+    var HeartElement = document.getElementById(`HeartElement-${id}`);
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
@@ -143,6 +143,41 @@ function ongletsMenu(menu){
 function ResteEnHaut(){
     window.scrollTo(0,0);
 }
+
+
+// document.addEventListener("DOMContentLoaded", request());
+
+// function request(){
+//     wut = "Astair";
+//     httpRequest = new XMLHttpRequest();
+//     httpRequest.onreadystatechange = traitement;
+//     httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
+//     httpRequest.send();
+// }
+
+// function traitement(){
+//     if (httpRequest.readyState === XMLHttpRequest.DONE) {
+//         if (httpRequest.status === 200) {
+//             let response = JSON.parse(httpRequest.responseText);
+//             console.log(response);
+//             document.getElementById("username").value = "@" + response[0]["username"];
+//             document.getElementById("pseudo").value = response[0]["pseudo"];
+//             document.getElementById("email").value = response[0]["mail"];
+//             if(response[0]["pp"]){
+//                 document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
+//             }
+//             if(response[0]["banner"]){
+//                 document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
+//             }
+//             if(response[0]["bio"]){
+//                 document.getElementById("biography").value = response[0]["bio"];
+//             }
+//         } else {
+//         alert('Il y a eu un problème avec la requête.');
+//         }
+//     }
+// }
+
 
 //popup suppression de compte
 popup = document.getElementById('popup-fond');

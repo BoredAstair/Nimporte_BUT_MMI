@@ -8,73 +8,74 @@ header("Access-Control-Allow-Headers:*");
 $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
 $request_headers = getallheaders(); // récup les en-têtes HTTP
-$request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
+$request_body = file_get_contents('php://input');
+$data = json_decode($request_body, true);
 $erreur = [];
 if($request_method == "GET"){
     $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
     encodeJson($likedPlume);
 }
 else if($request_method == "POST"){
-    if(isset($_GET['user']) && isset($_GET['plume'])){
-        $user = $_GET['user'];
-        $plume = $_GET['plume'];
-        $requestUser = "SELECT * FROM user";
-        $selectUser = $bdd -> prepare($requestUser);
-        $selectUser -> execute();
-        $users = $selectUser -> fetchAll();
+    if(isset($data['user']) && isset($data['plume'])){
+        $user = $data['user'];
+        $plume = $data['plume'];
+        $verifUser = false;
+        $verifPlume = false;
+        $verifLiked = false;
+        $users = select("*", "user");
+        $plumes = select("*", "plume");
+        $liked = select("*", "like_plume");
+        foreach($users as $oneUser){
+            if($oneUser['username'] == $user){
+                $verifUser = true;
+            }
+        }
+        foreach($plumes as $onePlume){
+            if($onePlume['id'] == $plume){
+                $verifPlume = true;
+            }
+        }
+        foreach($liked as $like){
+            if($like['plume_id'] == $plume && $like['user'] == $user){
+                $verifLiked = true;
+            }
+        }
+        if($verifPlume == true && $verifUser == true && $verifLiked == false){
+            $request = 'INSERT INTO like_plume(plume_id, user) VALUES(:id,:user)';
+            $insert = $bdd -> prepare($request);
+            $insert -> execute([
+                ':id' => $plume,
+                ':user' => $user
+            ]);   
+            $erreur["state"] = "valide"; 
+            $erreur["type"] = "ajout";  
+            $erreur["idPlume"] = $plume;
+            encodeJson($erreur);
+        }
+        else if($verifPlume == true && $verifUser == true && $verifLiked == true){
+            $request = 'DELETE FROM like_plume WHERE plume_id = :id AND user = :user';
+            $delete = $bdd -> prepare($request);
+            $delete -> execute([
+                ':id' => $plume,
+                ':user' => $user
+            ]);
+            $erreur['state'] = "valide";
+            $erreur['type'] = "suppression";
+            $erreur["idPlume"] = $plume;
+            encodeJson($erreur);
+        }
+        else{
+            if($verifUser==false){
+                $erreur["user"] = "Le nom d'utilisateur n'est pas reconnu";
+            }
+            if($verifPlume==false){
+                $erreur["plume"] = "La plume n'existe pas";
+            }
+            encodeJson($erreur);
+        }
+    }
+    else{
+        $erreur['champ'] = "Pas assez de paramètres";
     }
 }
-// if(isset($_GET['user'])&&isset($_GET['plume'])&&isset($_POST['content'])){
-//     $user = $_GET['user'];
-//     $plume = $_GET['plume'];
-//     $content = $_POST['content'];
-
-//     $requestUser = "SELECT * FROM user";
-//     $selectUser = $bdd -> prepare($requestUser);
-//     $selectUser -> execute();
-//     $users = $selectUser -> fetchAll(PDO::FETCH_ASSOC);
-//     $verifUser = false;
-//     $verifPlume = false;
-//     foreach($users as $oneUser){
-//         if($oneUser['username'] == $user){
-//             $verifUser = true;
-//         }
-//     }
-
-//     $requestPlume = "SELECT * FROM plume";
-//     $selectPlume = $bdd -> prepare($requestPlume);
-//     $selectPlume -> execute();
-//     $plumes = $selectPlume -> fetchAll(PDO::FETCH_ASSOC);
-//     foreach($plumes as $onePlume){
-//         if($onePlume['id'] == $plume){
-//             $verifPlume = true;
-//         }
-//     }
-
-//     if($verifUser==true&&$verifPlume==true){
-//         $request = 'INSERT INTO plume(user, content, answer_to, posted_at) VALUES(:user,:content,:answer_to, :posted_at)';
-//         $insert = $bdd -> prepare($request);
-//         $insert -> execute([
-//             ':user' => $user,
-//             ':content' => $content,
-//             ':answer_to' => $plume,
-//             ':posted_at' => date("Y-m-d H:i:s")
-//         ]);   
-//         $erreur["state"] = "valide";    
-//         encodeJson($erreur);
-//     }
-//     else{
-//         if($verifUser==false){
-//             $erreur["user"] = "Le nom d'utilisateur n'est pas reconnu";
-//         }
-//         if($verifPlume==false){
-//             $erreur["plume"] = "La plume n'existe pas";
-//         }
-//         encodeJson($erreur);
-//     }
-// }
-// else{
-//     $erreur["champ"] = "Merci d'écrire au moins 1 caractère";
-//     encodeJson($erreur);
-// }
 ?>
