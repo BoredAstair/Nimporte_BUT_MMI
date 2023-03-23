@@ -40,6 +40,20 @@
 
 // le code
 html{
+    button{
+        @each $key, $value in $btn-colors{
+            &.#{$key}{
+                background-color: map-get($map: $value, $key: "bgcolor") !important;
+            }
+        }
+    }
+    @each $key, $value in $btn-colors{
+        .#{$key}{
+            &:focus{
+                outline:solid map-get($map: $value, $key: "bgcolor") !important;
+            }
+        }
+    }
     min-height: 100%;
     body{
         margin: 0;
@@ -104,9 +118,6 @@ html{
                         &::placeholder{
                             padding-top: 1px;
                         }
-                        &:focus{
-                            outline: solid $theme-color;
-                        }
                         &:focus::placeholder{
                             color: transparent;
                         }
@@ -134,8 +145,8 @@ html{
                         margin: 20px 0px 20px 40px;
                         i{
                             font-size: 30px;
-                            color: $theme-color;
                             cursor:pointer;
+                            @include ColorChange();
                         }
                         p{
                             color: $white;
@@ -150,8 +161,8 @@ html{
                             justify-content: center;
                             align-items: center;
                             margin: 25px 40px 20px 0px;
-                            background-color: $theme-color;
                             border-radius: 15px;
+                            border: none;
                             height: 40px;
                             width: 80px;
                             cursor:pointer;
@@ -319,9 +330,9 @@ html{
                                         justify-content: space-between;
                                         margin-top: 20px;
                                             i{
-                                                color: $theme-color;
                                                 font-size: 30px;
                                                 cursor:pointer;
+                                                @include ColorChange();
                                             }
                                             span{
                                                 color: $white;
@@ -349,9 +360,9 @@ html{
                                 justify-content: space-around;
                                 margin-bottom: 20px;
                                     i{
-                                        color: $theme-color;
                                         font-size: 20px;
                                         cursor:pointer;
+                                        @include ColorChange();
                                     }
                             }
                     }
@@ -403,7 +414,6 @@ html{
                     }
                 }
                 .tweeter{
-                    background-color: $theme-color;
                     height: 90px;
                     width: 90px;
                     border-radius: 50%;
@@ -412,6 +422,7 @@ html{
                     right: 3%;
                     text-align: center;
                     cursor:pointer;
+                    @include BgColorChange();
                     i{
                         margin-top: 20px;
                         color: $darkest-blue;
@@ -446,9 +457,6 @@ html{
                         margin: 0 50px 0 50px;
                         text-align: center;
                         background-color: $fond-plumes;
-                        i{
-                            color: $theme-color;
-                        }
                       }
                     // #no-save{
                     //     display: none;
@@ -507,7 +515,6 @@ html{
                                             justify-content: space-between;
                                             margin-top: 20px;
                                                 i{
-                                                    color: $theme-color;
                                                     font-size: 30px;
                                                     cursor:pointer;
                                                 }
@@ -537,7 +544,6 @@ html{
                                     justify-content: space-around;
                                     margin-bottom: 20px;
                                         i{
-                                            color: $theme-color;
                                             font-size: 20px;
                                             cursor:pointer;
                                         }
@@ -591,7 +597,6 @@ html{
                         }
                     }
                     .save-tweeter{
-                        background-color: $theme-color;
                         height: 90px;
                         width: 90px;
                         border-radius: 50%;
@@ -600,6 +605,7 @@ html{
                         right: 3%;
                         text-align: center;
                         cursor:pointer;
+                        @include BgColorChange();
                         i{
                             margin-top: 20px;
                             color: $darkest-blue;
@@ -812,7 +818,6 @@ html{
                             &.theme-color-select{
                                 width: 65px;
                                 height: 65px;
-                                background-color: $theme-color;
                                 border: 2px solid $white;
                             }
                         }

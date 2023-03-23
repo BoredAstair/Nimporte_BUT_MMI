@@ -210,4 +210,13 @@ function ThemeColor(color){
         tab.classList.remove('theme-color-select');
     }
     document.getElementById(`${color}`).classList.add('theme-color-select');
+
+    selectColor = document.getElementsByClassName('select-color');
+    for (const tab of selectColor){
+        tab.classList.remove('yellow');
+        tab.classList.remove('pink');
+        tab.classList.remove('blue');
+        tab.classList.remove('green');
+        tab.classList.add(`${color}`);
+    }
 }
