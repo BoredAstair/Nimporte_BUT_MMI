@@ -63,6 +63,9 @@ function traitementGetFollower(){
                 requeteNbComment();
                 setTimeout(()=>{
                     requeteStateSave();
+                    setTimeout(()=>{
+                        requeteAffichUser();
+                    });            
                 },250);
             });
         } 
@@ -205,6 +208,9 @@ function traitementGetTendance(){
                     requeteNbComment();
                     setTimeout(()=>{
                         requeteStateSave();
+                        setTimeout(()=>{
+                            requeteAffichUser();
+                        });                
                     },250);
                 });                       
             }, 150);
@@ -276,6 +282,9 @@ function traitementGetRecent(){
                 requeteNbComment();
                 setTimeout(()=>{
                     requeteStateSave();
+                    setTimeout(()=>{
+                        requeteAffichUser();
+                    });            
                 },250);
             });
             
@@ -563,6 +572,9 @@ function traitementGetSave(){
                 requeteNbComment();
                 setTimeout(()=>{
                     requeteStateSave();
+                    setTimeout(()=>{
+                        requeteAffichUserSave();
+                    })
                 },250);
                         });
             
@@ -576,15 +588,16 @@ function traitementGetSave(){
 function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
-    httpRequestAffichUser.open('GET', 'api/users.php', true);
+    httpRequestAffichUser.open('GET', `${urlCourante}api/users.php`, true);
     httpRequestAffichUser.setRequestHeader("Content-Type", "application/json");
     httpRequestAffichUser.send();
 }
 function traitementAffichUser(){
     if (httpRequestAffichUser.readyState === XMLHttpRequest.DONE) {
+        console.log(httpRequestAffichUser.status);
         if (httpRequestAffichUser.status === 200) {
             let response = JSON.parse(httpRequestAffichUser.response);
-            console.log(response);
+            document.getElementById("profils-save").innerHTML = ""
             document.getElementById("profils").innerHTML = "";
             for(let i=0; i<4; i++){
                 if(response[i].pp != null){
@@ -609,6 +622,45 @@ function traitementAffichUser(){
         }
     }       
 }
+
+function requeteAffichUserSave(){
+    httpRequestAffichUserSave = new XMLHttpRequest();
+    httpRequestAffichUserSave.onreadystatechange = traitementAffichUserSave;
+    httpRequestAffichUserSave.open('GET', `${urlCourante}api/users.php`, true);
+    httpRequestAffichUserSave.setRequestHeader("Content-Type", "application/json");
+    httpRequestAffichUserSave.send();
+}
+function traitementAffichUserSave(){
+    if (httpRequestAffichUserSave.readyState === XMLHttpRequest.DONE) {
+        console.log(httpRequestAffichUserSave.status);
+        if (httpRequestAffichUserSave.status === 200) {
+            let response = JSON.parse(httpRequestAffichUserSave.response);
+            document.getElementById("profils-save").innerHTML = ""
+            document.getElementById("profils").innerHTML = "";
+            for(let i=0; i<4; i++){
+                if(response[i].pp != null){
+                    var srcProfil = response[i].pp;
+                }
+                else{
+                    var srcProfil = "ressource/icones/default-profile.jpg";
+                }
+                document.getElementById("profils-save").innerHTML += `
+                <section class="account">
+                <img src="${srcProfil}" class="photo">
+                    <section class="account-title">
+                        <h3>${response[i].pseudo}</h3>
+                        <span>@${response[i].username}</span>
+                    </section>
+                </section>
+                `;               
+            }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
 
 
 requeteGetFollower();
