@@ -428,7 +428,7 @@ html{
             @include flex(row, normal, normal);
             #all-save{
                 width: 80%;
-                height: fit-content;
+                height: 100vh;
                 #save-container-centre {
                     padding-top: 2vh;
                     background-color: $fond-plumes;

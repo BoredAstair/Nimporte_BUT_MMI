@@ -573,6 +573,43 @@ function traitementGetSave(){
     }       
 }
 
+function requeteAffichUser(){
+    httpRequestAffichUser = new XMLHttpRequest();
+    httpRequestAffichUser.onreadystatechange = traitementAffichUser;
+    httpRequestAffichUser.open('GET', 'api/users.php', true);
+    httpRequestAffichUser.setRequestHeader("Content-Type", "application/json");
+    httpRequestAffichUser.send();
+}
+function traitementAffichUser(){
+    if (httpRequestAffichUser.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestAffichUser.status === 200) {
+            let response = JSON.parse(httpRequestAffichUser.response);
+            console.log(response);
+            document.getElementById("profils").innerHTML = "";
+            for(let i=0; i<4; i++){
+                if(response[i].pp != null){
+                    var srcProfil = response[i].pp;
+                }
+                else{
+                    var srcProfil = "ressource/icones/default-profile.jpg";
+                }
+                document.getElementById("profils").innerHTML += `
+                <section class="account">
+                <img src="${srcProfil}" class="photo">
+                    <section class="account-title">
+                        <h3>${response[i].pseudo}</h3>
+                        <span>@${response[i].username}</span>
+                    </section>
+                </section>
+                `;               
+            }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
 
 requeteGetFollower();
 setTimeout(()=>{
@@ -582,5 +619,8 @@ setTimeout(()=>{
     requeteNbComment();
     setTimeout(()=>{
         requeteStateSave();
+        setTimeout(()=>{
+            requeteAffichUser();
+        });
     },250);
 });

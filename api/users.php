@@ -20,7 +20,26 @@ $request_headers = getallheaders(); // récup les en-têtes HTTP
 $request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
 $data = json_decode($request_body, true);
 $erreur = [];
-if($request_method == "POST"){
-    
+if($request_method == "GET" && count($segments_uri)==0){
+    $requeteUser = 'SELECT * FROM user';
+    $selectUser = $bdd -> prepare($requeteUser);
+    $selectUser -> execute();
+    $users = $selectUser -> fetchAll(PDO::FETCH_ASSOC);
+    $nbUsed = [];
+    $userSend = [];
+    $i=0;
+    while(count($nbUsed)!=count($users)){
+        $random = random_int(0, count($users)-1);
+        if(!in_array($random, $nbUsed)){
+            array_push($nbUsed, $random);
+            array_push($userSend, $users[$random]);
+        }
+        $i++;
+    }
+    encodeJson($userSend);
+    // debug($users);
+}
+else{
+    http_response_code(404);
 }
 ?>
