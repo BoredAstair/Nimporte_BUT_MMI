@@ -1,12 +1,17 @@
 // save
 
 addEventListener('DOMContentLoaded', traitementPermission());
-
+urlCourante = "";
+for(url of document.location.href.split("/")){
+    if(url != "index.html"){
+        urlCourante += url+"/";
+    }
+}
 function traitementPermission(){
     let token = localStorage.getItem('token');
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify({"autorization": localStorage.getItem("token")});
     httpRequest.send(data);
@@ -21,6 +26,13 @@ function responsePermission(){
             localStorage.setItem("userID", response.userID);
         }
     }    
+}
+
+
+function changeSave(id) {
+    var SaveElement = document.getElementById(`SaveElement-${id}`);
+    SaveElement.classList.toggle("fa-regular");
+    SaveElement.classList.toggle("fa-solid");
 }
 
 function getdatatweet(){
@@ -43,11 +55,6 @@ function resgetdatatweet(){
     }
 }
 
-function changeSave() {
-    var SaveElement = document.getElementById("SaveElement");
-    SaveElement.classList.toggle("fa-regular");
-    SaveElement.classList.toggle("fa-solid");
-}
 
 // like
 function changeHeart(id) {
@@ -137,6 +144,9 @@ function ongletsMenu(menu){
     ResteEnHaut();
     if(menu == 'parameters'){
         getdatarequest();
+    }
+    if(menu == 'home'){
+        requeteGetFollower();
     }
 }
 

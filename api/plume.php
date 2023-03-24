@@ -22,7 +22,7 @@ $request_body = file_get_contents('php://input'); //récup les infos rempli par 
 $data = json_decode($request_body, true);
 $erreur = [];
 if($request_method == 'GET' && count($segments_uri) == 0){
-    $request = 'SELECT * FROM plume INNER JOIN user ON plume.user = user.username';
+    $request = 'SELECT * FROM user INNER JOIN plume ON plume.user = user.username';
     $select = $bdd -> prepare($request);
     $select -> execute();
     $allPlume = $select -> fetchAll(PDO::FETCH_ASSOC);
@@ -69,6 +69,55 @@ else if($request_method == 'GET' && count($segments_uri) == 1){
         $countComment -> execute();
         $nbComments = $countComment -> fetchAll(PDO::FETCH_ASSOC);
         encodeJson($nbComments);             
+    }
+    else if($segments_uri[0]=="state_like"){
+        $requestState = 'SELECT * FROM plume INNER JOIN like_plume ON like_plume.plume_id = plume.id';
+        $stateLike = $bdd -> prepare($requestState);
+        $stateLike -> execute();
+        $states = $stateLike -> fetchAll(PDO::FETCH_ASSOC);
+        encodeJson($states);
+    }
+    else if($segments_uri[0]=="state_save"){
+        $requestState = 'SELECT * FROM plume INNER JOIN save_plume ON save_plume.plume_id = plume.id';
+        $stateSave = $bdd -> prepare($requestState);
+        $stateSave -> execute();
+        $states = $stateSave -> fetchAll(PDO::FETCH_ASSOC);
+        encodeJson($states);       
+    }
+    else if($segments_uri[0]=="recent"){
+        $requestRecent = 'SELECT * FROM plume INNER JOIN user ON plume.user = user.username ORDER BY posted_at DESC';
+        $stateRecent = $bdd -> prepare($requestRecent);
+        $stateRecent -> execute();
+        $statesRecent = $stateRecent -> fetchAll(PDO::FETCH_ASSOC);
+        encodeJson($statesRecent);       
+    }
+    else if($segments_uri[0]=="tendance"){
+        $requestTendance = 'SELECT COUNT(plume_id) as nb_like, plume_id FROM like_plume GROUP BY plume_id ORDER BY nb_like DESC';
+        $stateTendance = $bdd -> prepare($requestTendance);
+        $stateTendance -> execute();
+        $statesTendance = $stateTendance -> fetchAll(PDO::FETCH_ASSOC);
+        encodeJson($statesTendance);              
+    }
+}
+else if($request_method == 'POST' && count($segments_uri) == 0){
+    if(isset($data['user'])){
+        $user = $data['user'];
+        $users = select("*", "user");
+        $verifUser = false;
+        foreach($users as $oneUser){
+            if($oneUser['username'] == $user){
+                $verifUser = true;
+            }
+        }
+        if($verifUser == true){
+            $request = 'SELECT * FROM user INNER JOIN plume ON plume.user = user.username INNER JOIN follow ON user.username = follow.user_followed WHERE follow.user_following=:user ORDER BY posted_at DESC';
+            $select = $bdd -> prepare($request);
+            $select -> execute([
+                ":user"=> $user
+            ]);
+            $allPlume = $select -> fetchAll(PDO::FETCH_ASSOC);
+            encodeJson($allPlume);        
+        }
     }
 }
 ?>

@@ -12,7 +12,7 @@ $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
 $erreur = [];
 if($request_method == "GET"){
-    $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
+    $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user_like = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
     encodeJson($likedPlume);
 }
 else if($request_method == "POST"){
@@ -36,12 +36,12 @@ else if($request_method == "POST"){
             }
         }
         foreach($liked as $like){
-            if($like['plume_id'] == $plume && $like['user'] == $user){
+            if($like['plume_id'] == $plume && $like['user_like'] == $user){
                 $verifLiked = true;
             }
         }
         if($verifPlume == true && $verifUser == true && $verifLiked == false){
-            $request = 'INSERT INTO like_plume(plume_id, user) VALUES(:id,:user)';
+            $request = 'INSERT INTO like_plume(plume_id, user_like) VALUES(:id,:user)';
             $insert = $bdd -> prepare($request);
             $insert -> execute([
                 ':id' => $plume,
@@ -53,7 +53,7 @@ else if($request_method == "POST"){
             encodeJson($erreur);
         }
         else if($verifPlume == true && $verifUser == true && $verifLiked == true){
-            $request = 'DELETE FROM like_plume WHERE plume_id = :id AND user = :user';
+            $request = 'DELETE FROM like_plume WHERE plume_id = :id AND user_like = :user';
             $delete = $bdd -> prepare($request);
             $delete -> execute([
                 ':id' => $plume,
