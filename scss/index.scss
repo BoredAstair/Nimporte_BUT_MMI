@@ -429,19 +429,19 @@ html{
             #all-save{
                 width: 80%;
                 height: fit-content;
-                .save-container-centre {
+                #save-container-centre {
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
+                        width: 66%;
                         position: absolute;
                         z-index: 3;
-                        width: 60%;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         height: 100vh;
                         font-size: 24px;
-                        margin: 0 50px 0 50px;
+                        // margin: 0 50px 0 50px;
                         text-align: center;
                         background-color: $fond-plumes;
                         i{
@@ -462,7 +462,7 @@ html{
                           transform: rotate(360deg);
                         }
                     }
-                        .save-tweet{
+                        .tweet{
                             width: 80%;
                             height: auto;
                             background-color: $darkest-blue;
@@ -474,13 +474,13 @@ html{
                             flex-direction: column;
                             justify-content: space-between;
                             align-items: center;  
-                                .save-tweet-profil{
+                                .tweet-profil{
                                     width: 90%;
                                     max-height: 50%;
                                     margin-top: 20px;
                                     display: flex;        
                                     justify-content: space-between;
-                                        .save-tweet-title{
+                                        .tweet-title{
                                             display: flex; 
                                             flex-direction: row;
                                             align-items: center;
@@ -500,7 +500,7 @@ html{
                                                 margin-left: 15px;
                                             }
                                         }
-                                        .save-tweet-save{
+                                        .tweet-save{
                                             display: flex;
                                             justify-content: space-between;
                                             margin-top: 20px;
@@ -516,7 +516,7 @@ html{
                                         }
                                 }
                                 
-                                .save-tweet-message{
+                                .tweet-message{
                                     height: auto;
                                     margin: 25px 0px 30px 0px;
                                     width: 90%;
@@ -526,7 +526,7 @@ html{
                                             width: 90%;
                                         }
                                 }
-                                .save-tweet-icons{  
+                                .tweet-icons{  
                                     width: 50%;
                                     max-height: 20px;
                                     display: flex;

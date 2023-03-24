@@ -1,8 +1,14 @@
+urlCourante = "";
+for(url of document.location.href.split("/")){
+    if(url != "index.html"){
+        urlCourante += url+"/";
+    }
+}
 function getdatarequest(){
     wut = "Astair";
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = getdatatraitement;
-    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?user=${wut}`, true);
+    httpRequest.open('GET', `${urlCourante}getData.php?user=${wut}`, true);
     httpRequest.send();
 }
 
@@ -47,7 +53,7 @@ function reqsetdata(){
 
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = getdatatraitement;
-    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/setData.php`, true);
+    httpRequest.open('POST', `${urlCourante}api/setData.php`, true);
     data = JSON.stringify({"pseudo": pseudo, "bio": bio, "avatar": avatar, 'banner':banner});
     httpRequest.send(data);
 }
@@ -64,7 +70,7 @@ async function uploadFile(type) {
     }
     formData.append("type", type);
     let loca = "profile";
-    await fetch('http://localhost/Nimporte_BUT_MMI/api/upload.php', {
+    await fetch(`${urlCourante}api/upload.php`, {
       method: "POST", 
       body: formData
     }).then( response => response.ok ? response.json() : "ERROR LOADING" )

@@ -80,7 +80,6 @@ if($request_method == "POST"){
         }
     }
     else if(isset($data['user']) && count($segments_uri)==1){
-        echo($segments_uri[0]);
         if($segments_uri[0]=="user"){
             $user = $data['user'];
             $requestSave = 'SELECT * FROM save_plume INNER JOIN plume ON plume.id = save_plume.plume_id INNER JOIN user ON plume.user = user.username WHERE save_plume.user_save = :user ORDER BY plume.posted_at DESC';
@@ -89,6 +88,9 @@ if($request_method == "POST"){
                 ":user"=> $user
             ]);
             $saved = $saveTweet -> fetchAll(PDO::FETCH_ASSOC);
+            if(empty($saved)){
+                $saved['etat'] = "vide";
+            }
             encodeJson($saved);
         }
     }
