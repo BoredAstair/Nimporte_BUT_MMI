@@ -4,7 +4,6 @@ header("Access-Control-Allow-Headers:*");
 include("connectBDD.php");
 include('function.php');
 
-
     $userID = null;
     $isAuth = false;
     $erreur = [];
@@ -25,7 +24,7 @@ include('function.php');
             } else {
                 if ($res[0]['token_date'] >= strtotime('-2 day')){
                     $isAuth = true;
-                    $userID = $res[0]['username'];
+                    $erreur['userID'] = $res[0]['username'];
                     $erreur['state'] = 'valid';
                     encodeJson($erreur);
                     die();

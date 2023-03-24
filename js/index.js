@@ -19,19 +19,42 @@ function traitementPermission(){
 
 function responsePermission(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-            // console.log(httpRequest.responseText);
-        } else if (httpRequest.status === 401){
-            //window.location.href = 'connexion.html';
+        if (httpRequest.status === 401){
+            window.location.href = 'connexion.html';
+        } else if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            localStorage.setItem("userID", response.userID);
         }
     }    
 }
+
 
 function changeSave(id) {
     var SaveElement = document.getElementById(`SaveElement-${id}`);
     SaveElement.classList.toggle("fa-regular");
     SaveElement.classList.toggle("fa-solid");
 }
+
+function getdatatweet(){
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = resgetdatatweet;
+    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?userID=${localStorage.getItem("userID")}`, true);
+    httpRequest.send();
+}
+
+function resgetdatatweet(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            document.getElementById("usernamesendtweet").innerText = "@" + response[0]["username"];
+            document.getElementById("pseudosendtweet").innerText = response[0]["pseudo"];
+            document.getElementById("imgsendtweet").src = `upload/profile/${response[0]["pp"]}`;
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
 
 // like
 function changeHeart(id) {
@@ -54,6 +77,16 @@ function DoTweet() {
     popupContainer.appendChild(tweetForm);
     popupContainer.style.display = 'flex';
     html[0].style.overflowY='hidden';
+    getdatatweet();
+
+    plumecontent = document.getElementById('textarea').value;
+    let token = localStorage.getItem('token');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = responsePermission;
+    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"userID": localStorage.getItem("userID"), "content": plumecontent});
+    httpRequest.send(data);
 }
 
 // close pop-up

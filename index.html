@@ -209,12 +209,16 @@
             <span id="supprimer" onclick="suppression()">Supprimer le compte</span>
         </div>
     </section>
+
+
+
+
     <section class="popup-container" onclick="closeTweetPopup(event)">
         <section class="container-tweet">
             <section class="tweet-title">
-                <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                <h3>PSEUDO</h3>
-                <span>@pseudo</span>
+                <img src="https://dummyimage.com/500x500/000/fff" id='imgsendtweet' class="photo">
+                <h3 id="pseudosendtweet">PSEUDO</h3>
+                <span id="usernamesendtweet">@pseudo</span>
             </section>
             <section class="tweet-send">
                 <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
@@ -234,6 +238,11 @@
             </section>
         </section>
     </section>
+
+
+
+
+
 
     <script src="js/data.js"></script>
     <script src="js/index.js"></script>

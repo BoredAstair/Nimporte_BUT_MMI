@@ -5,10 +5,9 @@ for(url of document.location.href.split("/")){
     }
 }
 function getdatarequest(){
-    wut = "Astair";
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = getdatatraitement;
-    httpRequest.open('GET', `${urlCourante}getData.php?user=${wut}`, true);
+    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?userID=${localStorage.getItem('userID')}`, true);
     httpRequest.send();
 }
 
@@ -16,12 +15,11 @@ function getdatatraitement(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
             document.getElementById("username").value = "@" + response[0]["username"];
             document.getElementById("pseudo").value = response[0]["pseudo"];
             document.getElementById("email").value = response[0]["mail"];
             if(response[0]["pp"]){
-                document.getElementById("default-profile").src = `${response[0]["pp"]}`;
+                document.getElementById("default-profile").src = `upload/profile/${response[0]["pp"]}`;
             }
             if(response[0]["banner"]){
                 document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
