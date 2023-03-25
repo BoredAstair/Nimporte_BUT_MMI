@@ -140,7 +140,10 @@ $red : #c51313;
                     p{
                         font-size: 17px;
                         text-align: justify;
-                        width: 90%;
+                        width: 100%;
+                    }
+                    img{
+                        max-width: 40%;
                     }
             }
             .tweet-icons{  
