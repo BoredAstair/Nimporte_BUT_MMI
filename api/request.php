@@ -25,4 +25,10 @@ function selectConditionJoin($select, $tableA, $tableB, $condition, $join, $cleA
     $tableau = $select -> fetchAll(PDO::FETCH_ASSOC);
     return $tableau;
 }
+function updateData($table, $pseudo, $bio, $pp, $banner){
+    include('connectBDD.php');
+    $request = "UPDATE {$table} SET pseudo = {$pseudo}, banner = {$banner}, pp = {$pp}, bio = {$bio} WHERE username = {$userID}";
+    $select = $bdd -> prepare($request);
+    $select -> execute();
+}
 ?>

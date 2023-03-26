@@ -161,7 +161,7 @@ if(count($segments_uri) == 3){
         $savedPlume = selectConditionJoin("*","save_plume","plume","save_plume.user = '{$segments_uri[2]}'","RIGHT","save_plume.plume_id","plume.id");
         encodeJson($savedPlume);
     }
-    else if ($segments_uri[0] == "get" && $segments_uri[1] == "like" && isset($segments_uri[2])){ // récup toutes les plumes sauvegardé par un utilisateur)
+    else if ($segments_uri[0] == "get" && $segments_uri[1] == "like" && isset($segments_uri[2])){ // récup toutes les plumes liké par un utilisateur)
         $likedPlume = selectConditionJoin("*","like_plume","plume","like_plume.user = '{$segments_uri[2]}'","RIGHT","like_plume.plume_id","plume.id");
         encodeJson($likedPlume);
     }

@@ -1,3 +1,9 @@
+urlCourante = "";
+for(url of document.location.href.split("/")){
+    if(url != "connexion.html"){
+        urlCourante += url+"/";
+    }
+}
 function con(){
     document.getElementById("patate").innerHTML =`<div id="SideConnexion">
     <div id="AfficheErreur">
@@ -34,7 +40,7 @@ function requeteInscription(){
     let password = document.getElementById("password").value;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementInscription;
-    httpRequest.open('POST', 'api/api.php/post/inscription', true);
+    httpRequest.open('POST', `${urlCourante}api/inscription.php`, true);
     httpRequest.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"username": username, "mail":mail, "pseudo": pseudo, "password": password});
     httpRequest.send(data);
@@ -78,7 +84,7 @@ function requeteConnexion(){
     let password = document.getElementById("password").value;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementConnexion;
-    httpRequest.open('POST', 'api/api.php/post/login', true);
+    httpRequest.open('POST', `${urlCourante}api/connexion.php`, true);
     httpRequest.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"username": username, "password": password});
     httpRequest.send(data);
@@ -86,7 +92,7 @@ function requeteConnexion(){
 
 function traitementConnexion(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
+        if (httpRequest.status === 200){
             let response = JSON.parse(httpRequest.responseText);
             if(response.state == "valide"){
                 localStorage.setItem("token", response.token);
