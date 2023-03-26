@@ -34,8 +34,8 @@ function closeTweetPopup(e){
     if(element.classList.contains("popup-container")){
       const popupContainer = document.querySelector('.popup-container');
       popupContainer.style.display = 'none';
+      html[0].style.overflowY='visible';
     }
-    html[0].style.overflowY='visible';
 }  
 
 //compteur de caractère
@@ -81,14 +81,22 @@ function ongletsMenu(menu){
     }
     document.getElementById(`${menu}`).classList.remove('none');
     ResteEnHaut();
+    search = document.getElementsByClassName('HideSearch')
+    if (menu == 'home' || menu =='save'){
+        for (const tab of search){
+            tab.classList.add('none');
+        }
+    }else{
+        for (const tab of search){
+            tab.classList.remove('none');
+        }
+    }
 }
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
 }
 
-
-document.addEventListener("DOMContentLoaded", request());
 
 function request(){
     wut = "Astair";
@@ -176,4 +184,39 @@ function OngletBarre(number){
     }
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
+}
+
+//pareil pour la page d'accueil
+function OngletBarreMenu(number){
+    menubar = document.getElementsByClassName('selecteur-menu');
+    for (const tab of menubar){
+        tab.classList.remove('selecteur-actif');
+    }
+    document.getElementById(`btn${number}`).classList.add('selecteur-actif');
+    plumes = document.getElementsByClassName('plumes-accueil');
+    for (const tab of plumes){
+        if (!tab.classList.contains('none')){
+            tab.classList.add('none');
+        }
+    }
+    document.getElementById(`${number}`).classList.remove('none');
+    ResteEnHaut();
+}
+
+//le changement de couleurs
+function ThemeColor(color){
+    btncolor = document.getElementsByClassName('theme-color');
+    for (const tab of btncolor){
+        tab.classList.remove('theme-color-select');
+    }
+    document.getElementById(`${color}`).classList.add('theme-color-select');
+
+    selectColor = document.getElementsByClassName('select-color');
+    for (const tab of selectColor){
+        tab.classList.remove('yellow');
+        tab.classList.remove('pink');
+        tab.classList.remove('blue');
+        tab.classList.remove('green');
+        tab.classList.add(`${color}`);
+    }
 }

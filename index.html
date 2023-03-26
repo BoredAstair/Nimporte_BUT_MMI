@@ -24,9 +24,9 @@
 
     <div class="menu">
         <img id="logo" src="ressource/icones/logo.png" alt="logo">
-        <form>
-            <img src="ressource/icones/loupe.png">
-            <input type="text" id="recherche" placeholder="Recherchez...">
+        <form id="search">
+            <img class="HideSearch" src="ressource/icones/loupe.png">
+            <input class="HideSearch" type="text" id="recherche" placeholder="Recherchez...">
         </form>
 
         <div id="menu-btn">
@@ -38,11 +38,11 @@
                 <img src="ressource/icones/enregistrer.png" alt="enregistrer">
                 <span>Enregistrés</span>
             </div>
-            <div class="onglet actif" id="profile-btn" onclick="ongletsMenu('profile')">
+            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
                 <img src="ressource/icones/compte.png" alt="votre profil">
                 <span>Profil</span>
             </div>
-            <div class="onglet" id="parameters-btn" onclick="ongletsMenu('parameters')">
+            <div class="onglet actif" id="parameters-btn" onclick="ongletsMenu('parameters')">
                 <img src="ressource/icones/parametres.png" alt="paramètres">
                 <span>Paramètres</span>
             </div>
@@ -55,96 +55,50 @@
     <section class="contenu none" id="home">
         <section class="container-centre">
             <section class="top">
-                <h2 class="title-top">Followers</h2>
-                <h2 class="title-top">Dernière plumes</h2>
-                <h2 class="title-top">Tendances</h2>
+                <div class="btn-menu-profil" onclick="OngletBarreMenu('4')">
+                    <h2 class="title-top">Followers</h2>
+                    <div class="selecteur-menu selecteur-actif select-color yellow" id="btn4"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarreMenu('5')">
+                    <h2 class="title-top">Dernière plumes</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn5"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="OngletBarreMenu('6')">
+                    <h2 class="title-top">Tendances</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn6"></div>
+                </div>
             </section>
-            <section class="tweet">
-                <section class="tweet-profil">
-                    <section class="tweet-title">
-                        <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                        <h3>PSEUDO</h3>
-                        <span>@pseudo</span>
+
+            <section class="plumes-accueil" id="4">
+                <section class="tweet">
+                    <section class="tweet-profil">
+                        <section class="tweet-title">
+                            <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
+                            <h3>PSEUDO</h3>
+                            <span>@pseudo</span>
+                        </section>
+                        <section class="tweet-save">
+                            <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark select-color yellow" onclick="changeSave()"></i>
+                        </section>
+                    </section>       
+                    <section class="tweet-message">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img id="" src="">
                     </section>
-                    <section class="tweet-save">
-                        <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
+                    <section class="tweet-icons">
+                        <i id="HeartElement" class="fa-regular fa-heart select-color yellow" onclick="changeHeart()">&ensp;<span>2</span></i>
+                        <i class="fa-regular fa-comment select-color yellow">&ensp;<span>2</span></i>
+                        <i id="RetweetElement" class="fas fa-retweet select-color yellow" onclick="changeRetweet()">&ensp;<span>2</span></i>
                     </section>
-                </section>       
-                <section class="tweet-message">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <img id="" src="">
-                </section>
-                <section class="tweet-icons">
-                    <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                    <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                    <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                </section>
-            </section>
-    
-            <section class="tweet">
-                <section class="tweet-profil">
-                    <section class="tweet-title">
-                        <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                        <h3>PSEUDO</h3>
-                        <span>@pseudo</span>
-                    </section>
-                    <section class="tweet-save">
-                        <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                    </section>
-                </section>       
-                <section class="tweet-message">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <img id="" src="">
-                </section>
-                <section class="tweet-icons">
-                    <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                    <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                    <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
                 </section>
             </section>
 
-            <section class="tweet">
-                <section class="tweet-profil">
-                    <section class="tweet-title">
-                        <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                        <h3>PSEUDO</h3>
-                        <span>@pseudo</span>
-                    </section>
-                    <section class="tweet-save">
-                        <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                    </section>
-                </section>       
-                <section class="tweet-message">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <img id="" src="">
-                </section>
-                <section class="tweet-icons">
-                    <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                    <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                    <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                </section>
+            <section class="plumes-accueil none" id="5">
+                <p>Dernières plumes</p>
             </section>
 
-            <section class="tweet">
-                <section class="tweet-profil">
-                    <section class="tweet-title">
-                        <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                        <h3>PSEUDO</h3>
-                        <span>@pseudo</span>
-                    </section>
-                    <section class="tweet-save">
-                        <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                    </section>
-                </section>       
-                <section class="tweet-message">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <img id="" src="">
-                </section>
-                <section class="tweet-icons">
-                    <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                    <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                    <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                </section>
+            <section class="plumes-accueil none" id="6">
+                <p>Tendances</p>
             </section>
     
         </section>
@@ -186,7 +140,7 @@
                         </section>
                 </section>
             </section>
-            <section class="tweeter" onclick="DoTweet()">
+            <section class="tweeter select-color yellow" onclick="DoTweet()">
                 <i class="fa-solid fa-feather plumez"></i>
             </section>
         </section>
@@ -217,71 +171,6 @@
                     </section>
                 </section>
 
-                <section class="save-tweet">
-                    <section class="save-tweet-profil">
-                        <section class="save-tweet-title">
-                            <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                            <h3>PSEUDO</h3>
-                            <span>@pseudo</span>
-                        </section>
-                        <section class="save-tweet-save">
-                            <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                        </section>
-                    </section>       
-                    <section class="save-tweet-message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <img id="" src="">
-                    </section>
-                    <section class="save-tweet-icons">
-                        <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                        <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                        <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                    </section>
-                </section>
-
-                <section class="save-tweet">
-                    <section class="save-tweet-profil">
-                        <section class="save-tweet-title">
-                            <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                            <h3>PSEUDO</h3>
-                            <span>@pseudo</span>
-                        </section>
-                        <section class="save-tweet-save">
-                            <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                        </section>
-                    </section>       
-                    <section class="save-tweet-message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <img id="" src="">
-                    </section>
-                    <section class="save-tweet-icons">
-                        <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                        <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                        <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                    </section>
-                </section>
-
-                <section class="save-tweet">
-                    <section class="save-tweet-profil">
-                        <section class="save-tweet-title">
-                            <img src="https://dummyimage.com/500x500/000/fff" classe="photo">
-                            <h3>PSEUDO</h3>
-                            <span>@pseudo</span>
-                        </section>
-                        <section class="save-tweet-save">
-                            <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                        </section>
-                    </section>       
-                    <section class="save-tweet-message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <img id="" src="">
-                    </section>
-                    <section class="save-tweet-icons">
-                        <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                        <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                        <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                    </section>
-                </section>
             </section>
             <section class="save-container-droite">
                 <form>
@@ -320,14 +209,14 @@
                             </section>
                     </section>
                 </section>
-                <section class="save-tweeter" onclick="DoTweet()">
+                <section class="save-tweeter select-color yellow" onclick="DoTweet()">
                     <i class="fa-solid fa-feather plumez"></i>
                 </section>
             </section>
         </section>
         </div>
     </section>
-    <section class="contenu" id="profile">
+    <section class="contenu none" id="profile">
         <div id="infos-profil">
             <img id="profile-picture" src="ressource/icones/default-profile.jpg" alt="photo de profil">
             <img id="banniere-profil" src="ressource/images/default-banner.webp" alt="bannière du profil">
@@ -342,7 +231,7 @@
                         <span id="pseudo-profile">Pseudo</span>
                         <span id="username-profile">@utilisateur</span>
                     </div>
-                    <button><i class="fa-solid fa-plus"></i> Suivre</button>
+                    <button class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
                 </div>
                 <p id="biography-profile">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium impedit tenetur aspernatur architecto, fuga modi facere dolorem harum ullam? Quam expedita ex asperiores molestias velit aperiam dicta aliquam unde temporibus!</p>
             </div>
@@ -352,15 +241,15 @@
             <div id="menu-profil">
                 <div class="btn-menu-profil" onclick="OngletBarre('1')">
                     <span>Dernières plumes</span>
-                    <div class="selecteur selecteur-actif" id="btn1"></div>
+                    <div class="selecteur selecteur-actif select-color yellow" id="btn1"></div>
                 </div>
                 <div class="btn-menu-profil" onclick="OngletBarre('2')">
                     <span>Plumes likés</span>
-                    <div class="selecteur" id="btn2"></div>
+                    <div class="selecteur select-color yellow" id="btn2"></div>
                 </div>
                 <div class="btn-menu-profil" onclick="OngletBarre('3')">
                     <span>Enregistrés</span>
-                    <div class="selecteur" id="btn3"></div>
+                    <div class="selecteur select-color yellow" id="btn3"></div>
                 </div>
             </div>
 
@@ -376,7 +265,7 @@
         </div>
     </section>
 
-    <section class="contenu none" id="parameters">
+    <section class="contenu" id="parameters">
         <div id="all-parameters">
             <h2>Profil</h2>
             <div id="profile-part1">
@@ -410,7 +299,7 @@
                         <input type="file" class="imageProfile" id="banner" accept="image/*" onchange="preview('#bannerProfile', '#banner')">
                     </div>
                 </div>
-                <button id="enregistrer-modif">Enregistrer les modifications</button>
+                <button class="select-color yellow" id="enregistrer-modif">Enregistrer les modifications</button>
             </div>
 
             <div id="profile-part3">
@@ -425,10 +314,20 @@
                     <p>Modifier le mot de passe</p>
                     <input type="password" placeholder="Mot de passe actuel">
                     <input type="password" placeholder="Nouveau mot de passe">
-                    <button>Modifier</button>
+                    <button class="select-color yellow">Modifier</button>
                 </div>
             </div>
             <span id="supprimer" onclick="suppression()">Supprimer le compte</span>
+            <div id="theme">
+                <h2>Thème</h2>
+                <span>Couleur principale</span>
+                <div id="couleur-principale">
+                    <div class="theme-color theme-color-select" id="yellow" onclick="ThemeColor('yellow')"></div>
+                    <div class="theme-color" id="pink" onclick="ThemeColor('pink')"></div>
+                    <div class="theme-color" id="blue" onclick="ThemeColor('blue')"></div>
+                    <div class="theme-color" id="green" onclick="ThemeColor('green')"></div>
+                </div>
+            </div>
         </div>
     </section>
     <section class="popup-container" onclick="closeTweetPopup(event)">
@@ -439,16 +338,16 @@
                 <span>@pseudo</span>
             </section>
             <section class="tweet-send">
-                <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                <textarea class="select-color yellow" id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                 <input disabled maxlength="3" size="3" value="256" id="counter">
             </section>
             <section class="bottom-tweet">
                 <section class="bottom-left">
-                    <i class="fa-regular fa-image" onclick="insertImage()"></i>
+                    <i class="fa-regular fa-image select-color yellow" onclick="insertImage()"></i>
                     <p onclick="insertImage()">Ajouter une image</p>
                 </section>
                 <section class="bottom-right">
-                    <button id="btn-send">Envoyer</button>
+                    <button class="select-color yellow" id="btn-send">Envoyer</button>
                 </section>
             </section>
             <section class="space-image">
