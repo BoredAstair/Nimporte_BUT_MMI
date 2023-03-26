@@ -1,0 +1,32 @@
+@import "couleurs.scss";
+
+html{
+    background-color: $fond;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
+    @include flex(row, center, normal);
+    #container{
+        @include flex(column, center, center);
+        @include font(22px, $white, normal);
+        height: 90%;
+        img{
+            width: 300px;
+            margin-bottom: 30px;
+        }
+        span{
+            @include font(30px, $white, bold);
+        }
+        p{
+            text-align: center;
+        }
+        button{
+            @include buttonPara($yellow, 40px, 200px, 20px);
+        }
+    }
+}

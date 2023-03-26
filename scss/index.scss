@@ -40,6 +40,20 @@
 
 // le code
 html{
+    button{
+        @each $key, $value in $btn-colors{
+            &.#{$key}{
+                background-color: map-get($map: $value, $key: "bgcolor") !important;
+            }
+        }
+    }
+    @each $key, $value in $btn-colors{
+        .#{$key}{
+            &:focus{
+                outline:solid map-get($map: $value, $key: "bgcolor") !important;
+            }
+        }
+    }
     min-height: 100%;
     body{
         margin: 0;
@@ -93,15 +107,19 @@ html{
                     #textarea{
                         background-color: $fond;
                         color: $white;
-                        border-radius: 20px;
+                        border-radius: 15px;
+                        border: none;
                         height: 200px;
                         width: 80%;
                         font-size: 15px;
                         resize: none;
-                        padding: 10px 10px 10px 10px;
+                        padding: 10px;
                         position: relative;
                         &::placeholder{
                             padding-top: 1px;
+                        }
+                        &:focus::placeholder{
+                            color: transparent;
                         }
                     }
                     #counter{
@@ -127,8 +145,8 @@ html{
                         margin: 20px 0px 20px 40px;
                         i{
                             font-size: 30px;
-                            color: $theme-color;
                             cursor:pointer;
+                            @include ColorChange();
                         }
                         p{
                             color: $white;
@@ -138,13 +156,13 @@ html{
                     }
                     .bottom-right{
                         #btn-send{
+                            @include font(16px, $darkest-blue, normal);
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             margin: 25px 40px 20px 0px;
-                            background-color: $theme-color;
-                            color: $darkest-blue;
-                            border-radius: 20px;
+                            border-radius: 15px;
+                            border: none;
                             height: 40px;
                             width: 80px;
                             cursor:pointer;
@@ -215,6 +233,7 @@ html{
             @include searchBar(0px, 35px, 80%);
             .onglet{
                 @include flex(row, normal, center);
+                height: 60px;
                 img{
                     padding: 5%;
                 }
@@ -227,7 +246,6 @@ html{
             }
             #menu-btn{
                 @include flex(column, center, normal);
-                height: 35%;
                 padding-top: 20%;
             }
         }
@@ -238,7 +256,7 @@ html{
                 padding-top: 8vh;
                 padding-left: 17%;
                 width: 66%;
-                min-height: 100%;
+                min-height: 100vh;
                 background-color: $fond-plumes;
                 flex-direction: column;
                 justify-content: center;
@@ -257,22 +275,17 @@ html{
                         height: 8vh;
                         background-color: $darkest-blue;
                         color: $white;
-                        flex-direction: row;
-                        display: flex;
-                        justify-content: space-around;
+                        @include flex(row, space-around, center);
                         border-radius: 0 0 20px 20px;
                         position: fixed;
                         top: 0;
                         width: 66%;
                             .title-top{
                                 margin-top: auto;
-                                cursor:pointer;  
+                                margin-bottom: 0;
+                                cursor:pointer;
                             }
-                            .title-top:hover{
-                                font-weight: 900;
-                                    transition: color 100ms;
-                                    box-shadow: inset 0 -5px 0 $theme-color;
-                            }
+                        @include menu();
                     }
                     .tweet{
                         width: 80%;
@@ -317,9 +330,9 @@ html{
                                         justify-content: space-between;
                                         margin-top: 20px;
                                             i{
-                                                color: $theme-color;
                                                 font-size: 30px;
                                                 cursor:pointer;
+                                                @include ColorChange();
                                             }
                                             span{
                                                 color: $white;
@@ -347,9 +360,9 @@ html{
                                 justify-content: space-around;
                                 margin-bottom: 20px;
                                     i{
-                                        color: $theme-color;
                                         font-size: 20px;
                                         cursor:pointer;
+                                        @include ColorChange();
                                     }
                             }
                     }
@@ -401,7 +414,6 @@ html{
                     }
                 }
                 .tweeter{
-                    background-color: $theme-color;
                     height: 90px;
                     width: 90px;
                     border-radius: 50%;
@@ -410,6 +422,7 @@ html{
                     right: 3%;
                     text-align: center;
                     cursor:pointer;
+                    @include BgColorChange();
                     i{
                         margin-top: 20px;
                         color: $darkest-blue;
@@ -429,7 +442,9 @@ html{
             #all-save{
                 width: 80%;
                 height: 100vh;
+
                 #save-container-centre {
+
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
@@ -444,9 +459,6 @@ html{
                         // margin: 0 50px 0 50px;
                         text-align: center;
                         background-color: $fond-plumes;
-                        i{
-                            color: $theme-color;
-                        }
                       }
                     // #no-save{
                     //     display: none;
@@ -505,7 +517,6 @@ html{
                                             justify-content: space-between;
                                             margin-top: 20px;
                                                 i{
-                                                    color: $theme-color;
                                                     font-size: 30px;
                                                     cursor:pointer;
                                                 }
@@ -535,7 +546,6 @@ html{
                                     justify-content: space-around;
                                     margin-bottom: 20px;
                                         i{
-                                            color: $theme-color;
                                             font-size: 20px;
                                             cursor:pointer;
                                         }
@@ -589,7 +599,6 @@ html{
                         }
                     }
                     .save-tweeter{
-                        background-color: $theme-color;
                         height: 90px;
                         width: 90px;
                         border-radius: 50%;
@@ -598,6 +607,7 @@ html{
                         right: 3%;
                         text-align: center;
                         cursor:pointer;
+                        @include BgColorChange();
                         i{
                             margin-top: 20px;
                             color: $darkest-blue;
@@ -607,8 +617,7 @@ html{
                     }
                 }
             }
-        }
-                            
+        }                 
         #profile{
             @include DecalOnglet();
             @include flex(column, normal, normal);
@@ -620,12 +629,12 @@ html{
                 @include flex(column, normal, normal);
                 #profile-picture{
                     position: absolute;
-                    top: 45%;
+                    top: 50%;
                     left: 15%;
                     transform: translateX(-50%) translateY(-50%);
                     border-radius: 50%;
-                    width: 180px;
-                    height: 180px;
+                    width: 150px;
+                    height: 150px;
                 }
                 #banniere-profil{
                     width: 100%;
@@ -635,19 +644,19 @@ html{
                 #stats-profil{
                     align-self: center;
                     width: 60%;
-                    height: 50px;
+                    height: 40px;
                     @include flex(row, space-evenly, center);
-                    @include font(22px, $white, normal);
+                    @include font(20px, $white, normal);
                 }
                 #desc-profile{
                     width: 100%;
-                    height: 250px;
-                    padding-top: 25px;
+                    height: 200px;
                     @include font(19px, $white, normal);
                     background-color: $darkest-blue;
                     @include flex(column, center, center);
                     #profile-container{
                         width: 80%;
+                        margin-top: 35px;
                         @include flex(row, space-between, center);
                         #name-profile{
                             min-width: 20%;
@@ -677,24 +686,7 @@ html{
                     @include font(20px, $white, bold);
                     width: 80%;
                     height: 80px;
-                    .btn-menu-profil{
-                        &:hover{
-                            cursor: pointer;
-                        }
-                        &:hover .selecteur{
-                            width: 100%;
-                        }
-                        .selecteur{
-                            background-color: $theme-color;
-                            width: 0;
-                            height: 5px;
-                            border-radius: 5px;
-                            transition: width 0.2s linear;
-                        }
-                        .selecteur-actif{
-                            width: 100%;
-                        }
-                    }
+                    @include menu();
                 }
             }
         }
@@ -804,6 +796,36 @@ html{
                     cursor: pointer;
                     align-self: flex-start;
                 }
+                #theme{
+                    align-self: start;
+                    width: 50%;
+                    margin-bottom: 50px;
+                    #couleur-principale{
+                        @include flex(row, space-between, center);
+                        height: 67px;
+                        margin-top: 10px;
+                        @each $key, $value in $btn-colors{
+                            ##{$key}{
+                                background-color: map-get($map: $value, $key: "bgcolor");
+                            }
+                        }
+                        .theme-color{
+                            margin-top: 20px;
+                            border-radius: 15px;
+                            width: 60px;
+                            height: 60px;
+                            background-color: pink;
+                            cursor: pointer;
+                            transition: 0.3s linear;
+                            &.theme-color-select{
+                                width: 65px;
+                                height: 65px;
+                                border: 2px solid $white;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
