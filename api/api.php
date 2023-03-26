@@ -2,8 +2,10 @@
 include("function.php");
 include("request.php");
 include("connectBDD.php");
+
 header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Headers:*");
+
 
 $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
@@ -24,6 +26,23 @@ if(count($segments_uri) == 2){
     if($segments_uri[0] == "get" && $segments_uri[1] == "plume"){ // récup toutes les plumes
         $allPlume = select("*", "plume");
         encodeJson($allPlume);
+
+        $returnPlume = [];
+        foreach($allPlume as $plume){
+            if(empty($plume["answer_to"])){
+                $returnPlume[$plume['id']]['user'] = $plume['user'];
+                $returnPlume[$plume['id']]['content'] = $plume['content'];
+                $returnPlume[$plume['id']]['hashtag'] = $plume['hashtag'];
+                $returnPlume[$plume['id']]['posted_at'] = $plume['posted_at'];
+            }
+            else{
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['user'] = $plume['user'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['content'] = $plume['content'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['hashtag'] = $plume['hashtag'];
+                $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['posted_at'] = $plume['posted_at'];
+            }
+        }
+        encodeJson($returnPlume);
     }
 
     else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){ // inscription d'un utilisateur
@@ -121,6 +140,18 @@ if(count($segments_uri) == 2){
         $dataUser = selectCondition("username,pseudo,mail,pp,banner,bio", "user", "username = '{$_GET['user']}'");
         encodeJson($dataUser);
     }
+    else if($segments_uri[0] == "post" && $segments_uri[1] == "inscription"){
+        echo("test");
+        if(isset($_POST['username']) && isset($_POST['pseudo']) && isset($_POST['password'])){
+            $username = $_POST['username'];
+            $pseudo = $_POST['pseudo'];
+            $password = sha1($_POST['password']);
+            $token = generateToken(16);
+            if($username <= 30 && $pseudo <= 30 && $password > 5){
+                
+            }
+        }
+    }
     else{
         echo "erreur 404";
     }
@@ -142,4 +173,9 @@ if(count($segments_uri) == 3){
         echo "erreur 404";
     }
 }
+else if(count($segments_uri) == 3){
+    if($segments_uri[0] == "post" && $segments_uri[1] == "reply"){
+    }
+}
+
 ?>

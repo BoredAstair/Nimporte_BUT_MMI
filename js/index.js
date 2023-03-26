@@ -80,6 +80,11 @@ function ongletsMenu(menu){
         }
     }
     document.getElementById(`${menu}`).classList.remove('none');
+    ResteEnHaut();
+}
+
+function ResteEnHaut(){
+    window.scrollTo(0,0);
 }
 
 
@@ -114,10 +119,10 @@ function traitement(){
         alert('Il y a eu un problème avec la requête.');
         }
     }
+}
 
 //popup suppression de compte
 popup = document.getElementById('popup-fond');
-html = document.getElementsByTagName('html');
 
 //permet d'afficher le popup
 function affiche(){
@@ -131,8 +136,18 @@ function quit(){
     popup.classList.toggle('none');
 }
 
-//Changement des images avec celle ajoutée par l'utilisateur
+//rempli les popup
+function suppression(){
+    affiche();
+    document.getElementById('texte-popup').innerText="Etes vous sûr de vouloir supprimer votre compte? Cette action est irréversible.";
+}
 
+function deconnexion(){
+    affiche();
+    document.getElementById('texte-popup').innerText="Souhaitez-vous vous déconnecter?";
+}
+
+//Changement des images avec celle ajoutée par l'utilisateur
 function preview(img, input){
     var preview = document.querySelector(img);
     var file = document.querySelector(input).files[0];
@@ -145,4 +160,20 @@ function preview(img, input){
     if (file){
         reader.readAsDataURL(file)
     }  
+}
+//la jolie barre jaune au hover
+function OngletBarre(number){
+    menubar = document.getElementsByClassName('selecteur');
+    for (const tab of menubar){
+        tab.classList.remove('selecteur-actif');
+    }
+    document.getElementById(`btn${number}`).classList.add('selecteur-actif');
+    plumes = document.getElementsByClassName('plumes');
+    for (const tab of plumes){
+        if (!tab.classList.contains('none')){
+            tab.classList.add('none');
+        }
+    }
+    document.getElementById(`${number}`).classList.remove('none');
+    ResteEnHaut();
 }
