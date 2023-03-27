@@ -158,6 +158,7 @@ function ongletsMenu(menu){
         requeteGetFollower();
     }
 }
+}
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
