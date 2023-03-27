@@ -69,6 +69,28 @@ function changeRetweet() {
     retweetElement.classList.toggle("rotate");
 }
 
+// comment
+function comment() {
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "none";
+    var containerCentre = document.querySelector(".tweet");
+    containerCentre.style.display = "none";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.show();
+    var comment = document.querySelector(".comment-tweet.none");
+    comment.classList.remove("none");
+}
+
+//retour home
+function retour() {
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "flex";
+    var containerCentre = document.querySelector(".tweet");
+    containerCentre.style.display = "flex";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.hide();
+}
+
 // open pop-up
 html = document.getElementsByTagName('html');
 function DoTweet() {
