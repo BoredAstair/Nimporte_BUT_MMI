@@ -1,13 +1,8 @@
-urlCourante = "";
-for(url of document.location.href.split("/")){
-    if(url != "index.html"){
-        urlCourante += url+"/";
-    }
-}
+urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 function getdatarequest(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = getdatatraitement;
-    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?userID=${localStorage.getItem('userID')}`, true);
+    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${localStorage.getItem('userID')}`, true);
     httpRequest.send();
 }
 

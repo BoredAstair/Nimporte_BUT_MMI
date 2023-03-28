@@ -1,3 +1,4 @@
+urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 logUser = "chouette";
 console.log(localStorage.getItem("userID"));
 function requeteGetFollower(){
@@ -40,7 +41,7 @@ function traitementGetFollower(){
                                 <span>@${plume['user']}</span>
                             </section>
                             <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
                             </section>
                         </section>       
                         <section class="tweet-message">
@@ -48,9 +49,9 @@ function traitementGetFollower(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment" onclick="comment()" >&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -137,7 +138,7 @@ function traitementGetTendance(){
                                             <span>@${plume['user']}</span>
                                         </section>
                                         <section class="tweet-save">
-                                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
                                         </section>
                                     </section>       
                                     <section class="tweet-message">
@@ -145,9 +146,9 @@ function traitementGetTendance(){
                                         <img id="" src="${srcImage}">
                                     </section>
                                     <section class="tweet-icons">
-                                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                                        <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
-                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                                        <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                                     </section>
                                 </section> 
                                 `;    
@@ -259,7 +260,7 @@ function traitementGetRecent(){
                                 <span>@${plume['user']}</span>
                             </section>
                             <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
                             </section>
                         </section>       
                         <section class="tweet-message">
@@ -267,9 +268,9 @@ function traitementGetRecent(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -510,7 +511,7 @@ function requeteGetSave(){
     let user = logUser;
     httpRequestGetSave = new XMLHttpRequest();
     httpRequestGetSave.onreadystatechange = traitementGetSave;
-    httpRequestGetSave.open('POST', 'api/savePlume.php/user', true);
+    httpRequestGetSave.open('POST', `${urlCourante}api/savePlume.php/user`, true);
     httpRequestGetSave.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"user": user});
     httpRequestGetSave.send(data);
@@ -549,7 +550,7 @@ function traitementGetSave(){
                                 <span>@${plume['user']}</span>
                             </section>
                             <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
                             </section>
                         </section>       
                         <section class="tweet-message">
@@ -557,9 +558,9 @@ function traitementGetSave(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
                     `;    
