@@ -73,7 +73,7 @@ function changeRetweet() {
 function comment() {
     var containerTop = document.querySelector(".top");
     containerTop.style.display = "none";
-    var containerCentre = document.querySelector(".tweet");
+    var containerCentre = document.getElementById("group-tweet");
     containerCentre.style.display = "none";
     var commentTweet = $(".comment-tweet");
     commentTweet.show();
