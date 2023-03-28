@@ -37,9 +37,7 @@ if($request_method == "GET" && count($segments_uri)==0){
         $i++;
     }
     encodeJson($userSend);
+    http_response_code(200);
     // debug($users);
-}
-else{
-    http_response_code(404);
 }
 ?>

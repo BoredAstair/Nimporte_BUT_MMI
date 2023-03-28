@@ -590,6 +590,7 @@ function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
     httpRequestAffichUser.open('GET', `${urlCourante}api/users.php`, true);
+    console.log(httpRequestAffichUser);
     httpRequestAffichUser.setRequestHeader("Content-Type", "application/json");
     httpRequestAffichUser.send();
 }
