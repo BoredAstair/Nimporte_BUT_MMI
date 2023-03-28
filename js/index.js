@@ -1,12 +1,6 @@
 // save
-
+urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 addEventListener('DOMContentLoaded', traitementPermission());
-urlCourante = "";
-for(url of document.location.href.split("/")){
-    if(url != "index.html"){
-        urlCourante += url+"/";
-    }
-}
 function traitementPermission(){
     let token = localStorage.getItem('token');
     httpRequest = new XMLHttpRequest();
@@ -38,7 +32,7 @@ function changeSave(id) {
 function getdatatweet(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = resgetdatatweet;
-    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?userID=${localStorage.getItem("userID")}`, true);
+    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${localStorage.getItem("userID")}`, true);
     httpRequest.send();
 }
 
@@ -83,7 +77,7 @@ function DoTweet() {
     let token = localStorage.getItem('token');
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify({"userID": localStorage.getItem("userID"), "content": plumecontent});
     httpRequest.send(data);
@@ -151,11 +145,12 @@ function ongletsMenu(menu){
         for (const tab of search){
             tab.classList.remove('none');
         }
-    if(menu == 'parameters'){
-        getdatarequest();
-    }
-    if(menu == 'home'){
-        requeteGetFollower();
+        if(menu == 'parameters'){
+            getdatarequest();
+        }
+        if(menu == 'home'){
+            requeteGetFollower();
+        }
     }
 }
 
@@ -167,7 +162,7 @@ function request(){
     wut = "Astair";
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitement;
-    httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
+    httpRequest.open('GET', `${urlCourante}api/api.php/get/data?user=${wut}`, true);
     httpRequest.send();
 }
 
