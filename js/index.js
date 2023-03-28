@@ -1,22 +1,24 @@
 // save
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
+
 addEventListener('DOMContentLoaded', traitementPermission());
 function traitementPermission(){
     let token = localStorage.getItem('token');
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    xhttpRequest = new XMLHttpRequest();
+    xhttpRequest.onreadystatechange = responsePermission;
+    xhttpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
+    xhttpRequest.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify({"autorization": localStorage.getItem("token")});
-    httpRequest.send(data);
+    xhttpRequest.send(data);
 }
 
 function responsePermission(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 401){
+    if (xhttpRequest.readyState === XMLHttpRequest.DONE) {
+        if (xhttpRequest.status === 401){
             window.location.href = 'connexion.html';
-        } else if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
+        }
+        if (xhttpRequest.status === 200) {
+            let response = JSON.parse(xhttpRequest.responseText);
             localStorage.setItem("userID", response.userID);
         }
     }    
@@ -174,7 +176,6 @@ function ongletsMenu(menu){
             requeteGetFollower();
         }
     }
-}
 }
 
 function ResteEnHaut(){

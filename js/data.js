@@ -1,4 +1,4 @@
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 function getdatarequest(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = getdatatraitement;

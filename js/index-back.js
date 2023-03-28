@@ -1,4 +1,4 @@
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 logUser = "chouette";
 console.log(localStorage.getItem("userID"));
 function requeteGetFollower(){
