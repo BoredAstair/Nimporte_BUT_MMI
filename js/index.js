@@ -175,7 +175,6 @@ function ongletsMenu(menu){
         }
     }
 }
-}
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
