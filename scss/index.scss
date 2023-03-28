@@ -287,84 +287,107 @@ html{
                             }
                         @include menu();
                     }
-                    .tweet{
-                        width: 80%;
-                        height: auto;
-                        background-color: $darkest-blue;
-                        border-radius: 20px;
-                        margin: auto;	
-                        margin-top: 50px;
-                        margin-bottom: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        align-items: center;  
-                            .tweet-profil{
-                                width: 90%;
-                                max-height: 50%;
-                                margin-top: 20px;
-                                display: flex;        
-                                justify-content: space-between;
-                                    .tweet-title{
-                                        display: flex; 
-                                        flex-direction: row;
-                                        align-items: center;
+                    @include plume;
+                    .comment-tweet{
+                        .retour{
+                            color: $white;
+                            font-size: 30px;
+                            margin: -5% 0 0 5%;
+                            cursor: pointer;
+                        }
+                        .comment{
+                            margin: 0 10% 0 10%;
+                            background-color: $darkest-blue;
+                            border-radius: 20px 20px 20px 20px;
+                            height: fit-content; 
+                            .top-comment{
+                                @include flex(row, space-between, center);
+                                .top-left{
+                                    @include flex(row, center, center);
                                         img{
                                             border-radius: 50%;
                                             width: 70px;
-                                            margin-left: 15px;
+                                            margin: 10px 15px 10px 25px;
                                             cursor:pointer;
                                         }
-                                        h3{
-                                            color: $white;
-                                            margin-left: 15px;
-                                            cursor:pointer;
-                                        }
-                                        span{
-                                            color: $disabled-text;
-                                            margin-left: 15px;
-                                        }
+                                    #textarea{
+                                        margin-left: 2px;
+                                        width: 650px;
+                                        background-color: $darkest-blue;
+                                        border: none;
+                                        resize: none;
+                                        padding: 15px 0 0 5px;
+                                        color: $white;
                                     }
-                                    .tweet-save{
-                                        display: flex;
-                                        justify-content: space-between;
-                                        margin-top: 20px;
-                                            i{
-                                                font-size: 30px;
-                                                cursor:pointer;
-                                                @include ColorChange();
-                                            }
-                                            span{
-                                                color: $white;
-                                                font-size: 20px;
-                                            }
+                                }
+                                .top-right{
+                                    #send{
+                                        font-family: 'Outfit', sans-serif;
+                                        margin-right: 25px;
+                                        background-color: $theme-color;
+                                        border-radius: 25px;
+                                        height: 40px;
+                                        border: none;
+                                        cursor: pointer;
                                     }
+                                }
                             }
-                            
-                            .tweet-message{
-                                height: auto;
-                                margin: 25px 0px 30px 0px;
-                                width: 90%;
-                                color: $white;
-                                    p{
-                                        font-size: 20px;
-                                        width: 90%;
+                            #trait{
+                                margin-top: 10px;
+                                border: 0.5px solid black;
+                            }
+                            .center-comment{
+                                margin: 0 20px 0 20px;
+                                #comment-compte{
+                                @include flex(row, normal, center);
+                                margin-top: 10px;
+                                img{
+                                    border-radius: 50%;
+                                    width: 70px;
+                                    margin: 10px 25px 10px 7px;
+                                    cursor:pointer;
+                                }
+                                h3{
+                                    color: $white;
+                                    margin-left: 15px;
+                                    cursor:pointer;
+                                }
+                                span{
+                                    color: $disabled-text;
+                                    margin-left: 15px;
+                                }
+                            }
+                            #texte{
+                                p{
+                                    margin: 5px 0 0 50px;
+                                    color: $white;
+                                    span{
+                                        color: $disabled-text;
                                     }
+                                }
+                            }
+                            #comment-message{
+                                margin: 3% 50px 10px 50px;
+                                padding-bottom: 10px;
+                                color: $white;
+                                text-align: justify;
+                                font-size: 16px;
                             }
                             .tweet-icons{  
+                                padding-bottom: 30px;
                                 width: 50%;
                                 max-height: 20px;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: end;
-                                justify-content: space-around;
-                                margin-bottom: 20px;
+                                @include flex(row, space-around, center);
+                                margin-left: 25%;
                                     i{
+                                        color: $theme-color;
                                         font-size: 20px;
                                         cursor:pointer;
-                                        @include ColorChange();
                                     }
                             }
+                            }
+                        }
+
                     }
             }
             .container-droite {
@@ -574,7 +597,7 @@ html{
                         font-size: 15px;
                         position:fixed;
                         width: 14%;
-                        img{
+                        img{ 
                             border-radius: 50%;
                             height: 70px;
                             cursor:pointer;
