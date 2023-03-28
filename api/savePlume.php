@@ -94,12 +94,6 @@ if($request_method == "POST"){
             encodeJson($saved);
         }
     }
-    else{
-        http_response_code(404);
-    }
-}
-else{
-    http_response_code(404);
 }
 // $savedPlume = selectConditionJoin("*","save_plume","plume","save_plume.user = '{$segments_uri[2]}'","RIGHT","save_plume.plume_id","plume.id");
 // encodeJson($savedPlume);
