@@ -50,7 +50,7 @@ function traitementGetFollower(){
                         </section>
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color" onclick="comment()>&ensp;<span class="comment">0</span></i>
                             <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
