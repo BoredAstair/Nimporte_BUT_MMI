@@ -663,8 +663,6 @@ function traitementAffichUserSave(){
     }       
 }
 
-
-
 requeteGetFollower();
 setTimeout(()=>{
     requeteStateLike();
