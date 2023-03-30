@@ -646,6 +646,7 @@ function traitementAffichUserSave(){
 }
 
 function requeteAffichReply(id){
+    console.log(id);
     let plume = id;
     httpRequestAffichReply = new XMLHttpRequest();
     httpRequestAffichReply.onreadystatechange = traitementAffichReply;
@@ -658,8 +659,8 @@ function traitementAffichReply(){
     if (httpRequestAffichReply.readyState === XMLHttpRequest.DONE) {
         if (httpRequestAffichReply.status === 200) {
             let response = JSON.parse(httpRequestAffichReply.responseText);
+            console.log(response);
             newComment();
-            console.log(localStorage.getItem("userPP"));
             if(localStorage.getItem("userPP")=="null"){
                 srcPP = "ressource/icones/default-profile.jpg";
             }
@@ -685,6 +686,9 @@ function traitementAffichReply(){
                     else{
                         srcImg = "";
                     }
+                    console.log(plume["id"]);
+                    console.log(plume["pseudo"]);
+                    console.log(plume["content"]);
                     containerComment[0].innerHTML += `
                         <section class="retour" onclick="retour()">
                             <p><i class="fa-solid fa-arrow-left" onclick="retour()"></i> Retour</p>

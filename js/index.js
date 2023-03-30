@@ -60,7 +60,6 @@ function affProfil(x){
 // like
 function changeHeart(id) {
     var HeartElement = document.getElementById(`HeartElement-${id}`);
-    console.log(HeartElement);
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
@@ -90,7 +89,7 @@ function newComment(){
     containerCentre.style.display = "none";
     var commentTweet = $(".comment-tweet");
     commentTweet.show();
-    var comment = document.querySelector(".comment-tweet.none");
+    var comment = document.getElementsByClassName("comment-tweet")[0];
     comment.classList.remove("none");
 }
 
@@ -103,6 +102,9 @@ function retour() {
     containerCentre.style.flexDirection = "column";
     var commentTweet = $(".comment-tweet");
     commentTweet.hide();
+    containerComment = document.getElementsByClassName("comment-tweet");
+    containerComment[0].innerHTML = "";
+    requeteGetFollower();
 }
 
 // open pop-up
