@@ -672,6 +672,7 @@ function traitementAffichReply(){
             for(plume of response){
                 if(plume["answer_to"]==null){
                     userPlume = plume["username"];
+                    plumeId = plume["id"];
                     if(plume["pp"]!=null){
                         src = plume["pp"];
                     }
@@ -720,7 +721,7 @@ function traitementAffichReply(){
                             <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                         </section>
                         <section class="top-right">
-                            <button id="send" onclick="requeteReply()">Répondre <i class="fa-solid fa-arrow-right"></i></button>
+                            <button id="send" onclick="requeteReply(${plumeId})">Répondre <i class="fa-solid fa-arrow-right"></i></button>
                         </section>
                     </section>
                     <section id="trait"></section>
@@ -781,6 +782,28 @@ function traitementAffichReply(){
                     }
                 }
             });
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+function requeteReply(id){
+    let plume = id;
+    let user = logUser;
+    let content = document.getElementById("textarea").value;
+    httpRequestReply = new XMLHttpRequest();
+    httpRequestReply.onreadystatechange = traitementReply;
+    httpRequestReply.open('POST', `${urlCourante}api/reply.php`, true);
+    httpRequestReply.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"plume": plume, "user":user, "content":content});
+    httpRequestReply.send(data);
+}
+function traitementReply(){
+    if (httpRequestReply.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestReply.status === 200) {
+            let response = JSON.parse(httpRequestReply.response);
+            requeteAffichReply(response['plume']);
         } 
         else {
             alert('Il y a eu un problème avec la requête.');

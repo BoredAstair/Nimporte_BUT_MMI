@@ -9,12 +9,12 @@ $request_method = $_SERVER['REQUEST_METHOD']; //récup le verbe d'action
 $request_uri = $_SERVER['REQUEST_URI']; //récup l'uri
 $request_headers = getallheaders(); // récup les en-têtes HTTP
 $request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
+$data = json_decode($request_body, true);
 $erreur = [];
-if(isset($_GET['user'])&&isset($_GET['plume'])&&isset($_POST['content'])){
-    $user = $_GET['user'];
-    $plume = $_GET['plume'];
-    $content = $_POST['content'];
-
+if(isset($data['user'])&&isset($data['plume'])&&isset($data['content'])){
+    $user = $data['user'];
+    $plume = $data['plume'];
+    $content = $data['content'];
     $requestUser = "SELECT * FROM user";
     $selectUser = $bdd -> prepare($requestUser);
     $selectUser -> execute();
@@ -45,7 +45,8 @@ if(isset($_GET['user'])&&isset($_GET['plume'])&&isset($_POST['content'])){
             ':content' => $content,
             ':answer_to' => $plume,
             ':posted_at' => date("Y-m-d H:i:s")
-        ]);   
+        ]);  
+        $erreur["plume"] = $plume; 
         $erreur["state"] = "valide";    
         encodeJson($erreur);
     }
