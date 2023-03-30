@@ -1,5 +1,6 @@
 urlCourante = "http://localhost/owlTree/";
-function getdatarequest(x){
+function getdatarequest(x,y){
+
     httpRequest = new XMLHttpRequest();
     if(x == "param"){
         httpRequest.onreadystatechange = getdatatraitementparam;
@@ -7,7 +8,7 @@ function getdatarequest(x){
     if(x == "profile"){
         httpRequest.onreadystatechange = getdatatraitementprofile;
     }
-    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${localStorage.getItem('userID')}`, true);
+    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${y}`, true);
     httpRequest.send();
 }
 
