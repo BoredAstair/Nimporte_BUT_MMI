@@ -56,10 +56,18 @@
     <section class="contenu" id="home">
         <section class="container-centre">
             <section class="top">
-
-                <h2 class="title-top" onclick="requeteGetFollower()">Followers</h2>
-                <h2 class="title-top" onclick="requeteGetRecent()">Dernière plumes</h2>
-                <h2 class="title-top" onclick="requeteGetTendance()">Tendances</h2>
+                <div class="btn-menu-profil" onclick="requeteGetFollower()">
+                    <h2 class="title-top">Followers</h2>
+                    <div class="selecteur-menu selecteur-actif select-color yellow" id="btn4"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="requeteGetRecent()">
+                    <h2 class="title-top">Dernière plumes</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn5"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="requeteGetTendance()">
+                    <h2 class="title-top">Tendances</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn6"></div>
+                </div>
             </section>
             <section class="comment-tweet none">
             </section>

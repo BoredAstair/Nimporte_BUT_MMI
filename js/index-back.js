@@ -12,6 +12,7 @@ function requeteGetFollower(){
 function traitementGetFollower(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
+            OngletBarreMenu('4');
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
@@ -105,6 +106,7 @@ function requeteGetTendance(){
 function traitementGetTendance(){
     if (httpRequestTendance.readyState === XMLHttpRequest.DONE) {
         if (httpRequestTendance.status === 200) {
+            OngletBarreMenu('6');
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
@@ -231,6 +233,7 @@ function requeteGetRecent(){
 function traitementGetRecent(){
     if (httpRequestRecent.readyState === XMLHttpRequest.DONE) {
         if (httpRequestRecent.status === 200) {
+            OngletBarreMenu('5');
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
