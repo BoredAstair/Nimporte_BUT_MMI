@@ -55,6 +55,7 @@ function resgetdatatweet(){
 // like
 function changeHeart(id) {
     var HeartElement = document.getElementById(`HeartElement-${id}`);
+    console.log(HeartElement);
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
@@ -77,12 +78,24 @@ function comment() {
     comment.classList.remove("none");
 }
 
+function newComment(){
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "none";
+    var containerCentre = document.getElementById("group-tweet");
+    containerCentre.style.display = "none";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.show();
+    var comment = document.querySelector(".comment-tweet.none");
+    comment.classList.remove("none");
+}
+
 //retour home
 function retour() {
     var containerTop = document.querySelector(".top");
     containerTop.style.display = "flex";
-    var containerCentre = document.querySelector(".tweet");
+    var containerCentre = document.getElementById("group-tweet");
     containerCentre.style.display = "flex";
+    containerCentre.style.flexDirection = "column";
     var commentTweet = $(".comment-tweet");
     commentTweet.hide();
 }
