@@ -177,6 +177,12 @@ function ongletsMenu(menu,x){
         if(menu == 'profile'){
             if (x == 'clicked'){
                 getdatarequest('profile',localStorage.getItem("userID"));
+                document.getElementById("follow").disabled = "disabled";
+                document.getElementById("follow").classList.add("none");
+            }
+            else{
+                document.getElementById("follow").disabled = "enabled";
+                document.getElementById("follow").classList.remove("none");
             }
         }
         if(menu == 'parameters'){
