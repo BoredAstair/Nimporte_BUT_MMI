@@ -18,6 +18,8 @@ function responsePermission(){
         } else if (xhttpRequest.status === 200) {
             let response = JSON.parse(xhttpRequest.responseText);
             localStorage.setItem("userID", response.userID);
+            localStorage.setItem("userPP", response.userPP);
+            localStorage.setItem("userPseudo", response.userPseudo);
         }
     }    
 }
