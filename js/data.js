@@ -1,5 +1,6 @@
 urlCourante = "http://localhost/owlTree/";
 function getdatarequest(x,y){
+
     httpRequest = new XMLHttpRequest();
     if(x == "param"){
         httpRequest.onreadystatechange = getdatatraitementparam;

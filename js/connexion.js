@@ -1,9 +1,4 @@
-urlCourante = "";
-for(url of document.location.href.split("/")){
-    if(url != "connexion.html"){
-        urlCourante += url+"/";
-    }
-}
+urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 function con(){
     document.getElementById("patate").innerHTML =`<div id="SideConnexion">
     <div id="AfficheErreur">
