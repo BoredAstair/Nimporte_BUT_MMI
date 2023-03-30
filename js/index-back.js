@@ -1,6 +1,6 @@
 urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 logUser = "chouette";
-console.log(localStorage.getItem("userID"));
+// console.log(localStorage.getItem("userID"));
 function requeteGetFollower(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementGetFollower;
@@ -15,7 +15,7 @@ function traitementGetFollower(){
         if (httpRequest.status === 200) {
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
-            console.log("follower");
+            // console.log("follower");
             let response = JSON.parse(httpRequest.responseText);
             // console.log(response);
             for(plume of response){
@@ -50,7 +50,7 @@ function traitementGetFollower(){
                         </section>
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
                             <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
@@ -147,7 +147,7 @@ function traitementGetTendance(){
                                     </section>
                                     <section class="tweet-icons">
                                         <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                                        <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                                        <i class="fa-regular fa-comment yellow select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
                                         <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                                     </section>
                                 </section> 
@@ -194,7 +194,7 @@ function traitementGetTendance(){
                                 </section>
                                 <section class="tweet-icons">
                                     <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                                    <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
+                                    <i class="fa-regular fa-comment" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
                                     <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                                 </section>
                             </section> 
@@ -269,7 +269,7 @@ function traitementGetRecent(){
                         </section>
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
+                            <i class="fa-regular fa-comment yellow select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
                             <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
                     </section> 
@@ -310,7 +310,8 @@ function traitementLike(){
     if (httpRequestPostLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostLike.status === 200) {
             responsePostLike = JSON.parse(httpRequestPostLike.responseText);
-            // console.log(httpRequestPostLike.responseText);
+            console.log(responsePostLike);
+            console.log(document.getElementById(`HeartElement-${responsePostLike.idPlume}`));
             if(responsePostLike.state == "valide"){
                 changeHeart(responsePostLike.idPlume);
                 requeteNbLike();
@@ -333,13 +334,14 @@ function traitementNbLike(){
     if (httpRequestLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestLike.status === 200) {
             responseLike = JSON.parse(httpRequestLike.responseText);
-            // console.log(responseLike);
+            console.log(responseLike);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
                 exist = false;
                 let id = tweet.id.split("-");
                 for(like of responseLike){
                     if(id[1]==like["plume_id"]){
+                        console.log(tweet.children[2].children[0].children[0]);
                         tweet.children[2].children[0].children[0].innerText = like['nb_like'];
                         exist = true;
                     }
@@ -558,7 +560,7 @@ function traitementGetSave(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="yellow select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
                             <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
                             <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
                         </section>
@@ -590,13 +592,13 @@ function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
     httpRequestAffichUser.open('GET', `${urlCourante}api/users.php`, true);
-    console.log(httpRequestAffichUser);
+    // console.log(httpRequestAffichUser);
     httpRequestAffichUser.setRequestHeader("Content-Type", "application/json");
     httpRequestAffichUser.send();
 }
 function traitementAffichUser(){
     if (httpRequestAffichUser.readyState === XMLHttpRequest.DONE) {
-        console.log(httpRequestAffichUser.status);
+        // console.log(httpRequestAffichUser.status);
         if (httpRequestAffichUser.status === 200) {
             let response = JSON.parse(httpRequestAffichUser.response);
             document.getElementById("profils-save").innerHTML = ""
@@ -656,6 +658,142 @@ function traitementAffichUserSave(){
                 </section>
                 `;               
             }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+function requeteAffichReply(id){
+    let plume = id;
+    httpRequestAffichReply = new XMLHttpRequest();
+    httpRequestAffichReply.onreadystatechange = traitementAffichReply;
+    httpRequestAffichReply.open('POST', `${urlCourante}api/affichReply.php`, true);
+    httpRequestAffichReply.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"plume": plume});
+    httpRequestAffichReply.send(data);
+}
+function traitementAffichReply(){
+    if (httpRequestAffichReply.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestAffichReply.status === 200) {
+            let response = JSON.parse(httpRequestAffichReply.responseText);
+            // console.log(response);
+            newComment();
+            document.getElementById("group-tweet").innerHTML = "";
+            containerComment = document.getElementsByClassName("comment-tweet");
+            containerComment[0].innerHTML = "";
+            for(plume of response){
+                if(plume["answer_to"]==null){
+                    userPlume = plume["username"];
+                    if(plume["pp"]!=null){
+                        src = plume["pp"];
+                    }
+                    else{
+                        src = "ressource/icones/default-profile.jpg";
+                    }
+                    if(plume["image"]!=null){
+                        srcImg = plume["image"];
+                    }
+                    else{
+                        srcImg = "";
+                    }
+                    containerComment[0].innerHTML += `
+                        <section class="retour" onclick="retour()">
+                            <p><i class="fa-solid fa-arrow-left" onclick="retour()"></i> Retour</p>
+                        </section>
+                        <section class="tweet">
+                            <section class="tweet-profil">
+                                <section class="tweet-title">
+                                    <img src="${src}" class="photo">
+                                    <h3>${plume["pseudo"]}</h3>
+                                    <span>@${plume["username"]}</span>
+                                </section>
+                                <section class="tweet-save">
+                                    <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
+                                </section>
+                            </section>       
+                            <section class="tweet-message">
+                                <p>${plume["content"]}</p>
+                                <img id="" src="${srcImg}">
+                            </section>
+                            <section class="tweet-icons">
+                                <i id="HeartElement-${plume['id']}" class="yellow select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                                <i class="fa-regular fa-comment yellow select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            </section>
+                        </section>
+                    `;
+                }
+            }
+            containerComment[0].innerHTML += `
+                <section class="comment">
+                    <section class="top-comment">
+                        <section class="top-left">
+                            <img src="https://dummyimage.com/500x500/000/fff" class="photo">
+                            <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                        </section>
+                        <section class="top-right">
+                            <button id="send">Répondre <i class="fa-solid fa-arrow-right"></i></button>
+                        </section>
+                    </section>
+                    <section id="trait"></section>
+                    <section class="center-comment">
+                    </section>
+                </section>
+
+            `;
+            setTimeout(()=>{
+                centerComment = document.getElementsByClassName("center-comment");
+                centerComment[0].innerHTML = "";
+                for(plume of response){
+                    if(plume["answer_to"]!=null){
+                        // console.log(plume["answer_to"]);
+                        if(plume["pp"]!=null){
+                            src = plume["pp"];
+                        }
+                        else{
+                            src = "ressource/icones/default-profile.jpg";
+                        }
+                        if(plume["image"]!=null){
+                            srcImg = plume["image"];
+                        }
+                        else{
+                            srcImg = "";
+                        }
+                        centerComment[0].innerHTML += `
+                            <section id="comment-compte">
+                                <img src="${src}" class="photo">
+                                <h3>${plume["pseudo"]}</h3>
+                                <span>@${plume["username"]}</span>
+                            </section>
+                            <section id="texte">
+                                <p>En réponse à <span>@${userPlume}</span></p>
+                            </section>
+                            <section id="comment-message">
+                                <p>${plume["content"]}</p>
+                            </section>
+                            <section class="tweet-icons">
+                                <i id="HeartElement-${plume['id']}" class="yellow select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
+                                <i class="fa-regular fa-comment yellow select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            </section>
+                        `;  
+                        setTimeout(()=>{
+                            requeteStateLike();
+                            requeteNbLike();
+                            requeteNbPreen();
+                            requeteNbComment();
+                            setTimeout(()=>{
+                                requeteStateSave();
+                                setTimeout(()=>{
+                                    requeteAffichUser();
+                                });            
+                            },250);
+                        });              
+                    }
+                }
+            });
         } 
         else {
             alert('Il y a eu un problème avec la requête.');
