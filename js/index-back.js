@@ -1,4 +1,4 @@
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 logUser = localStorage.getItem("userID");
 // console.log(localStorage.getItem("userID"));
 function requeteGetFollower(){
@@ -529,7 +529,11 @@ function traitementGetSave(){
         if (httpRequestGetSave.status === 200) {
             ongletsMenu('save');
             document.getElementById("group-tweet").innerHTML = "";
-            document.getElementById("save-container-centre").innerHTML = `<div id="no-save" class="none">Vous n'avez rien enregistré !</div>`;
+            document.getElementById("save-container-centre").innerHTML = 
+        `<div id="no-save" class="none">
+            <img id="yaR" src="ressource/icones/yaR.png">
+            <p>Vous n'avez rien enregistré pour l'instant, cliquez sur &ensp;<i class="fa-regular fa-bookmark"></i> &ensp;pour enregistrer une plume pour plus tard...</p>
+        </div>`;
             let response = JSON.parse(httpRequestGetSave.responseText);
             // console.log(response);
             if(response['etat']!=undefined){

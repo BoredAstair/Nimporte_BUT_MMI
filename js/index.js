@@ -1,5 +1,5 @@
 // save
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 addEventListener('DOMContentLoaded', traitementPermission());
 function traitementPermission(){
     let token = localStorage.getItem('token');

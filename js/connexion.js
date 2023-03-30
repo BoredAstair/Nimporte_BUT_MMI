@@ -1,4 +1,4 @@
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 function con(){
     document.getElementById("patate").innerHTML =`<div id="SideConnexion">
     <div id="AfficheErreur">
