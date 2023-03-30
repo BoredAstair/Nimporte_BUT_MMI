@@ -327,7 +327,6 @@ function OngletBarreMenu(number){
             tab.classList.add('none');
         }
     }
-    document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
 }
 
