@@ -51,6 +51,11 @@ function resgetdatatweet(){
     }
 }
 
+function affProfil(x){
+    ongletsMenu('profile','');
+    getdatarequest('profile',x);
+}
+
 
 // like
 function changeHeart(id) {
@@ -145,7 +150,7 @@ function insertImage() {
 }
 
 //onglets du menu
-function ongletsMenu(menu){
+function ongletsMenu(menu,x){
     menuElements = document.getElementsByClassName('onglet');
     for (const tab of menuElements){
         tab.classList.remove('actif');
@@ -169,8 +174,13 @@ function ongletsMenu(menu){
         for (const tab of search){
             tab.classList.remove('none');
         }
+        if(menu == 'profile'){
+            if (x == 'clicked'){
+                getdatarequest('profile',localStorage.getItem("userID"));
+            }
+        }
         if(menu == 'parameters'){
-            getdatarequest();
+            getdatarequest('param',localStorage.getItem('userID'));
         }
         if(menu == 'home'){
             requeteGetFollower();

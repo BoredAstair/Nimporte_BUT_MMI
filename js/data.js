@@ -1,12 +1,17 @@
 urlCourante = "http://localhost/owlTree/";
-function getdatarequest(){
+function getdatarequest(x,y){
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = getdatatraitement;
-    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${localStorage.getItem('userID')}`, true);
+    if(x == "param"){
+        httpRequest.onreadystatechange = getdatatraitementparam;
+    }
+    if(x == "profile"){
+        httpRequest.onreadystatechange = getdatatraitementprofile;
+    }
+    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${y}`, true);
     httpRequest.send();
 }
 
-function getdatatraitement(){
+function getdatatraitementparam(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
@@ -21,6 +26,28 @@ function getdatatraitement(){
             }
             if(response[0]["bio"]){
                 document.getElementById("biography").value = response[0]["bio"];
+            }
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
+function getdatatraitementprofile(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+            document.getElementById("username-profile").innerText = "@" + response[0]["username"];
+            document.getElementById("pseudo-profile").innerText = response[0]["pseudo"];
+            if(response[0]["pp"]){
+                document.getElementById("profile-picture").src = `upload/profile/${response[0]["pp"]}`;
+            }
+            if(response[0]["banner"]){
+                document.getElementById("banniere-profil").src = 'upload/banner/'+response[0]["banner"];
+            }
+            if(response[0]["bio"]){
+                document.getElementById("biography-profile").innerText = response[0]["bio"];
             }
         } else {
         alert('Il y a eu un problème avec la requête.');
