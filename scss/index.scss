@@ -261,7 +261,7 @@ html{
                 flex-direction: column;
                 justify-content: center;
                 #group-tweet{
-                    margin-top: 20%;
+                    margin-top: 8%;
                 }
                 .rotate {
                     animation: rotate 1s ease-in-out;
@@ -304,6 +304,11 @@ html{
                                 margin: 0;
                                 padding-top: 10px;
                                 padding-left: 10px;
+                            }
+                        }
+                        i{
+                            &.fa-comment{
+                                display: flex;
                             }
                         }
                         .comment{
@@ -396,11 +401,14 @@ html{
                                         max-height: 20px;
                                         @include flex(row, space-around, center);
                                         margin-left: 25%;
-                                            i{
-                                                color: $theme-color;
-                                                font-size: 20px;
-                                                cursor:pointer;
+                                        i{
+                                            color: $theme-color;
+                                            font-size: 20px;
+                                            cursor:pointer;
+                                            &.fa-comment{
+                                                display: flex;
                                             }
+                                        }
                                     }    
                                 }
                             }
