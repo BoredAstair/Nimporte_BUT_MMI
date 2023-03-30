@@ -298,7 +298,6 @@ html{
                         .retour{
                             color: $white;
                             font-size: 30px;
-                            // margin: -5% 0 0 5%;
                             cursor: pointer;
                             p{
                                 margin: 0;
@@ -413,7 +412,6 @@ html{
                                 }
                             }
                         }
-
                     }
             }
             .container-droite {
@@ -493,7 +491,6 @@ html{
                 height: 100vh;
 
                 #save-container-centre {
-
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
@@ -523,83 +520,7 @@ html{
                           transform: rotate(360deg);
                         }
                     }
-                        .tweet{
-                            width: 80%;
-                            height: auto;
-                            background-color: $darkest-blue;
-                            border-radius: 20px;
-                            margin: auto;	
-                            margin-top: 50px;
-                            margin-bottom: 20px;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            align-items: center;  
-                            .tweet-profil{
-                                width: 90%;
-                                max-height: 50%;
-                                margin-top: 20px;
-                                display: flex;        
-                                justify-content: space-between;
-                                .tweet-title{
-                                    display: flex; 
-                                    flex-direction: row;
-                                    align-items: center;
-                                    img{
-                                        border-radius: 50%;
-                                        width: 70px;
-                                        margin-left: 15px;
-                                        cursor:pointer;
-                                    }
-                                    h3{
-                                        color: $white;
-                                        margin-left: 15px;
-                                        cursor:pointer;
-                                    }
-                                    span{
-                                        color: $disabled-text;
-                                        margin-left: 15px;
-                                    }
-                                }
-                                .tweet-save{
-                                    display: flex;
-                                    justify-content: space-between;
-                                    margin-top: 20px;
-                                    i{
-                                        font-size: 30px;
-                                        cursor:pointer;
-                                    }
-                                    span{
-                                        color: $white;
-                                        font-size: 20px;
-                                    }
-                                }
-                            }
-                            
-                            .tweet-message{
-                                height: auto;
-                                margin: 25px 0px 30px 0px;
-                                width: 90%;
-                                color: $white;
-                                    p{
-                                        font-size: 20px;
-                                        width: 90%;
-                                    }
-                            }
-                            .tweet-icons{  
-                                width: 50%;
-                                max-height: 20px;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: end;
-                                justify-content: space-around;
-                                margin-bottom: 20px;
-                                    i{
-                                        font-size: 20px;
-                                        cursor:pointer;
-                                    }
-                            }
-                        }
+                    @include plume();
                 }
                 .save-container-droite {
                     @include searchBar(50px, 15px, 90%);

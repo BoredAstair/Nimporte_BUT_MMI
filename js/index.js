@@ -247,9 +247,6 @@ function ongletsMenu(menu,x){
                 document.getElementById("follow").classList.remove("none");
             }
         }
-        if(menu == 'home'){
-            requeteGetFollower();
-        }
     }
 }
 
@@ -345,5 +342,6 @@ function ThemeColor(color){
         tab.classList.remove('blue');
         tab.classList.remove('green');
         tab.classList.add(`${color}`);
+        localStorage.setItem("themeColor", color);
     }
 }
