@@ -214,3 +214,91 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
         }
     }
 }
+
+//recommendation profil
+@mixin RecoProfils(){
+    .rapide{
+        width: 80%;
+        height: auto;
+        background-color: $darkest-blue;
+        margin-top: 10%;
+        text-align: center;
+        border-radius: 20px;
+        color: $white;
+        font-size: 15px;
+        position:fixed;
+        width: 14%;
+        h3{
+            margin-top: 30px;
+            font-size: 15px;
+            cursor:pointer;
+            padding: 25px 15px;
+            text-align: center;
+            margin: 0;
+        }
+        .account{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin: 20px;
+            img{ 
+                border-radius: 50%;
+                height: 60px;
+                width: 60px;
+                cursor:pointer;
+                align-self: flex-start;
+            }
+            .account-title{
+                @include flex(column, center, normal);
+                h3{
+                    margin: 0;
+                    padding: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 130px;
+                }
+                span{
+                    color: $disabled-text;
+                    margin: 0;
+                    cursor:pointer;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 130px;
+                }
+            }
+        }
+    }
+}
+
+//container droite
+@mixin ContainerDroite(){
+    @include searchBar(50px, 15px, 90%);
+    width: 17%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: $fond;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include RecoProfils();
+    .tweeter{
+        height: 90px;
+        width: 90px;
+        border-radius: 50%;
+        position: fixed;
+        bottom: 3%;
+        right: 3%;
+        text-align: center;
+        cursor:pointer;
+        @include BgColorChange();
+        i{
+            margin-top: 20px;
+            color: $darkest-blue;
+            font-size: 40px;
+            cursor:pointer;
+        }
+    }
+}

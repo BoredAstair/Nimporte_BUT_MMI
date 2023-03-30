@@ -2,7 +2,7 @@ urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 function con(){
     document.getElementById("patate").innerHTML =`<div id="SideConnexion">
     <div id="AfficheErreur">
-        <p id="erreur">Veuillez entrer un mot de passe entre 5 et 30 caractères.</p>
+        <p id="erreur"></p>
     </div>
     <div id="form">
         <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" autocomplete="off">
@@ -15,7 +15,7 @@ function con(){
 function ins(){
     document.getElementById("patate").innerHTML =`<div id="SideInscription">
     <div id="AfficheErreur">
-        <p id="erreur">Merci de rentrer un nom d'utilisateur inférieur à 30 caractères. </br> Merci de rentrer un pseudo inférieur à 30caractères. </br>Le nom d'utilisateur est déjà utilisé, veuillez en utiliser un autre.</p>
+        <p id="erreur"></p>
     </div>
     <div id="form">
         <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" autocomplete="off">
@@ -45,11 +45,13 @@ function traitementInscription(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
             if(response.state == "valide"){
                 localStorage.setItem("token",response.token);
                 window.location.href = "index.html";
             }
             else{
+                document.getElementById("erreur").innerHTML ="";
                 if(response.username){
                     document.getElementById("erreur").innerHTML += `${response.username}<br>`;
                     document.getElementById("erreur").style.display = "block";                       
@@ -64,6 +66,10 @@ function traitementInscription(){
                 }
                 if(response.userExist){
                     document.getElementById("erreur").innerHTML += `${response.userExist}<br>`;
+                    document.getElementById("erreur").style.display = "block";                       
+                }
+                if(response.input){
+                    document.getElementById("erreur").innerHTML += `${response.input}<br>`;
                     document.getElementById("erreur").style.display = "block";                       
                 }
             }
@@ -89,11 +95,13 @@ function traitementConnexion(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200){
             let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
             if(response.state == "valide"){
                 localStorage.setItem("token", response.token);
                 window.location.href = "index.html";
             }
             else{
+                document.getElementById("erreur").innerHTML ="";
                 if(response.user){
                     document.getElementById("erreur").innerHTML += `${response.user}<br>`;
                     document.getElementById("erreur").style.display = "block";                       

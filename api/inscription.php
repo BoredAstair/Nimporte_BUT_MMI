@@ -11,14 +11,20 @@ $request_headers = getallheaders(); // récup les en-têtes HTTP
 $request_body = file_get_contents('php://input'); //récup les infos rempli par l'utilisateur dans une requête post par ex
 $data = json_decode($request_body, true);
 $erreur = [];
-if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']) && isset($data['mail'])){
+if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']) && isset($data['mail']) && $data['username']!="" && $data['pseudo']!="" && $data['password']!="" && $data['mail']!=""){
     $username = $data['username'];
     $pseudo = $data['pseudo'];
     $password = sha1($data['password']);
     $mail = $data['mail'];
     $token = generateToken(16);
     $usernames = select("username", "user");
-    if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($data['password']) > 5 && !in_array($username, $usernames)){
+    $exist = false;
+    foreach($usernames as $user){
+        if($user['username'] == $username){
+            $exist = true;
+        }
+    }
+    if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($data['password']) > 5 && $exist==false){
         $request = 'INSERT INTO user(username, mail, pseudo, password, token, token_date) VALUES(:username, :mail, :pseudo, :password, :token, :token_date)';
         $insert = $bdd -> prepare($request);
         $insert -> execute([
@@ -43,8 +49,8 @@ if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']
         if(strlen($data['password']) <= 5){
             $erreur['password'] = "Merci de rentrer un mot de passe supérieur à 5 caractères";
         }
-        if(in_array($username, $usernames)){
-            $erreur['userExist'] = "Le nom d'utilisateur est déjà utilisé veuillez en utilisé un autre";
+        if($exist==true){
+            $erreur['userExist'] = "Le nom d'utilisateur est déjà utilisé veuillez en choisir un autre";
         }    
         encodeJson($erreur);
     }    

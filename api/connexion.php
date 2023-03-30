@@ -22,7 +22,9 @@ $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
 $erreur = [];
 if($request_method=="POST" && count($segments_uri)==0){
-    if(isset($data['username']) && isset($data['password'])){
+    $erreur['username'] = $data["username"];
+    $erreur['mdp'] = $data["password"];
+    if(isset($data['username']) && isset($data['password']) && $data['username']!="" && $data['password']!=""){
         $username = $data['username'];
         $password = sha1($data['password']);
         $usernames = select("username", "user");
@@ -46,21 +48,22 @@ if($request_method=="POST" && count($segments_uri)==0){
                 $erreur["token"] = $token;
                 
     
-                encodeJson($erreur);
+                // encodeJson($erreur);
             }
             else{
                 $erreur['password'] = "Le mot de passe est erronné";
-                encodeJson($erreur);
+                // encodeJson($erreur);
             }
         }
         else{
             $erreur['user'] = "Le nom d'utilisateur n'existe pas";
-            encodeJson($erreur);
+            // encodeJson($erreur);
         }
     }
     else{
         $erreur['champ'] = "Merci de remplir tous les champs";
-        encodeJson($erreur);
-    }    
+        // encodeJson($erreur);
+    } 
+    encodeJson($erreur);   
 }
 ?>

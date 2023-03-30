@@ -252,17 +252,14 @@ html{
         #home{
             @include flex(row, normal, normal);
             width: 100%;
-            .container-centre {
-                // padding-top: 8vh;
+            .container-centre{
+                padding-top: 8vh;
                 padding-left: 17%;
                 width: 66%;
                 min-height: 100vh;
                 background-color: $fond-plumes;
                 flex-direction: column;
                 justify-content: center;
-                #group-tweet{
-                    margin-top: 8%;
-                }
                 .rotate {
                     animation: rotate 1s ease-in-out;
                 }
@@ -274,213 +271,150 @@ html{
                       transform: rotate(360deg);
                     }
                 }
-                    .top {
-                        height: 8vh;
-                        background-color: $darkest-blue;
+                .top {
+                    height: 8vh;
+                    background-color: $darkest-blue;
+                    color: $white;
+                    @include flex(row, space-around, center);
+                    border-radius: 0 0 20px 20px;
+                    position: fixed;
+                    top: 0;
+                    width: 66%;
+                        .title-top{
+                            margin-top: auto;
+                            margin-bottom: 0;
+                            cursor:pointer;
+                        }
+                    @include menu();
+                }
+                @include plume;
+                .comment-tweet{
+                    background-color: $darkest-blue;
+                    min-height: 100vh;
+                    padding-bottom: 20px;
+                    .retour{
                         color: $white;
-                        @include flex(row, space-around, center);
-                        border-radius: 0 0 20px 20px;
-                        position: fixed;
-                        top: 0;
-                        width: 66%;
-                            .title-top{
-                                margin-top: auto;
-                                margin-bottom: 0;
-                                cursor:pointer;
-                            }
-                        @include menu();
+                        font-size: 30px;
+                        cursor: pointer;
+                        p{
+                            margin: 0;
+                            padding-top: 10px;
+                            padding-left: 10px;
+                        }
                     }
-                    @include plume;
-                    .comment-tweet{
-                        background-color: $darkest-blue;
-                        min-height: 100vh;
-                        padding-bottom: 20px;
-                        .retour{
-                            color: $white;
-                            font-size: 30px;
-                            cursor: pointer;
-                            p{
-                                margin: 0;
-                                padding-top: 10px;
-                                padding-left: 10px;
-                            }
+                    i{
+                        &.fa-comment{
+                            display: flex;
                         }
-                        i{
-                            &.fa-comment{
-                                display: flex;
-                            }
-                        }
-                        .comment{
-                            margin: 0 10% 0 10%;
-                            background-color: $fond-plumes;
-                            border-radius: 20px 20px 0px 0px;
-                            height: fit-content; 
-                            .top-comment{
-                                @include flex(row, space-between, center);
-                                .top-left{
-                                    @include flex(row, center, center);
-                                        img{
-                                            border-radius: 50%;
-                                            width: 70px;
-                                            margin: 10px 15px 10px 25px;
-                                            cursor:pointer;
-                                        }
-                                    #textarea{
-                                        margin-left: 2px;
-                                        width: 650px;
-                                        background-color: $fond-plumes;
-                                        border: none;
-                                        resize: none;
-                                        padding: 15px 0 0 5px;
-                                        color: $white;
+                    }
+                    .comment{
+                        margin: 0 10% 0 10%;
+                        background-color: $fond-plumes;
+                        border-radius: 20px 20px 0px 0px;
+                        height: fit-content; 
+                        .top-comment{
+                            @include flex(row, space-between, center);
+                            .top-left{
+                                @include flex(row, center, center);
+                                    img{
+                                        border-radius: 50%;
+                                        width: 70px;
+                                        margin: 10px 15px 10px 25px;
+                                        cursor:pointer;
                                     }
-                                }
-                                .top-right{
-                                    #send{
-                                        font-family: 'Outfit', sans-serif;
-                                        margin-right: 25px;
-                                        background-color: $theme-color;
-                                        border-radius: 25px;
-                                        height: 40px;
-                                        border: none;
-                                        cursor: pointer;
-                                    }
-                                }
-                            }
-                            #trait{
-                                margin-top: 10px;
-                                border: 0.5px solid black;
-                            }
-                            .center-comment{
-                                margin: 0 20px 0 20px;
-                                .tweet{
-                                    width: 90%;
+                                #textarea{
+                                    margin-left: 2px;
+                                    width: 650px;
                                     background-color: $fond-plumes;
-                                    @include flex(column, start, start);
-                                    #comment-compte{
-                                        @include flex(row, normal, center);
-                                        margin-top: 10px;
-                                        img{
-                                            border-radius: 50%;
-                                            width: 70px;
-                                            margin: 10px 25px 10px 7px;
-                                            cursor:pointer;
-                                        }
-                                        h3{
-                                            width: 100%;
-                                            color: $white;
-                                            margin-left: 15px;
-                                            cursor:pointer;
-                                        }
-                                        span{
-                                            width: 100%;
-                                            color: $disabled-text;
-                                            margin-left: 15px;
-                                        }
-                                    }
-                                    #texte{
-                                        p{
-                                            margin: 5px 0 0 50px;
-                                            color: $white;
-                                            span{
-                                                color: $disabled-text;
-                                            }
-                                        }
-                                    }
-                                    #comment-message{
-                                        margin: 3% 50px 10px 50px;
-                                        padding-bottom: 10px;
-                                        color: $white;
-                                        text-align: justify;
-                                        font-size: 16px;
-                                    }
-                                    .tweet-icons{  
-                                        padding-bottom: 30px;
-                                        width: 50%;
-                                        max-height: 20px;
-                                        @include flex(row, space-around, center);
-                                        margin-left: 25%;
-                                        i{
-                                            color: $theme-color;
-                                            font-size: 20px;
-                                            cursor:pointer;
-                                            &.fa-comment{
-                                                display: flex;
-                                            }
-                                        }
-                                    }    
+                                    border: none;
+                                    resize: none;
+                                    padding: 15px 0 0 5px;
+                                    color: $white;
+                                }
+                            }
+                            .top-right{
+                                #send{
+                                    font-family: 'Outfit', sans-serif;
+                                    margin-right: 25px;
+                                    background-color: $theme-color;
+                                    border-radius: 25px;
+                                    height: 40px;
+                                    border: none;
+                                    cursor: pointer;
                                 }
                             }
                         }
+                        #trait{
+                            margin-top: 10px;
+                            border: 0.5px solid black;
+                        }
+                        .center-comment{
+                            margin: 0 20px 0 20px;
+                            .tweet{
+                                width: 90%;
+                                background-color: $fond-plumes;
+                                @include flex(column, start, start);
+                                #comment-compte{
+                                    @include flex(row, normal, center);
+                                    margin-top: 10px;
+                                    img{
+                                        border-radius: 50%;
+                                        width: 70px;
+                                        margin: 10px 25px 10px 7px;
+                                        cursor:pointer;
+                                    }
+                                    h3{
+                                        width: 100%;
+                                        color: $white;
+                                        margin-left: 15px;
+                                        cursor:pointer;
+                                    }
+                                    span{
+                                        width: 100%;
+                                        color: $disabled-text;
+                                        margin-left: 15px;
+                                    }
+                                }
+                                #texte{
+                                    p{
+                                        margin: 5px 0 0 50px;
+                                        color: $white;
+                                        span{
+                                            color: $disabled-text;
+                                        }
+                                    }
+                                }
+                                #comment-message{
+                                    margin: 3% 50px 10px 50px;
+                                    padding-bottom: 10px;
+                                    color: $white;
+                                    text-align: justify;
+                                    font-size: 16px;
+                                }
+                                .tweet-icons{  
+                                    padding-bottom: 30px;
+                                    width: 50%;
+                                    max-height: 20px;
+                                    @include flex(row, space-around, center);
+                                    margin-left: 25%;
+                                    i{
+                                        color: $theme-color;
+                                        font-size: 20px;
+                                        cursor:pointer;
+                                        &.fa-comment{
+                                            display: flex;
+                                        }
+                                    }
+                                }    
+                            }
+                        }
                     }
+                }
             }
             .container-droite {
-                @include searchBar(50px, 15px, 90%);
-                width: 17%;
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100%;
-                background-color: $fond;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .rapide{
-                    width: 80%;
-                    height: auto;
-                    background-color: $darkest-blue;
-                    margin-top: 10%;
-                    text-align: center;
-                    border-radius: 20px;
-                    color: $white;
-                    font-size: 15px;
-                    position:fixed;
-                    width: 14%;
-                    img{
-                        border-radius: 50%;
-                        height: 70px;
-                        cursor:pointer;
-                    }
-                    h3{
-                        margin-top: 30px;
-                        font-size: 15px;
-                        cursor:pointer;
-                    }
-                    .account{
-                        display: flex;
-                        flex-direction: row;
-                        margin: 25px 25px 25px 25px;
-                        justify-content: space-around;
-                        .account-title{
-                            margin-top: -25px;
-                            margin-left: 30px;
-                            span{
-                                color: $disabled-text;
-                            }
-                        }
-                    }
-                }
-                .tweeter{
-                    height: 90px;
-                    width: 90px;
-                    border-radius: 50%;
-                    position: fixed;
-                    bottom: 3%;
-                    right: 3%;
-                    text-align: center;
-                    cursor:pointer;
-                    @include BgColorChange();
-                    i{
-                        margin-top: 20px;
-                        color: $darkest-blue;
-                        font-size: 40px;
-                        cursor:pointer;
-                        
-                    }
-                }
+                @include ContainerDroite();
             }
         }
-
         #save{
             @include font(22px, $white, normal);
             background-color: $fond-plumes;
@@ -489,7 +423,6 @@ html{
             #all-save{
                 width: 80%;
                 height: 100vh;
-
                 #save-container-centre {
                     padding-top: 2vh;
                     background-color: $fond-plumes;
@@ -523,68 +456,7 @@ html{
                     @include plume();
                 }
                 .save-container-droite {
-                    @include searchBar(50px, 15px, 90%);
-                    width: 17%;
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    height: 100%;
-                    background-color: $fond;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    .save-rapide{
-                        width: 80%;
-                        height: auto;
-                        background-color: $darkest-blue;
-                        margin-top: 10%;
-                        text-align: center;
-                        border-radius: 20px;
-                        color: $white;
-                        font-size: 15px;
-                        position:fixed;
-                        width: 14%;
-                        img{ 
-                            border-radius: 50%;
-                            height: 70px;
-                            cursor:pointer;
-                        }
-                        h3{
-                            margin-top: 30px;
-                            font-size: 15px;
-                            cursor:pointer;
-                        }
-                        .account{
-                            display: flex;
-                            flex-direction: row;
-                            margin: 25px 25px 25px 25px;
-                            justify-content: space-around;
-                            .account-title{
-                                margin-top: -25px;
-                                margin-left: 30px;
-                                span{
-                                    color: $disabled-text;
-                                }
-                            }
-                        }
-                    }
-                    .save-tweeter{
-                        height: 90px;
-                        width: 90px;
-                        border-radius: 50%;
-                        position: fixed;
-                        bottom: 3%;
-                        right: 3%;
-                        text-align: center;
-                        cursor:pointer;
-                        @include BgColorChange();
-                        i{
-                            margin-top: 20px;
-                            color: $darkest-blue;
-                            font-size: 40px;
-                            cursor:pointer;
-                        }
-                    }
+                    @include ContainerDroite();
                 }
             }
         }                 
@@ -706,13 +578,28 @@ html{
                     margin-top: 8%;
                     @include flex(column, space-between, normal);
                     width: 100%;
-                    #biography{
-                        @include inputProfil(120px, 100%);
-                        resize: none;
-                        padding-top: 15px;
-                        @include font(16px, $white, normal);
-                        &::placeholder{
+                    #container-bio{
+                        position: relative;
+                        #biography{
+                            @include inputProfil(120px, 100%);
+                            resize: none;
+                            padding: 15px;
+                            text-indent: 0;
                             @include font(16px, $white, normal);
+                            &::placeholder{
+                                @include font(16px, $white, normal);
+                            }
+                        }
+                        #counterBio{
+                            position: absolute;
+                            bottom: 15px;
+                            right: 5px;
+                            background-color: $fond;
+                            border-radius: 20px;
+                            border: none;
+                            text-align: center;
+                            width: 40px;
+                            @include font(17px, $white, normal);
                         }
                     }
                     #banner-input{

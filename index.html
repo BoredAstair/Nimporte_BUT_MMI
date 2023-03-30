@@ -105,13 +105,13 @@
                     <input type="text" id="recherche" placeholder="Recherchez...">
                 </form>
     
-                <section class="save-rapide">
+                <section class="rapide">
                     <h3>Ces profils pourraient vous intéresser...</h3>
                     <div id="profils-save">
 
                     </div>
                 </section>
-                <section class="save-tweeter select-color yellow" onclick="DoTweet()">
+                <section class="tweeter select-color yellow" onclick="DoTweet()">
                     <i class="fa-solid fa-feather plumez"></i>
                 </section>
             </section>
@@ -191,6 +191,10 @@
 
             <div id="profile-part2">
                 <p>Biographie</p>
+                <div id="container-bio">
+                    <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !" maxlength="256" onkeyup="textCounter(this,'counterBio',256);"></textarea>
+                    <input disabled maxlength="3" size="3" value="256" id="counterBio">
+                </div>
                 <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
 
                 <p>Bannière</p>
