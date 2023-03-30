@@ -39,7 +39,4 @@ if($request_method == "GET" && count($segments_uri)==0){
     encodeJson($userSend);
     // debug($users);
 }
-else{
-    http_response_code(404);
-}
 ?>
