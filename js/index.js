@@ -3,20 +3,20 @@ urlCourante = "http://localhost/owlTree/";
 addEventListener('DOMContentLoaded', traitementPermission());
 function traitementPermission(){
     let token = localStorage.getItem('token');
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    xhttpRequest = new XMLHttpRequest();
+    xhttpRequest.onreadystatechange = responsePermission;
+    xhttpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
+    xhttpRequest.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify({"autorization": localStorage.getItem("token")});
-    httpRequest.send(data);
+    xhttpRequest.send(data);
 }
 
 function responsePermission(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 401){
+    if (xhttpRequest.readyState === XMLHttpRequest.DONE) {
+        if (xhttpRequest.status === 401){
             window.location.href = 'connexion.html';
-        } else if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
+        } else if (xhttpRequest.status === 200) {
+            let response = JSON.parse(xhttpRequest.responseText);
             localStorage.setItem("userID", response.userID);
         }
     }    
@@ -122,6 +122,28 @@ function sendPlumeRes(){
     }
 }
 
+function follow(){
+    let followed = document.getElementById("username-profile").innerText;
+    followed = followed.replace('@','');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = followRes;
+    httpRequest.open('POST', `${urlCourante}api/follow.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"follower": localStorage.getItem("userID"), "followed": followed});
+    httpRequest.send(data);
+}
+
+function followRes(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
 // close pop-up
 function closeTweetPopup(e){
     const element = e.srcElement;
@@ -185,7 +207,10 @@ function ongletsMenu(menu){
             tab.classList.remove('none');
         }
         if(menu == 'parameters'){
-            getdatarequest();
+            getdatarequest('param');
+        }
+        if(menu == 'profile'){
+            getdatarequest('profile');
         }
         if(menu == 'home'){
             requeteGetFollower();
