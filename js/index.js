@@ -1,5 +1,5 @@
 // save
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 addEventListener('DOMContentLoaded', traitementPermission());
 function traitementPermission(){
     let token = localStorage.getItem('token');
@@ -94,15 +94,32 @@ function DoTweet() {
     popupContainer.style.display = 'flex';
     html[0].style.overflowY='hidden';
     getdatatweet();
+}
 
-    plumecontent = document.getElementById('textarea').value;
-    let token = localStorage.getItem('token');
+function sendPlume(){
+    let plumecontent = document.getElementById('tweetarea').value;
+    let hash = plumecontent.match(/#[^# ]*/g);
+    console.log(plumecontent);
+    console.log(hash);
+    hash = hash.join(',');
+    console.log(hash);
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
+    httpRequest.onreadystatechange = sendPlumeRes;
+    httpRequest.open('POST', `${urlCourante}api/sendPlume.php`, true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
-    data = JSON.stringify({"userID": localStorage.getItem("userID"), "content": plumecontent});
+    data = JSON.stringify({"user": localStorage.getItem("userID"), "content": plumecontent, 'hashtag':hash});
     httpRequest.send(data);
+}
+
+function sendPlumeRes(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
 }
 
 // close pop-up
@@ -178,37 +195,6 @@ function ongletsMenu(menu){
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
-}
-
-function request(){
-    wut = "Astair";
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = traitement;
-    httpRequest.open('GET', `${urlCourante}api/api.php/get/data?user=${wut}`, true);
-    httpRequest.send();
-}
-
-function traitement(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
-            document.getElementById("username").value = "@" + response[0]["username"];
-            document.getElementById("pseudo").value = response[0]["pseudo"];
-            document.getElementById("email").value = response[0]["mail"];
-            if(response[0]["pp"]){
-                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
-            }
-            if(response[0]["banner"]){
-                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
-            }
-            if(response[0]["bio"]){
-                document.getElementById("biography").value = response[0]["bio"];
-            }
-        } else {
-        alert('Il y a eu un problème avec la requête.');
-        }
-    }
 }
 
 //popup suppression de compte

@@ -24,10 +24,10 @@ if($request_method == "POST" && count($segments_uri)==0){
     $request = 'INSERT INTO plume(user,content,hashtag,posted_at) VALUES (:user, :content, :hashtag, :posted_at)';
     $insert = $bdd -> prepare($request);
     $insert -> execute([
-        ":user" => $_POST['user'],
-        ":content" => $_POST['content'],
-        ":hashtag" => $_POST['hashtag'],
-        ":posted_at" => $_POST['posted_at']
+        ":user" => $data['user'],
+        ":content" => $data['content'],
+        ":hashtag" => $data['hashtag'],
+        ":posted_at" => date("Y-m-d H:i:s")
     ]);
     $state["etat"] = "valide";
     encodeJson($state);

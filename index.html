@@ -279,9 +279,6 @@
         </div>
     </section>
 
-
-
-
     <section class="popup-container" onclick="closeTweetPopup(event)">
         <section class="container-tweet">
             <section class="tweet-title">
@@ -290,7 +287,7 @@
                 <span id="usernamesendtweet">@pseudo</span>
             </section>
             <section class="tweet-send">
-                <textarea class="select-color yellow" id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                <textarea class="select-color yellow" id="tweetarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                 <input disabled maxlength="3" size="3" value="256" id="counter">
             </section>
             <section class="bottom-tweet">
@@ -299,7 +296,7 @@
                     <p onclick="insertImage()">Ajouter une image</p>
                 </section>
                 <section class="bottom-right">
-                    <button class="select-color yellow" id="btn-send">Envoyer</button>
+                    <button class="select-color yellow" id="btn-send" onclick="sendPlume()">Envoyer</button>
                 </section>
             </section>
             <section class="space-image">
@@ -307,11 +304,6 @@
             </section>
         </section>
     </section>
-
-
-
-
-
 
     <script src="js/data.js"></script>
     <script src="js/index.js"></script>
