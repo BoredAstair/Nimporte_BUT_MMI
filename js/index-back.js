@@ -1,6 +1,5 @@
-urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
+urlCourante = "http://localhost/owlTree/";
 logUser = localStorage.getItem("userID");
-// console.log(localStorage.getItem("userID"));
 function requeteGetFollower(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementGetFollower;
@@ -106,7 +105,6 @@ function requeteGetTendance(){
 function traitementGetTendance(){
     if (httpRequestTendance.readyState === XMLHttpRequest.DONE) {
         if (httpRequestTendance.status === 200) {
-            console.log("tendance");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
@@ -233,14 +231,12 @@ function requeteGetRecent(){
 function traitementGetRecent(){
     if (httpRequestRecent.readyState === XMLHttpRequest.DONE) {
         if (httpRequestRecent.status === 200) {
-            console.log("recent");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
                 document.getElementsByClassName("center-comment")[0].innerHTML = "";
             }
             let response = JSON.parse(httpRequestRecent.responseText);
-            // console.log(response);
             for(plume of response){
                 if(plume['answer_to'] == null){
                     if(plume['pp'] == null){
@@ -314,8 +310,6 @@ function traitementLike(){
     if (httpRequestPostLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostLike.status === 200) {
             responsePostLike = JSON.parse(httpRequestPostLike.responseText);
-            console.log(responsePostLike);
-            console.log(document.getElementById(`HeartElement-${responsePostLike.idPlume}`));
             if(responsePostLike.state == "valide"){
                 changeHeart(responsePostLike.idPlume);
                 requeteNbLike();
@@ -338,14 +332,12 @@ function traitementNbLike(){
     if (httpRequestLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestLike.status === 200) {
             responseLike = JSON.parse(httpRequestLike.responseText);
-            // console.log(responseLike);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
                 // exist = false;
                 let id = tweet.id.split("-");
                 for(like of responseLike){
                     textLike = document.getElementById(`like-${like["plume_id"]}`);
-                    console.log("Like"+id[1]+" "+textLike);
                     if(id[1]==like["plume_id"]){
                         textLike.innerText = like['nb_like'];
                         exist = true;
@@ -373,8 +365,6 @@ function traitementStateLike(){
     if (httpRequestStateLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestStateLike.status === 200) {
             responseStateLike = JSON.parse(httpRequestStateLike.responseText);
-            // console.log("state like");
-            // console.log(responseStateLike);
             let user = logUser;
             for(like of responseStateLike){
                 if(user == like["user_like"]){
@@ -406,10 +396,8 @@ function traitementSave(){
     if (httpRequestPostSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostSave.status === 200) {
             responsePostSave = JSON.parse(httpRequestPostSave.responseText);
-            // console.log(httpRequestPostSave.responseText);
             if(responsePostSave.state == "valide"){
                 changeSave(responsePostSave.idPlume);
-                console.log(responsePostSave.type);
             }
             if(responsePostSave.type == "ajout"){
                 document.getElementById(`SaveText-${responsePostSave.idPlume}`).innerText = "Enregistré";
@@ -435,13 +423,10 @@ function traitementStateSave(){
     if (httpRequestStateSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestStateSave.status === 200) {
             responseStateSave = JSON.parse(httpRequestStateSave.responseText);
-            // console.log("state save");
-            // console.log(responseStateSave);
             let user = logUser;
             for(save of responseStateSave){
                 if(user == save["user_save"]){
-                    tweetSave = document.getElementById(`SaveElement-${save['plume_id']}`);
-                    // console.log(tweetSave);        
+                    tweetSave = document.getElementById(`SaveElement-${save['plume_id']}`);       
                     if(tweetSave != null){
                         changeSave(save['plume_id']);
                         document.getElementById(`SaveText-${save['plume_id']}`).innerText = "Enregistré";
@@ -472,7 +457,6 @@ function traitementNbPreen(){
                 let id = tweet.id.split("-");
                 for(preen of responsePreen){
                     textPreen = document.getElementById(`preen-${preen.retweet_id}`);
-                    console.log("Preen"+id[1]+" "+textPreen);
                     if(id[1]==preen.retweet_id){
                         textPreen.innerText = preen.nb_preen;
                     }
@@ -497,11 +481,9 @@ function traitementNbComment(){
         if (httpRequestComment.status === 200) {
             responseComment = JSON.parse(httpRequestComment.responseText);
             tweets = document.getElementsByClassName("tweet");
-            console.log(tweets);
             for(tweet of tweets){
                 let id = tweet.id.split("-");
                 textComment = document.getElementById(`comment-${id[1]}`);
-                console.log("Comment"+id[1]+" "+textComment);
                 for(comments of responseComment){
                     if(id[1]==comments.answer_to){
                         textComment.innerText = comments.nb_comment;
@@ -531,7 +513,6 @@ function traitementGetSave(){
             document.getElementById("group-tweet").innerHTML = "";
             document.getElementById("save-container-centre").innerHTML = `<div id="no-save" class="none">Vous n'avez rien enregistré !</div>`;
             let response = JSON.parse(httpRequestGetSave.responseText);
-            // console.log(response);
             if(response['etat']!=undefined){
                 document.getElementById("no-save").classList.remove("none");
             }
@@ -598,13 +579,11 @@ function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
     httpRequestAffichUser.open('GET', `${urlCourante}api/users.php`, true);
-    // console.log(httpRequestAffichUser);
     httpRequestAffichUser.setRequestHeader("Content-Type", "application/json");
     httpRequestAffichUser.send();
 }
 function traitementAffichUser(){
     if (httpRequestAffichUser.readyState === XMLHttpRequest.DONE) {
-        // console.log(httpRequestAffichUser.status);
         if (httpRequestAffichUser.status === 200) {
             let response = JSON.parse(httpRequestAffichUser.response);
             document.getElementById("profils-save").innerHTML = ""
@@ -642,7 +621,6 @@ function requeteAffichUserSave(){
 }
 function traitementAffichUserSave(){
     if (httpRequestAffichUserSave.readyState === XMLHttpRequest.DONE) {
-        console.log(httpRequestAffichUserSave.status);
         if (httpRequestAffichUserSave.status === 200) {
             let response = JSON.parse(httpRequestAffichUserSave.response);
             document.getElementById("profils-save").innerHTML = ""
@@ -684,7 +662,6 @@ function traitementAffichReply(){
     if (httpRequestAffichReply.readyState === XMLHttpRequest.DONE) {
         if (httpRequestAffichReply.status === 200) {
             let response = JSON.parse(httpRequestAffichReply.responseText);
-            // console.log(response);
             newComment();
             document.getElementById("group-tweet").innerHTML = "";
             containerComment = document.getElementsByClassName("comment-tweet");
@@ -754,7 +731,6 @@ function traitementAffichReply(){
                 centerComment[0].innerHTML = "";
                 for(plume of response){
                     if(plume["answer_to"]!=null){
-                        // console.log(plume["answer_to"]);
                         if(plume["pp"]!=null){
                             src = plume["pp"];
                         }

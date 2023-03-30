@@ -17,7 +17,7 @@
             <p id="texte-popup"></p>
             <div id="btn-popup">
                 <button id="btn-non" onclick="quit()">Non</button>
-                <button id="btn-oui">Oui</button>
+                <button id="btn-oui" onclick="deco()">Oui</button>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <img src="ressource/icones/parametres.png" alt="paramètres">
                 <span>Paramètres</span>
             </div>
-            <div class="onglet" id="deconnexion" onclick="affProfil('lucas')">
+            <div class="onglet" id="deconnexion" onclick="deconnexion()">
                 <img src="ressource/icones/deconnexion.png" alt="déconnexion">
                 <span>Se déconnecter</span>
             </div>
@@ -125,11 +125,8 @@
                         <span id="pseudo-profile">Pseudo</span>
                         <span id="username-profile">@utilisateur</span>
                     </div>
-<<<<<<< HEAD
-                    <button id='follow' class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
-=======
-                    <button id="follow" onclick="follow()" class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
->>>>>>> 306f5771d8dcad9c2c0eb1ed4215c4c119f2cd37
+                    <button id="follow" onclick='follow()' class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
+                    <button id="unfollow" onclick='unfollow()' class="select-color yellow"><i class="fa-solid fa-plus"></i> Ne plus suivre</button>
                 </div>
                 <p id="biography-profile">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium impedit tenetur aspernatur architecto, fuga modi facere dolorem harum ullam? Quam expedita ex asperiores molestias velit aperiam dicta aliquam unde temporibus!</p>
             </div>
