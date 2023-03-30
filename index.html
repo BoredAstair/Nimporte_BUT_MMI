@@ -30,7 +30,7 @@
         </form>
 
         <div id="menu-btn">
-            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
+            <div class="onglet actif" id="home-btn" onclick="ongletsMenu('home')">
                 <img src="ressource/icones/accueil.png" alt="accueil">
                 <span>Accueil</span>
             </div>
@@ -42,7 +42,7 @@
                 <img src="ressource/icones/compte.png" alt="votre profil">
                 <span>Profil</span>
             </div>
-            <div class="onglet actif" id="parameters-btn" onclick="ongletsMenu('parameters')">
+            <div class="onglet" id="parameters-btn" onclick="ongletsMenu('parameters')">
                 <img src="ressource/icones/parametres.png" alt="paramètres">
                 <span>Paramètres</span>
             </div>
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <section class="contenu none" id="home">
+    <section class="contenu" id="home">
         <section class="container-centre">
             <section class="top">
 
@@ -60,8 +60,11 @@
                 <h2 class="title-top" onclick="requeteGetRecent()">Dernière plumes</h2>
                 <h2 class="title-top" onclick="requeteGetTendance()">Tendances</h2>
             </section>
+            <section class="comment-tweet none">
+            </section>
             <section id="group-tweet">   
-            </section>        
+            </section>   
+            
         </section>
 
         <section class="container-droite">
@@ -121,7 +124,7 @@
                         <span id="pseudo-profile">Pseudo</span>
                         <span id="username-profile">@utilisateur</span>
                     </div>
-                    <button class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
+                    <button id="follow" onclick="follow()" class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
                 </div>
                 <p id="biography-profile">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium impedit tenetur aspernatur architecto, fuga modi facere dolorem harum ullam? Quam expedita ex asperiores molestias velit aperiam dicta aliquam unde temporibus!</p>
             </div>
@@ -155,7 +158,7 @@
         </div>
     </section>
 
-    <section class="contenu" id="parameters">
+    <section class="contenu none" id="parameters">
         <div id="all-parameters">
             <h2>Profil</h2>
             <div id="profile-part1">
@@ -221,9 +224,6 @@
         </div>
     </section>
 
-
-
-
     <section class="popup-container" onclick="closeTweetPopup(event)">
         <section class="container-tweet">
             <section class="tweet-title">
@@ -232,7 +232,7 @@
                 <span id="usernamesendtweet">@pseudo</span>
             </section>
             <section class="tweet-send">
-                <textarea class="select-color yellow" id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                <textarea class="select-color yellow" id="tweetarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                 <input disabled maxlength="3" size="3" value="256" id="counter">
             </section>
             <section class="bottom-tweet">
@@ -241,7 +241,7 @@
                     <p onclick="insertImage()">Ajouter une image</p>
                 </section>
                 <section class="bottom-right">
-                    <button class="select-color yellow" id="btn-send">Envoyer</button>
+                    <button class="select-color yellow" id="btn-send" onclick="sendPlume()">Envoyer</button>
                 </section>
             </section>
             <section class="space-image">
@@ -249,11 +249,6 @@
             </section>
         </section>
     </section>
-
-
-
-
-
 
     <script src="js/data.js"></script>
     <script src="js/index.js"></script>

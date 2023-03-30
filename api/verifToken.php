@@ -12,7 +12,7 @@ include('function.php');
     foreach($data as $name => $value){
         if($name == "autorization"){
             $value = preg_replace('/\\"/','',$value);
-            $request = "SELECT username, token, token_date FROM user WHERE token = '{$value}'";
+            $request = "SELECT username, pp, pseudo, token, token_date FROM user WHERE token = '{$value}'";
             $select = $bdd -> prepare($request);
             $select -> execute();
             $res = $select -> fetchAll(PDO::FETCH_ASSOC);
@@ -25,6 +25,8 @@ include('function.php');
                 if ($res[0]['token_date'] >= strtotime('-2 day')){
                     $isAuth = true;
                     $erreur['userID'] = $res[0]['username'];
+                    $erreur['userPP'] = $res[0]['pp'];
+                    $erreur['userPseudo'] = $res[0]['pseudo'];
                     $erreur['state'] = 'valid';
                     encodeJson($erreur);
                     die();

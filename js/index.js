@@ -1,29 +1,25 @@
 // save
-
+urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 addEventListener('DOMContentLoaded', traitementPermission());
-urlCourante = "";
-for(url of document.location.href.split("/")){
-    if(url != "index.html"){
-        urlCourante += url+"/";
-    }
-}
 function traitementPermission(){
     let token = localStorage.getItem('token');
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    xhttpRequest = new XMLHttpRequest();
+    xhttpRequest.onreadystatechange = responsePermission;
+    xhttpRequest.open('POST', `${urlCourante}api/verifToken.php`, true);
+    xhttpRequest.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify({"autorization": localStorage.getItem("token")});
-    httpRequest.send(data);
+    xhttpRequest.send(data);
 }
 
 function responsePermission(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 401){
+    if (xhttpRequest.readyState === XMLHttpRequest.DONE) {
+        if (xhttpRequest.status === 401){
             window.location.href = 'connexion.html';
-        } else if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
+        } else if (xhttpRequest.status === 200) {
+            let response = JSON.parse(xhttpRequest.responseText);
             localStorage.setItem("userID", response.userID);
+            localStorage.setItem("userPP", response.userPP);
+            localStorage.setItem("userPseudo", response.userPseudo);
         }
     }    
 }
@@ -38,7 +34,7 @@ function changeSave(id) {
 function getdatatweet(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = resgetdatatweet;
-    httpRequest.open('GET', `http://localhost/Nimporte_BUT_MMI/api/getData.php?userID=${localStorage.getItem("userID")}`, true);
+    httpRequest.open('GET', `${urlCourante}api/getData.php?userID=${localStorage.getItem("userID")}`, true);
     httpRequest.send();
 }
 
@@ -59,6 +55,7 @@ function resgetdatatweet(){
 // like
 function changeHeart(id) {
     var HeartElement = document.getElementById(`HeartElement-${id}`);
+    console.log(HeartElement);
     HeartElement.classList.toggle("fa-regular");
     HeartElement.classList.toggle("fa-solid");
 }
@@ -67,6 +64,40 @@ function changeHeart(id) {
 function changeRetweet() {
     var retweetElement = document.getElementById("RetweetElement");
     retweetElement.classList.toggle("rotate");
+}
+
+// comment
+function comment() {
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "none";
+    var containerCentre = document.getElementById("group-tweet");
+    containerCentre.style.display = "none";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.show();
+    var comment = document.querySelector(".comment-tweet.none");
+    comment.classList.remove("none");
+}
+
+function newComment(){
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "none";
+    var containerCentre = document.getElementById("group-tweet");
+    containerCentre.style.display = "none";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.show();
+    var comment = document.querySelector(".comment-tweet.none");
+    comment.classList.remove("none");
+}
+
+//retour home
+function retour() {
+    var containerTop = document.querySelector(".top");
+    containerTop.style.display = "flex";
+    var containerCentre = document.getElementById("group-tweet");
+    containerCentre.style.display = "flex";
+    containerCentre.style.flexDirection = "column";
+    var commentTweet = $(".comment-tweet");
+    commentTweet.hide();
 }
 
 // open pop-up
@@ -78,15 +109,54 @@ function DoTweet() {
     popupContainer.style.display = 'flex';
     html[0].style.overflowY='hidden';
     getdatatweet();
+}
 
-    plumecontent = document.getElementById('textarea').value;
-    let token = localStorage.getItem('token');
+function sendPlume(){
+    let plumecontent = document.getElementById('tweetarea').value;
+    let hash = plumecontent.match(/#[^# ]*/g);
+    console.log(plumecontent);
+    console.log(hash);
+    hash = hash.join(',');
+    console.log(hash);
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = responsePermission;
-    httpRequest.open('POST', `http://localhost/Nimporte_BUT_MMI/api/verifToken.php`, true);
+    httpRequest.onreadystatechange = sendPlumeRes;
+    httpRequest.open('POST', `${urlCourante}api/sendPlume.php`, true);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
-    data = JSON.stringify({"userID": localStorage.getItem("userID"), "content": plumecontent});
+    data = JSON.stringify({"user": localStorage.getItem("userID"), "content": plumecontent, 'hashtag':hash});
     httpRequest.send(data);
+}
+
+function sendPlumeRes(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
+function follow(){
+    let followed = document.getElementById("username-profile").innerText;
+    followed = followed.replace('@','');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = followRes;
+    httpRequest.open('POST', `${urlCourante}api/follow.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"follower": localStorage.getItem("userID"), "followed": followed});
+    httpRequest.send(data);
+}
+
+function followRes(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            let response = JSON.parse(httpRequest.responseText);
+            console.log(response);
+        } else {
+        alert('Il y a eu un problème avec la requête.');
+        }
+    }
 }
 
 // close pop-up
@@ -151,47 +221,20 @@ function ongletsMenu(menu){
         for (const tab of search){
             tab.classList.remove('none');
         }
-    if(menu == 'parameters'){
-        getdatarequest();
-    }
-    if(menu == 'home'){
-        requeteGetFollower();
+        if(menu == 'parameters'){
+            getdatarequest('param');
+        }
+        if(menu == 'profile'){
+            getdatarequest('profile');
+        }
+        if(menu == 'home'){
+            requeteGetFollower();
+        }
     }
 }
 
 function ResteEnHaut(){
     window.scrollTo(0,0);
-}
-
-function request(){
-    wut = "Astair";
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = traitement;
-    httpRequest.open('GET', `http://localhost/owltree/api/api.php/get/data?user=${wut}`, true);
-    httpRequest.send();
-}
-
-function traitement(){
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
-            document.getElementById("username").value = "@" + response[0]["username"];
-            document.getElementById("pseudo").value = response[0]["pseudo"];
-            document.getElementById("email").value = response[0]["mail"];
-            if(response[0]["pp"]){
-                document.getElementById("default-profile").src = 'upload/profile/'+response[0]["pp"];
-            }
-            if(response[0]["banner"]){
-                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
-            }
-            if(response[0]["bio"]){
-                document.getElementById("biography").value = response[0]["bio"];
-            }
-        } else {
-        alert('Il y a eu un problème avec la requête.');
-        }
-    }
 }
 
 //popup suppression de compte
