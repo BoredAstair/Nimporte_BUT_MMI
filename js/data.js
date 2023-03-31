@@ -20,10 +20,10 @@ function getdatatraitementparam(){
             document.getElementById("pseudo").value = response[0]["pseudo"];
             document.getElementById("email").value = response[0]["mail"];
             if(response[0]["pp"]){
-                document.getElementById("default-profile").src = `upload/profile/${response[0]["pp"]}`;
+                document.getElementById("default-profile").src = response[0]["pp"];
             }
             if(response[0]["banner"]){
-                document.getElementById("bannerProfile").src = 'upload/banner/'+response[0]["banner"];
+                document.getElementById("bannerProfile").src = response[0]["banner"];
             }
             if(response[0]["bio"]){
                 document.getElementById("biography").value = response[0]["bio"];
@@ -46,10 +46,10 @@ function getdatatraitementprofile(){
             document.getElementById("username-profile").innerText = "@" + response[0]["username"];
             document.getElementById("pseudo-profile").innerText = response[0]["pseudo"];
             if(response[0]["pp"]){
-                document.getElementById("profile-picture").src = `upload/profile/${response[0]["pp"]}`;
+                document.getElementById("profile-picture").src = response[0]["pp"];
             }
             if(response[0]["banner"]){
-                document.getElementById("banniere-profil").src = 'upload/banner/'+response[0]["banner"];
+                document.getElementById("banniere-profil").src = response[0]["banner"];
             }
             if(response[0]["bio"]){
                 document.getElementById("biography-profile").innerText = response[0]["bio"];
@@ -64,8 +64,8 @@ function getdatatraitementprofile(){
 
 function reqsetdata(){
     let pseudo = document.getElementById("pseudo").value;
-    if(document.getElementById("biography").value){
-        let bio = document.getElementById("biography").value
+    if(document.getElementById("bio").value){
+        let bio = document.getElementById("bio").value
     };
     if (document.getElementById('avatar').files[0] != null){
         uploadFile("avatar");
