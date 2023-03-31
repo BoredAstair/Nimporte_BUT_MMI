@@ -368,6 +368,7 @@ html{
                                 margin-top: 0;
                                 margin-bottom: 0;
                                 background-color: $fond-plumes;
+                                box-shadow: none;
                                 @include flex(column, start, start);
                                 #comment-compte{
                                     @include flex(row, normal, center);

@@ -549,6 +549,7 @@ function traitementGetSave(){
     if (httpRequestGetSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestGetSave.status === 200) {
             ongletsMenu('save');
+            requeteAffichUserSave();
             document.getElementById("group-tweet").innerHTML = "";
             document.getElementById("save-container-centre").innerHTML = 
                 `<div id="no-save" class="none">
@@ -556,6 +557,7 @@ function traitementGetSave(){
                     <p>Vous n'avez rien enregistré pour l'instant, cliquez sur &ensp;<i class="fa-regular fa-bookmark"></i> &ensp;pour enregistrer une plume pour plus tard...</p>
                 </div>`;
             let response = JSON.parse(httpRequestGetSave.responseText);
+            console.log(response);
             if(response['etat']!=undefined){
                 document.getElementById("no-save").classList.remove("none");
             }
@@ -606,9 +608,6 @@ function traitementGetSave(){
                 requeteNbComment();
                 setTimeout(()=>{
                     requeteStateSave();
-                    setTimeout(()=>{
-                        requeteAffichUserSave();
-                    })
                 },250);
                         });
             
