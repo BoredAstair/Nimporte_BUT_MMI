@@ -340,13 +340,8 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
         right: 3%;
         text-align: center;
         cursor:pointer;
+        @include flex(row, center, center);
         @include BgColorChange();
-        i{
-            margin-top: 20px;
-            color: $darkest-blue;
-            font-size: 40px;
-            cursor:pointer;
-        }
     }
 }
 @mixin counter($bottom, $right, $size){

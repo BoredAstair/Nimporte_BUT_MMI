@@ -22,20 +22,13 @@ include('function.php');
                 encodeJson($erreur);
                 die();
             } else {
-                if ($res[0]['token_date'] >= strtotime('-2 day')){
-                    $isAuth = true;
-                    $erreur['userID'] = $res[0]['username'];
-                    $erreur['userPP'] = $res[0]['pp'];
-                    $erreur['userPseudo'] = $res[0]['pseudo'];
-                    $erreur['state'] = 'valid';
-                    encodeJson($erreur);
-                    die();
-                } else {
-                    $erreur['state'] = "outated";
-                    encodeJson($erreur);
-                    die();
-                }
-
+                $isAuth = true;
+                $erreur['userID'] = $res[0]['username'];
+                $erreur['userPP'] = $res[0]['pp'];
+                $erreur['userPseudo'] = $res[0]['pseudo'];
+                $erreur['state'] = 'valid';
+                encodeJson($erreur);
+                die();
             }
         }
     }
