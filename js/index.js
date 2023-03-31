@@ -321,6 +321,17 @@ function OngletBarre(number){
             tab.classList.add('none');
         }
     }
+    let user = document.getElementById("username-profile").innerText;
+        user = user.replace("@",'');
+    if(number == 1){
+        requeteGetFollow(user);
+    }
+    if(number == 2){
+        requeteGetLiked(user);
+    }
+    if(number == 3){
+        requeteGetSaved(user);
+    }
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();
 }
