@@ -346,3 +346,35 @@ function ThemeColor(color){
         localStorage.setItem("themeColor", color);
     }
 }
+
+//recherche
+function searchInput(e){
+    console.log(e.srcElement.id);
+    switch(e.srcElement.id){
+        case "recherche-profil":
+            rechercheResult = document.getElementById("result-search-profil");
+            break;
+        case "recherche-droite":
+            rechercheResult = document.getElementById("result-search-droite");
+            break;
+        case "recherche-save-droite":
+            rechercheResult = document.getElementById("result-search-save-droite");
+            break;
+    }
+    rechercheResult.classList.remove("none");
+}
+
+function dispInput(e){
+    switch(e.srcElement.id){
+        case "recherche-profil":
+            rechercheInput = document.getElementById("result-search-profil");
+            break;
+        case "recherche-droite":
+            rechercheInput = document.getElementById("result-search-droite");
+            break;
+        case "recherche-save-droite":
+            rechercheInput = document.getElementById("result-search-save-droite");
+            break;
+    }
+    rechercheResult.classList.add("none");
+}

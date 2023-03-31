@@ -825,6 +825,31 @@ function traitementReply(){
     }       
 }
 
+function requeteDelete(){
+    httpRequestDelete = new XMLHttpRequest();
+    httpRequestDelete.onreadystatechange = traitementDelete;
+    let user = logUser;
+    httpRequestDelete.open('POST', `${urlCourante}api/delete.php`, true);
+    let data = JSON.stringify({"user":user});
+    httpRequestDelete.setRequestHeader("Content-Type", "application/json");
+    httpRequestDelete.send(data);
+}
+
+function traitementDelete(){
+    if (httpRequestDelete.readyState === XMLHttpRequest.DONE){
+        if (httpRequestDelete.status === 200){
+            let response = JSON.parse(httpRequestDelete.responseText);
+            console.log(response);
+            if (response.state == "ça marche"){
+                window.location.href = "connexion.html";
+            }
+        }
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
 requeteGetFollower();
 setTimeout(()=>{
     if(localStorage.getItem("themeColor")){
