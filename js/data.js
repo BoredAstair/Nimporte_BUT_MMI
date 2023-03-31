@@ -62,28 +62,36 @@ function getdatatraitementprofile(){
     }
 }
 //-----
-
 function reqsetdata(){
+    let userID = localStorage.getItem("userID");
     let pseudo = document.getElementById("pseudo").value;
     if(document.getElementById("biography").value){
-        let bio = document.getElementById("biography").value
+        bio = document.getElementById("biography").value;
+        bio = bio.toString();
     };
     if (document.getElementById('avatar').files[0] != null){
         uploadFile("avatar");
-        let avatar = document.getElementById("avatar").value;
+        avatar = document.getElementById("avatar").value;
+        avatar = avatar.split('\\');
+        avatarx = "upload/profile/" + avatar[2];
+    } else {
+        avatarx = document.getElementById("default-profile").src;
     }
     if (document.getElementById('banner').files[0] != null){
         uploadFile("banner");
-        let banner = document.getElementById("banner").value;
+        banner = document.getElementById("banner").value;
+        banner = banner.split('\\');
+        bannerx = "upload/banner/" + banner[2];
+    } else {
+        bannerx = document.getElementById("bannerProfile").src;
     }
 
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = getdatatraitement;
+    httpRequest.onreadystatechange = traitsetdata();
     httpRequest.open('POST', `${urlCourante}api/setData.php`, true);
-    data = JSON.stringify({"pseudo": pseudo, "bio": bio, "avatar": avatar, 'banner':banner});
+    data = JSON.stringify({"username":userID, "pseudo": pseudo, "bio": bio, "avatar": avatarx, 'banner': bannerx});
     httpRequest.send(data);
 }
-
 async function uploadFile(type) {
 
     //based of https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Ajax-JavaScript-file-upload-example
