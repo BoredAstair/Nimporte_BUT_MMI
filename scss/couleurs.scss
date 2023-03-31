@@ -197,6 +197,7 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
         margin-top: 50px;
         margin-bottom: 20px;
         @include flex(column, space-between, center);
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         .tweet-profil{
             width: 90%;
             max-height: 50%;

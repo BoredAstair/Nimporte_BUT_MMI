@@ -82,7 +82,7 @@ function traitementGetFollower(){
             });
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -101,7 +101,7 @@ function traitementGetAll(){
             tableau = response;
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -189,6 +189,7 @@ function traitementGetTendance(){
                             else{
                                 srcImage = '';
                             }
+                            let userProfile = plume['user'];
                             document.getElementById("group-tweet").innerHTML += `
                             <section class="tweet" id="id-${plume['id']}">
                                 <section class="tweet-profil">
@@ -230,7 +231,7 @@ function traitementGetTendance(){
             }, 150);
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -308,7 +309,7 @@ function traitementGetRecent(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -333,7 +334,7 @@ function traitementLike(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -358,7 +359,7 @@ function traitementPreen(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -388,7 +389,7 @@ function traitementNbLike(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -415,7 +416,7 @@ function traitementStateLike(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -445,7 +446,7 @@ function traitementSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -473,7 +474,7 @@ function traitementStateSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -502,7 +503,7 @@ function traitementNbPreen(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -530,7 +531,7 @@ function traitementNbComment(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -572,6 +573,7 @@ function traitementGetSave(){
                     else{
                         srcImage = '';
                     }
+                    let userProfile = plume['user'];
                     document.getElementById("save-container-centre").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
@@ -612,7 +614,7 @@ function traitementGetSave(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -649,7 +651,7 @@ function traitementAffichUser(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -686,7 +688,7 @@ function traitementAffichUserSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -730,6 +732,7 @@ function traitementAffichReply(){
                     else{
                         srcImg = "";
                     }
+                    let userProfile = plume['user'];
                     containerComment[0].innerHTML += `
                         <section class="retour" onclick="retour()">
                             <p><i class="fa-solid fa-arrow-left" onclick="retour()"></i> Retour</p>
@@ -828,7 +831,7 @@ function traitementAffichReply(){
             });
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -850,7 +853,7 @@ function traitementReply(){
             requeteAffichReply(response['plume']);
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
@@ -874,7 +877,7 @@ function traitementDelete(){
             }
         }
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }
 }
@@ -938,7 +941,7 @@ function traitementSearch(){
             }
         }
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }
 }
@@ -958,6 +961,7 @@ function traitementGetFollow(){
             let res = JSON.parse(httpRequestFollow.responseText);
             document.getElementById("1").innerHTML = "";
             for(plume of res){
+                let userProfile = plume['user'];
                 document.getElementById("1").innerHTML += `
                 <section class="tweet" id="id-${plume['id']}">
                     <section class="tweet-profil">
@@ -1001,7 +1005,7 @@ function traitementGetFollow(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
 }
 
@@ -1020,6 +1024,7 @@ function traitementGetLiked(){
             let res = JSON.parse(httpRequestLiked.responseText);
             document.getElementById("2").innerHTML = "";
             for(plume of res){
+                let userProfile = plume['user'];
                 document.getElementById("2").innerHTML += `
                 <section class="tweet" id="id-${plume['id']}">
                     <section class="tweet-profil">
@@ -1063,7 +1068,7 @@ function traitementGetLiked(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
 }
 
@@ -1082,6 +1087,7 @@ function traitementGetSaved(){
             let res = JSON.parse(httpRequestSaved.responseText);
             document.getElementById("3").innerHTML = "";
             for(plume of res){
+                    let userProfile = plume['user'];
                     document.getElementById("3").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
@@ -1125,7 +1131,7 @@ function traitementGetSaved(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
 }
 requeteGetFollower();
