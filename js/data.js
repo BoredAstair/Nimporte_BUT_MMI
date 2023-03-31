@@ -1,5 +1,6 @@
 urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 
+//Requête permettant de récupérer les données des utilisateurs avec deux résultat possible suivant la page ou les informations doivents être entrées
 function getdatarequest(x,y){
     httpRequest = new XMLHttpRequest();
     if(x == "param"){
@@ -64,6 +65,8 @@ function getdatatraitementprofile(){
         }
     }
 }//-----
+
+//Requête permettant de rentrer les données modifiées de la page paramètre dans la base de données 
 function reqsetdata(){
     let userID = localStorage.getItem("userID");
     let pseudo = document.getElementById("pseudo").value;
@@ -107,7 +110,7 @@ function traitsetdata(){
     }
 }
 async function uploadFile(type) {
-
+    //Requête permettant d'enregistrer les images en local
     //based of https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Ajax-JavaScript-file-upload-example
 
     let formData = new FormData(); 

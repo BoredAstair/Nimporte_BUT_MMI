@@ -3,6 +3,8 @@ logUser = localStorage.getItem("userID");
 if(!localStorage.getItem("themeColor")){
     localStorage.setItem("themeColor", "yellow");
 }
+
+//Requête permettant de récupérer les tweets
 function requeteGetFollower(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementGetFollower;
@@ -87,6 +89,7 @@ function traitementGetFollower(){
     }       
 }
 
+//Requête permettant de récupérer tout les tweets
 function requeteGetAll(){
     httpRequestAll = new XMLHttpRequest();
     httpRequestAll.onreadystatechange = traitementGetAll;
@@ -106,6 +109,7 @@ function traitementGetAll(){
     }       
 }
 
+//Requête permettant de récupérer les tweets en tendances
 function requeteGetTendance(){
     httpRequestTendance = new XMLHttpRequest();
     httpRequestTendance.onreadystatechange = traitementGetTendance;
@@ -236,6 +240,7 @@ function traitementGetTendance(){
     }       
 }
 
+//Requête permettant de récupérer les tweets les plus récents
 function requeteGetRecent(){
     httpRequestRecent = new XMLHttpRequest();
     httpRequestRecent.onreadystatechange = traitementGetRecent;
@@ -314,6 +319,7 @@ function traitementGetRecent(){
     }       
 }
 
+//Requête permettant de liker un tweet
 function requeteLike(e){
     let user = logUser;
     let plume = e.srcElement.id.split("-");
@@ -339,6 +345,7 @@ function traitementLike(){
     }       
 }
 
+//Requête permettant de récupérer les plumes retweeté par un utilisateur
 function requetePreen(e){
     let user = logUser;
     let plume = e.srcElement.id.split("-");
@@ -364,7 +371,7 @@ function traitementPreen(){
     }       
 }
 
-
+//Requête permettant de récupérer le nombre de likes
 function requeteNbLike(){
     httpRequestLike = new XMLHttpRequest();
     httpRequestLike.onreadystatechange = traitementNbLike;
@@ -398,6 +405,7 @@ function traitementNbLike(){
     }       
 }
 
+//Requête permettant d'afficher sur les tweets si l'utilisateur l'a liké 
 function requeteStateLike(){
     httpRequestStateLike = new XMLHttpRequest();
     httpRequestStateLike.onreadystatechange = traitementStateLike;
@@ -425,6 +433,7 @@ function traitementStateLike(){
     }       
 }
 
+//Requête permettant de sauvegarder un tweet
 function requeteSave(e){
     let user = logUser;
     let plume = e.srcElement.id.split("-");
@@ -455,6 +464,7 @@ function traitementSave(){
     }       
 }
 
+//Requête permettant d'afficher sur un tweet si l'utilisateur l'a sauvegardé
 function requeteStateSave(){
     httpRequestStateSave = new XMLHttpRequest();
     httpRequestStateSave.onreadystatechange = traitementStateSave;
@@ -483,7 +493,7 @@ function traitementStateSave(){
     }       
 }
 
-
+//Requête permettant d'afficher le nomnbre de retweet
 function requeteNbPreen(){
     httpRequestPreen = new XMLHttpRequest();
     httpRequestPreen.onreadystatechange = traitementNbPreen;
@@ -517,6 +527,7 @@ function traitementNbPreen(){
     }       
 }
 
+//Requête permettant d'afficher le nombre de commentaire
 function requeteNbComment(){
     httpRequestComment = new XMLHttpRequest();
     httpRequestComment.onreadystatechange = traitementNbComment;
@@ -545,6 +556,8 @@ function traitementNbComment(){
     }       
 }
 
+
+//Requête permettant d'afficher les tweets qui ont été sauvegardé par l'utilisateur actif
 function requeteGetSave(){
     let user = logUser;
     httpRequestGetSave = new XMLHttpRequest();
@@ -627,6 +640,7 @@ function traitementGetSave(){
     }       
 }
 
+//Requête permettant d'afficher les tweets envoyé par un utilisateur donné
 function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
@@ -664,6 +678,7 @@ function traitementAffichUser(){
     }       
 }
 
+//Requête permettant d'afficher les tweets sauvegardés par un utilisateur
 function requeteAffichUserSave(){
     httpRequestAffichUserSave = new XMLHttpRequest();
     httpRequestAffichUserSave.onreadystatechange = traitementAffichUserSave;
@@ -701,6 +716,7 @@ function traitementAffichUserSave(){
     }       
 }
 
+//Requête permettant d'afficher les réponses présentes sur un tweet
 function requeteAffichReply(id){
     let plume = id;
     httpRequestAffichReply = new XMLHttpRequest();
@@ -843,6 +859,8 @@ function traitementAffichReply(){
         }
     }       
 }
+
+//Requête permettant d'afficher les réponses sur un tweet donné
 function requeteReply(id){
     let plume = id;
     let user = logUser;
@@ -866,6 +884,7 @@ function traitementReply(){
     }       
 }
 
+//Requête permettant de supprimer un compte
 function requeteDelete(){
     httpRequestDelete = new XMLHttpRequest();
     httpRequestDelete.onreadystatechange = traitementDelete;
@@ -890,6 +909,7 @@ function traitementDelete(){
     }
 }
 
+//Requête permettant de rechercher des utilisateurs
 function requeteSearch(e){
     let value = e.srcElement.value;
     let id = e.srcElement.id;
@@ -954,6 +974,7 @@ function traitementSearch(){
     }
 }
 
+//Requête permettant d'afficher les tweets des utilisateur suivi par un utilisateur
 function requeteGetFollow(x){
     httpRequestFollow = new XMLHttpRequest();
     httpRequestFollow.onreadystatechange = traitementGetFollow;
@@ -1020,6 +1041,7 @@ function traitementGetFollow(){
         }
 }
 
+//Requête permettant d'afficher les tweets liké par un utilisateur
 function requeteGetLiked(x){
     httpRequestLiked = new XMLHttpRequest();
     httpRequestLiked.onreadystatechange = traitementGetLiked;
@@ -1085,6 +1107,7 @@ function traitementGetLiked(){
     }
 }
 
+//Requête permettant d'afficher les tweets sauvegardés
 function requeteGetSaved(x){
     httpRequestSaved = new XMLHttpRequest();
     httpRequestSaved.onreadystatechange = traitementGetSaved;
@@ -1151,6 +1174,8 @@ function traitementGetSaved(){
     }
 }
 
+
+//Requête permettant de récupérer le nb de plume d'un utilisateur
 function requeteNbPlume(user){
     httpRequestNbPlume = new XMLHttpRequest();
     httpRequestNbPlume.onreadystatechange = traitementNbPlume;
@@ -1171,6 +1196,7 @@ function traitementNbPlume(){
     }       
 }
 
+//Requête permettant de récupérer le nombre de follower d'un utilisateur
 function requeteNbFollower(user){
     httpRequestNbFollower = new XMLHttpRequest();
     httpRequestNbFollower.onreadystatechange = traitementNbFollower;
@@ -1191,6 +1217,7 @@ function traitementNbFollower(){
     }       
 }
 
+//Requête permettant de récupérer le nombre de personne que suit un utilisateur
 function requeteNbFollowed(user){
     httpRequestNbFollowed = new XMLHttpRequest();
     httpRequestNbFollowed.onreadystatechange = traitementNbFollowed;
