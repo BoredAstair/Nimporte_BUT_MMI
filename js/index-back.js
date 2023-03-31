@@ -190,7 +190,7 @@ function traitementGetTendance(){
                                         <span>@${plume['user']}</span>
                                     </section>
                                     <section class="tweet-save">
-                                        <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                        <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
                                     </section>
                                 </section>       
                                 <section class="tweet-message">

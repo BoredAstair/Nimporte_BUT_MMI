@@ -273,6 +273,7 @@ function quit(){
 function suppression(){
     affiche();
     document.getElementById('texte-popup').innerText="Etes vous sûr de vouloir supprimer votre compte? Cette action est irréversible.";
+    document.getElementById('btn-oui').onclick=requeteDelete;
 }
 
 function deconnexion(){

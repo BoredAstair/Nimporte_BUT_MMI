@@ -28,25 +28,6 @@ if($request_method == 'GET' && count($segments_uri) == 0){
     $allPlume = $select -> fetchAll(PDO::FETCH_ASSOC);
     encodeJson($allPlume);
     $returnPlume = [];
-    // foreach($allPlume as $plume){
-    //     if(empty($plume["answer_to"])){
-    //         $returnPlume[$plume['id']]['user'] = $plume['user'];
-    //         $returnPlume[$plume['id']]['content'] = $plume['content'];
-    //         $returnPlume[$plume['id']]['hashtag'] = $plume['hashtag'];
-    //         $returnPlume[$plume['id']]['posted_at'] = $plume['posted_at'];
-    //         $returnPlume[$plume['id']]['pseudo'] = $plume['pseudo'];
-    //         $returnPlume[$plume['id']]['pp'] = $plume['pp'];
-    //     }
-    //     else{
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['user'] = $plume['user'];
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['content'] = $plume['content'];
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['hashtag'] = $plume['hashtag'];
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['posted_at'] = $plume['posted_at'];
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['pseudo'] = $plume['pseudo'];
-    //         $returnPlume[$plume['answer_to']]['answers'][$plume['id']]['pp'] = $plume['pp'];
-    //     }
-    // }
-    // encodeJson($returnPlume);
 }
 else if($request_method == 'GET' && count($segments_uri) == 1){
     if($segments_uri[0]=="nb_like"){
