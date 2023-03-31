@@ -27,7 +27,7 @@ function ins(){
 </div>`;
 }
 
-//REQUETE
+//Requete d'inscription
 function requeteInscription(){
     let username = document.getElementById("username").value;
     let mail = document.getElementById("mail").value;
@@ -80,6 +80,7 @@ function traitementInscription(){
     }       
 }
 
+//Requête de connexion
 function requeteConnexion(){
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;

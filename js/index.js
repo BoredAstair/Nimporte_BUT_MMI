@@ -1,6 +1,8 @@
 // save
 urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
 addEventListener('DOMContentLoaded', traitementPermission());
+
+//fonction permettant de gérer le token d'un utilisateur
 function traitementPermission(){
     let token = localStorage.getItem('token');
     xhttpRequest = new XMLHttpRequest();
@@ -25,13 +27,14 @@ function responsePermission(){
     }    
 }
 
-
+//fonction permettant de changer le logo de sauvegarde entre plein et vide
 function changeSave(id) {
     var SaveElement = document.getElementById(`SaveElement-${id}`);
     SaveElement.classList.toggle("fa-regular");
     SaveElement.classList.toggle("fa-solid");
 }
 
+//Requête permettant d'afficher sur la popup de tweet les information de l'utilisateur
 function getdatatweet(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = resgetdatatweet;
@@ -52,6 +55,7 @@ function resgetdatatweet(){
     }
 }
 
+//fonction permettant de rediriger vers la page profil d'un utilisateur
 function affProfil(x){
     ongletsMenu('profile','');
     getdatarequest('profile',x);
@@ -89,6 +93,7 @@ function comment() {
     comment.classList.remove("none");
 }
 
+//fonction pour ajouter un commentaire à un tweet
 function newComment(){
     var containerTop = document.querySelector(".top");
     containerTop.style.display = "none";
@@ -125,6 +130,7 @@ function DoTweet() {
     getdatatweet();
 }
 
+//fonction d'envoie de plume
 function sendPlume(){
     let plumecontent = document.getElementById('tweetarea').value;
     let hash = plumecontent.match(/#[^# ]*/g);
@@ -144,6 +150,7 @@ function sendPlumeRes(){
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
             if (response.etat == 'valide'){
+                document.getElementById('tweetarea').value='';
                 closeTheTweetPopup();
             }
         } else {
@@ -151,11 +158,15 @@ function sendPlumeRes(){
         }
     }
 }
+
+//fonction pour fermer la popup de tweet
 function closeTheTweetPopup(){
     const popupContainer = document.querySelector('.popup-container');
     popupContainer.style.display = 'none';
     html[0].style.overflowY='visible';
 }
+
+//fonction suivre un utilisateur
 function follow(){
     document.getElementById("follow").classList.add("none");
     document.getElementById("unfollow").classList.remove("none");
@@ -169,6 +180,7 @@ function follow(){
     httpRequest.send(data);
 }
 
+//fonction pour arrêter de suivre un utilisateur
 function unfollow(){
     document.getElementById("follow").classList.remove("none");
     document.getElementById("unfollow").classList.add("none");
@@ -272,6 +284,7 @@ function ongletsMenu(menu,x){
     }
 }
 
+//fonction pour retourner en haut de la page
 function ResteEnHaut(){
     window.scrollTo(0,0);
 }
@@ -298,12 +311,14 @@ function suppression(){
     document.getElementById('btn-oui').onclick=requeteDelete;
 }
 
+//fonction pour afficher la popup de déconnexion
 function deconnexion(){
     affiche();
     document.getElementById('texte-popup').innerText="Souhaitez-vous vous déconnecter?";
     document.getElementById('btn-oui').onclick=deco;   
 }
 
+//fonction pour déconnecter un utilisateur
 function deco(){
     localStorage.removeItem("userID");
     localStorage.removeItem("userPP");
@@ -326,6 +341,7 @@ function preview(img, input){
         reader.readAsDataURL(file)
     }  
 }
+
 //la jolie barre jaune au hover
 function OngletBarre(number){
     menubar = document.getElementsByClassName('selecteur');
@@ -405,6 +421,7 @@ function searchInput(id){
     rechercheResult.classList.remove("none");
 }
 
+//fonction permetant de selectionner la barre de recherche (non fonctionnelle)
 function dispInput(e){
     // switch(e.srcElement.id){
     //     case "recherche-profil":
