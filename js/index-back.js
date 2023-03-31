@@ -735,14 +735,13 @@ function traitementAffichReply(){
                             <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                         </section>
                         <section class="top-right">
-                            <button id="send" onclick="requeteReply(${plumeId})">Répondre <i class="fa-solid fa-arrow-right"></i></button>
+                            <button id="send" onclick="requeteReply(${plumeId})" class="${localStorage.getItem("themeColor")} select-color" >Répondre <i class="fa-solid fa-arrow-right"></i></button>
                         </section>
                     </section>
                     <section id="trait"></section>
                     <section class="center-comment">
                     </section>
                 </section>
-
             `;
             setTimeout(()=>{
                 centerComment = document.getElementsByClassName("center-comment");
@@ -769,7 +768,7 @@ function traitementAffichReply(){
                                 <span>@${plume["username"]}</span>
                             </section>
                             <section id="texte">
-                                <p>En réponse à <span>@${userPlume}</span></p>
+                                <p>En réponse à <span class="${localStorage.getItem("themeColor")} select-color">@${userPlume}</span></p>
                             </section>
                             <section id="comment-message">
                                 <p>${plume["content"]}</p>
