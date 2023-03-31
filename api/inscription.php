@@ -25,7 +25,7 @@ if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']
         }
     }
     if(strlen($username) <= 30 && strlen($pseudo) <= 30 && strlen($data['password']) > 5 && $exist==false){
-        $request = 'INSERT INTO user(username, mail, pseudo, password, token, token_date) VALUES(:username, :mail, :pseudo, :password, :token, :token_date)';
+        $request = 'INSERT INTO user(username, mail, pseudo, password, token, token_date,pp,banner) VALUES(:username, :mail, :pseudo, :password, :token, :token_date,:pp,:banner)';
         $insert = $bdd -> prepare($request);
         $insert -> execute([
             ":username" => $username,
@@ -33,7 +33,9 @@ if(isset($data['username']) && isset($data['pseudo']) && isset($data['password']
             ":pseudo" => $pseudo,
             ":password" => $password,
             ":token" => $token,
-            ":token_date" => date("Y-m-d H:i:s")
+            ":token_date" => date("Y-m-d H:i:s"),
+            ":pp" => "ressource/icones/default-profile.jpg",
+            ":banner" => "ressource/images/default-banner.webp"
         ]);
         $erreur['state'] = "valide";
         $erreur['token'] = $token;

@@ -574,6 +574,18 @@ html{
                 width: 60%;
                 @include plume();
             }
+            .tweeter{
+                height: 90px;
+                width: 90px;
+                border-radius: 50%;
+                position: fixed;
+                bottom: 3%;
+                right: 3%;
+                text-align: center;
+                cursor:pointer;
+                @include flex(row, center, center);
+                @include BgColorChange();
+            }
         }
         #parameters{
             @include font(22px, $white, normal);

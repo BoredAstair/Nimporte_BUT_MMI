@@ -142,14 +142,20 @@ function sendPlume(){
 function sendPlumeRes(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-            // let response = JSON.parse(httpRequest.responseText);
-            console.log(httpRequest.responseText);
+            let response = JSON.parse(httpRequest.responseText);
+            if (response.etat == 'valide'){
+                closeTheTweetPopup();
+            }
         } else {
         alert('Il y a eu un problème avec la requête.');
         }
     }
 }
-
+function closeTheTweetPopup(){
+    const popupContainer = document.querySelector('.popup-container');
+    popupContainer.style.display = 'none';
+    html[0].style.overflowY='visible';
+}
 function follow(){
     document.getElementById("follow").classList.add("none");
     document.getElementById("unfollow").classList.remove("none");
@@ -193,6 +199,7 @@ function closeTweetPopup(e){
       const popupContainer = document.querySelector('.popup-container');
       popupContainer.style.display = 'none';
       html[0].style.overflowY='visible';
+      document.getElementById("tweetarea").value = "";
     }
 }  
 
