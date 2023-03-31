@@ -378,6 +378,7 @@ function traitementNbLike(){
             responseLike = JSON.parse(httpRequestLike.responseText);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
+                exist = false;
                 let id = tweet.id.split("-");
                 for(like of responseLike){
                     textLike = document.getElementById(`like-${id[1]}`);
@@ -385,6 +386,9 @@ function traitementNbLike(){
                         textLike.innerText = like['nb_like'];
                         exist = true;
                     }
+                }
+                if(exist == false){
+                    textLike.innerText = 0;
                 }
             }
         } 
@@ -493,12 +497,17 @@ function traitementNbPreen(){
             responsePreen = JSON.parse(httpRequestPreen.responseText);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
+                exist = false;
                 let id = tweet.id.split("-");
                 for(preen of responsePreen){
                     textPreen = document.getElementById(`preen-${preen.retweet_id}`);
                     if(id[1]==preen.retweet_id){
                         textPreen.innerText = preen.nb_preen;
+                        exist = true;
                     }
+                }
+                if(exist == false){
+                    textPreen.innerText = 0;
                 }
             }
         } 
