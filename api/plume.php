@@ -27,10 +27,6 @@ if($request_method == 'GET' && count($segments_uri) == 0){
     $select -> execute();
     $allPlume = $select -> fetchAll(PDO::FETCH_ASSOC);
     encodeJson($allPlume);
-    if(empty($allPlume)){
-        $allPlume['etat'] = "vide";
-    }
-    encodeJson($saved);
 }
 else if($request_method == 'GET' && count($segments_uri) == 1){
     if($segments_uri[0]=="nb_like"){
@@ -100,6 +96,9 @@ else if($request_method == 'POST' && count($segments_uri) == 0){
                 ":user"=> $user
             ]);
             $allPlume = $select -> fetchAll(PDO::FETCH_ASSOC);
+            if(empty($allPlume)){
+                $allPlume['etat'] = "vide";
+            }        
             encodeJson($allPlume);        
         }
     }
