@@ -348,9 +348,8 @@ function ThemeColor(color){
 }
 
 //recherche
-function searchInput(e){
-    console.log(e.srcElement.id);
-    switch(e.srcElement.id){
+function searchInput(id){
+    switch(id){
         case "recherche-profil":
             rechercheResult = document.getElementById("result-search-profil");
             break;

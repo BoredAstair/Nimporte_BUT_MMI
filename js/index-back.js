@@ -735,7 +735,7 @@ function traitementAffichReply(){
                             <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                         </section>
                         <section class="top-right">
-                            <button id="send" onclick="requeteReply(${plumeId})">Répondre <i class="fa-solid fa-arrow-right"></i></button>
+                            <button id="send" onclick="requeteReply(${plumeId})" class="${localStorage.getItem("themeColor")} select-color">Répondre <i class="fa-solid fa-arrow-right"></i></button>
                         </section>
                     </section>
                     <section id="trait"></section>
@@ -769,7 +769,7 @@ function traitementAffichReply(){
                                 <span>@${plume["username"]}</span>
                             </section>
                             <section id="texte">
-                                <p>En réponse à <span>@${userPlume}</span></p>
+                                <p>En réponse à <span class="${localStorage.getItem("themeColor")} select-color">@${userPlume}</span></p>
                             </section>
                             <section id="comment-message">
                                 <p>${plume["content"]}</p>
@@ -842,6 +842,59 @@ function traitementDelete(){
             console.log(response);
             if (response.state == "ça marche"){
                 window.location.href = "connexion.html";
+            }
+        }
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
+function requeteSearch(e){
+    let value = e.srcElement.value;
+    if(value.length >= 3){
+        httpRequestSearch = new XMLHttpRequest();
+        httpRequestSearch.onreadystatechange = traitementSearch;
+        httpRequestSearch.open('POST', `${urlCourante}api/search.php`, true);
+        let data = JSON.stringify({"value":value});
+        httpRequestSearch.setRequestHeader("Content-Type", "application/json");
+        httpRequestSearch.send(data);    
+    }
+}
+function traitementSearch(){
+    if (httpRequestSearch.readyState === XMLHttpRequest.DONE){
+        if (httpRequestSearch.status === 200){
+            let response = JSON.parse(httpRequestSearch.responseText);
+            console.log(response);
+            searchInput("recherche-droite");
+            resultSearch = document.getElementById("result-search-droite");
+            if(response["0"]){
+                resultSearch.innerHTML = `<div class="rapide">`;
+                for(account of response){
+                    if(account["pp"]==null){
+                        srcPP = "ressource/icones/default-profile.jpg";
+                    }
+                    else{
+                        srcPP = account["pp"];
+                    }
+                    document.querySelector("#result-search-droite .rapide").innerHTML += `
+                        <div class="account">
+                            <img src=${srcPP} alt="">
+                            <div class="account-title">
+                                <h3>${account["pseudo"]}</h3>
+                                <span>@${account['username']}</span>
+                            </div>
+                        </div>    
+                    `;
+                }
+                resultSearch.innerHTML += `</div>`;
+            }
+            else{
+                resultSearch.innerHTML = `
+                <div class="rapide">
+                    <h3>Aucun résultat</h3>
+                </div>
+                `;
             }
         }
         else {
