@@ -73,17 +73,19 @@ function reqsetdata(){
         uploadFile("avatar");
         avatar = document.getElementById("avatar").value;
         avatar = avatar.split('\\');
+        console.log(avatar);
         avatarx = "upload/profile/" + avatar[2];
     } else {
-        avatarx = document.getElementById("default-profile").src;
+        avatarx = localStorage.getItem("userPP");
     }
     if (document.getElementById('banner').files[0] != null){
         uploadFile("banner");
         banner = document.getElementById("banner").value;
         banner = banner.split('\\');
+        console.log(banner);
         bannerx = "upload/banner/" + banner[2];
     } else {
-        bannerx = document.getElementById("bannerProfile").src;
+        bannerx = localStorage.getItem("userBanner");
     }
 
     httpRequest = new XMLHttpRequest();
@@ -91,6 +93,16 @@ function reqsetdata(){
     httpRequest.open('POST', `${urlCourante}api/setData.php`, true);
     data = JSON.stringify({"username":userID, "pseudo": pseudo, "bio": bio, "avatar": avatarx, 'banner': bannerx});
     httpRequest.send(data);
+}
+
+function traitsetdata(){
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+            console.log("tout les changement on été validé");
+        } else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }
 }
 async function uploadFile(type) {
 

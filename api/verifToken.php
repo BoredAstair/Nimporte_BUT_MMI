@@ -12,7 +12,7 @@ include('function.php');
     foreach($data as $name => $value){
         if($name == "autorization"){
             $value = preg_replace('/\\"/','',$value);
-            $request = "SELECT username, pp, pseudo, token, token_date FROM user WHERE token = '{$value}'";
+            $request = "SELECT username, pp, pseudo, token, token_date,banner FROM user WHERE token = '{$value}'";
             $select = $bdd -> prepare($request);
             $select -> execute();
             $res = $select -> fetchAll(PDO::FETCH_ASSOC);
@@ -26,6 +26,7 @@ include('function.php');
                 $erreur['userID'] = $res[0]['username'];
                 $erreur['userPP'] = $res[0]['pp'];
                 $erreur['userPseudo'] = $res[0]['pseudo'];
+                $erreur['banner'] = $res[0]['banner'];
                 $erreur['state'] = 'valid';
                 encodeJson($erreur);
                 die();

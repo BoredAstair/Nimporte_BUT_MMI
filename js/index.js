@@ -20,6 +20,7 @@ function responsePermission(){
             localStorage.setItem("userID", response.userID);
             localStorage.setItem("userPP", response.userPP);
             localStorage.setItem("userPseudo", response.userPseudo);
+            localStorage.setItem("userBanner", response.banner);
         }
     }    
 }
