@@ -64,8 +64,8 @@ function getdatatraitementprofile(){
 
 function reqsetdata(){
     let pseudo = document.getElementById("pseudo").value;
-    if(document.getElementById("bio").value){
-        let bio = document.getElementById("bio").value
+    if(document.getElementById("biography").value){
+        let bio = document.getElementById("biography").value
     };
     if (document.getElementById('avatar').files[0] != null){
         uploadFile("avatar");
