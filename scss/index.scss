@@ -415,7 +415,6 @@ html{
                                     margin-left: 25%;
                                     i{
                                         @include ColorChange();
-                                        color: $theme-color;
                                         font-size: 20px;
                                         cursor:pointer;
                                         &.fa-comment{
@@ -478,7 +477,7 @@ html{
                             margin: 0 10% 0 10%;
                         }
                         i{
-                            color: $theme-color;
+                            @include ColorChange();
                         }
                     }
                     .rotate {

@@ -563,7 +563,7 @@ function traitementGetSave(){
             document.getElementById("save-container-centre").innerHTML = 
                 `<div id="no-save" class="none">
                     <img id="yaR" src="ressource/icones/yaR.png">
-                    <p>Vous n'avez rien enregistré pour l'instant, cliquez sur &ensp;<i class="fa-regular fa-bookmark"></i> &ensp;pour enregistrer une plume pour plus tard...</p>
+                    <p>Vous n'avez rien enregistré pour l'instant, cliquez sur &ensp;<i class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color"></i> &ensp;pour enregistrer une plume pour plus tard...</p>
                 </div>`;
             let response = JSON.parse(httpRequestGetSave.responseText);
             console.log(response);
