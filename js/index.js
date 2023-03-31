@@ -121,7 +121,9 @@ function DoTweet() {
 function sendPlume(){
     let plumecontent = document.getElementById('tweetarea').value;
     let hash = plumecontent.match(/#[^# ]*/g);
-    hash = hash.join(',');
+    if (hash == ""){
+        hash = hash.join(',');
+    }
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = sendPlumeRes;
     httpRequest.open('POST', `${urlCourante}api/sendPlume.php`, true);
