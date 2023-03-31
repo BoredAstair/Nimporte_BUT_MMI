@@ -44,7 +44,7 @@ function resgetdatatweet(){
             let response = JSON.parse(httpRequest.responseText);
             document.getElementById("usernamesendtweet").innerText = "@" + response[0]["username"];
             document.getElementById("pseudosendtweet").innerText = response[0]["pseudo"];
-            document.getElementById("imgsendtweet").src = `upload/profile/${response[0]["pp"]}`;
+            document.getElementById("imgsendtweet").src = `${response[0]["pp"]}`;
         } else {
         alert('Il y a eu un problème avec la requête.');
         }
@@ -135,7 +135,8 @@ function sendPlume(){
 function sendPlumeRes(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-            let response = JSON.parse(httpRequest.responseText);
+            // let response = JSON.parse(httpRequest.responseText);
+            console.log(httpRequest.responseText);
         } else {
         alert('Il y a eu un problème avec la requête.');
         }

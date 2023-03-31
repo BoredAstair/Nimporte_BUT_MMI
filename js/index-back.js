@@ -41,10 +41,11 @@ function traitementGetFollower(){
                         else{
                             srcImage = '';
                         }
+                        let userProfile = plume['user'];
                         document.getElementById("group-tweet").innerHTML += `
                         <section class="tweet" id="id-${plume['id']}">
                             <section class="tweet-profil">
-                                <section class="tweet-title">
+                                <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                     <img src="${src}" classe="photo">
                                     <h3>${plume['pseudo']}</h3>
                                     <span>@${plume['user']}</span>
@@ -141,10 +142,11 @@ function traitementGetTendance(){
                                 else{
                                     srcImage = '';
                                 }    
+                                let userProfile = plume['user'];
                                 document.getElementById("group-tweet").innerHTML += `
                                 <section class="tweet" id="id-${plume['id']}">
                                     <section class="tweet-profil">
-                                        <section class="tweet-title">
+                                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                             <img src="${src}" classe="photo">
                                             <h3>${plume['pseudo']}</h3>
                                             <span>@${plume['user']}</span>
@@ -190,7 +192,7 @@ function traitementGetTendance(){
                             document.getElementById("group-tweet").innerHTML += `
                             <section class="tweet" id="id-${plume['id']}">
                                 <section class="tweet-profil">
-                                    <section class="tweet-title">
+                                    <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                         <img src="${src}" classe="photo">
                                         <h3>${plume['pseudo']}</h3>
                                         <span>@${plume['user']}</span>
@@ -265,10 +267,11 @@ function traitementGetRecent(){
                     else{
                         srcImage = '';
                     }
+                    let userProfile = plume['user'];
                     document.getElementById("group-tweet").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
-                            <section class="tweet-title">
+                            <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                 <img src="${src}" classe="photo">
                                 <h3>${plume['pseudo']}</h3>
                                 <span>@${plume['user']}</span>
@@ -572,7 +575,7 @@ function traitementGetSave(){
                     document.getElementById("save-container-centre").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
-                            <section class="tweet-title">
+                            <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                 <img src="${src}" classe="photo">
                                 <h3>${plume['pseudo']}</h3>
                                 <span>@${plume['user']}</span>
@@ -733,7 +736,7 @@ function traitementAffichReply(){
                         </section>
                         <section class="tweet" id="id-${plume['id']}">
                             <section class="tweet-profil">
-                                <section class="tweet-title">
+                                <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                     <img src="${src}" class="photo">
                                     <h3>${plume["pseudo"]}</h3>
                                     <span>@${plume["username"]}</span>
@@ -958,7 +961,7 @@ function traitementGetFollow(){
                 document.getElementById("1").innerHTML += `
                 <section class="tweet" id="id-${plume['id']}">
                     <section class="tweet-profil">
-                        <section class="tweet-title">
+                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
                             <img src="${plume['pp']}" classe="photo">
                             <h3>${plume['pseudo']}</h3>
                             <span>@${plume['user']}</span>
@@ -1020,7 +1023,7 @@ function traitementGetLiked(){
                 document.getElementById("2").innerHTML += `
                 <section class="tweet" id="id-${plume['id']}">
                     <section class="tweet-profil">
-                        <section class="tweet-title">
+                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
                             <img src="${plume['pp']}" classe="photo">
                             <h3>${plume['pseudo']}</h3>
                             <span>@${plume['user']}</span>
@@ -1082,7 +1085,7 @@ function traitementGetSaved(){
                     document.getElementById("3").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
-                            <section class="tweet-title">
+                            <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                 <img src="${plume['pp']}" classe="photo">
                                 <h3>${plume['pseudo']}</h3>
                                 <span>@${plume['user']}</span>
