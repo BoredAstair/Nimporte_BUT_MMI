@@ -349,3 +349,14 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
         }
     }
 }
+@mixin counter($bottom, $right, $size){
+    position: absolute;
+    bottom: $bottom;
+    right: $right;
+    @include font($size, $white, normal);
+    background-color: $fond;
+    border-radius: 20px;
+    border:none;
+    text-align: center;
+    width: 40px;
+}

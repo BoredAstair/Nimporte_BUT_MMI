@@ -121,10 +121,7 @@ function DoTweet() {
 function sendPlume(){
     let plumecontent = document.getElementById('tweetarea').value;
     let hash = plumecontent.match(/#[^# ]*/g);
-    console.log(plumecontent);
-    console.log(hash);
     hash = hash.join(',');
-    console.log(hash);
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = sendPlumeRes;
     httpRequest.open('POST', `${urlCourante}api/sendPlume.php`, true);
@@ -137,7 +134,6 @@ function sendPlumeRes(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
         } else {
         alert('Il y a eu un problème avec la requête.');
         }
@@ -145,6 +141,8 @@ function sendPlumeRes(){
 }
 
 function follow(){
+    document.getElementById("follow").classList.add("none");
+    document.getElementById("unfollow").classList.remove("none");
     let followed = document.getElementById("username-profile").innerText;
     followed = followed.replace('@','');
     httpRequest = new XMLHttpRequest();
@@ -155,11 +153,23 @@ function follow(){
     httpRequest.send(data);
 }
 
+function unfollow(){
+    document.getElementById("follow").classList.remove("none");
+    document.getElementById("unfollow").classList.add("none");
+    let following = document.getElementById("username-profile").innerText;
+    following = following.replace('@','');
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = followRes;
+    httpRequest.open('POST', `${urlCourante}api/unfollow.php`, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify({"follower": localStorage.getItem("userID"), "followed": following});
+    httpRequest.send(data);
+}
+
 function followRes(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let response = JSON.parse(httpRequest.responseText);
-            console.log(response);
         } else {
         alert('Il y a eu un problème avec la requête.');
         }
@@ -231,21 +241,16 @@ function ongletsMenu(menu,x){
         if(menu == 'profile'){
             if (x == 'clicked'){
                 getdatarequest('profile',localStorage.getItem("userID"));
+                document.getElementById("follow").classList.add("none");
+                document.getElementById("unfollow").classList.add("none");
+            }
+            else{
+                document.getElementById("follow").classList.remove("none");
+                document.getElementById("unfollow").classList.add("none");
             }
         }
         if(menu == 'parameters'){
             getdatarequest('param',localStorage.getItem('userID'));
-        }
-        if(menu == 'profile'){
-            if (x == 'clicked'){
-                getdatarequest('profile',localStorage.getItem("userID"));
-                document.getElementById("follow").disabled = "disabled";
-                document.getElementById("follow").classList.add("none");
-            }
-            else{
-                document.getElementById("follow").disabled = "enabled";
-                document.getElementById("follow").classList.remove("none");
-            }
         }
     }
 }
@@ -279,6 +284,15 @@ function suppression(){
 function deconnexion(){
     affiche();
     document.getElementById('texte-popup').innerText="Souhaitez-vous vous déconnecter?";
+    document.getElementById('btn-oui').onclick=deco;   
+}
+
+function deco(){
+    localStorage.removeItem("userID");
+    localStorage.removeItem("userPP");
+    localStorage.removeItem("userPseudo");
+    localStorage.removeItem("token");
+    window.location.href = "connexion.html";
 }
 
 //Changement des images avec celle ajoutée par l'utilisateur
@@ -307,6 +321,17 @@ function OngletBarre(number){
         if (!tab.classList.contains('none')){
             tab.classList.add('none');
         }
+    }
+    let user = document.getElementById("username-profile").innerText;
+    user = user.replace("@",'');
+    if(number == 1){
+        requeteGetFollow(user);
+    }
+    if(number == 2){
+        requeteGetLiked(user);
+    }
+    if(number == 3){
+        requeteGetSaved(user);
     }
     document.getElementById(`${number}`).classList.remove('none');
     ResteEnHaut();

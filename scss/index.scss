@@ -104,7 +104,8 @@ html{
                 }
                 
                 .tweet-send{
-                    #textarea{
+                    position: relative;
+                    #tweetarea{
                         background-color: $fond;
                         color: $white;
                         border-radius: 15px;
@@ -117,22 +118,14 @@ html{
                         position: relative;
                         &::placeholder{
                             padding-top: 1px;
+                            @include font(17px, $disabled-text, normal);
                         }
                         &:focus::placeholder{
                             color: transparent;
                         }
                     }
                     #counter{
-                        background-color: $fond;
-                        color: $white;
-                        border-radius: 20px;
-                        width: 40px;
-                        height: auto;
-                        text-align: center;
-                        font-size: 20px;
-                        position: absolute;
-                        right: 30%;
-                        margin: 11% 4px;
+                        @include counter(10px, 10%, 17px);
                     }
                 }
                 .bottom-tweet{
@@ -434,6 +427,22 @@ html{
                 #group-tweet{
                     padding-top: 8vh;
                 }
+                #no-friend{
+                    width: 100%;
+                    @include flex(column, center, center);
+                    @include font(27px, $white, normal);
+                    height: 100vh;
+                    text-align: center;
+                    background-color: $fond-plumes;
+                    #yaR{
+                        width: 20%;
+                        height: auto;
+                        margin-bottom: 3%;
+                    }
+                    p{
+                        margin: 0 10%;
+                    }
+                }
             }
             .container-droite {
                 @include ContainerDroite();
@@ -451,21 +460,24 @@ html{
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
-                        width: 66%;
-                        position: absolute;
-                        z-index: 3;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        width: 100%;
+                        @include flex(column, center, center);
                         height: 100vh;
-                        font-size: 24px;
-                        // margin: 0 50px 0 50px;
+                        font-size: 27px;
                         text-align: center;
                         background-color: $fond-plumes;
-                      }
-                    // #no-save{
-                    //     display: none;
-                    // }
+                        #yaR{
+                            width: 20%;
+                            height: auto;
+                            margin-bottom: 3%;
+                        }
+                        p{
+                            margin: 0 10% 0 10%;
+                        }
+                        i{
+                            color: $theme-color;
+                        }
+                    }
                     .rotate {
                         animation: rotate 1s ease-in-out;
                     }
@@ -615,15 +627,7 @@ html{
                             }
                         }
                         #counterBio{
-                            position: absolute;
-                            bottom: 15px;
-                            right: 5px;
-                            background-color: $fond;
-                            border-radius: 20px;
-                            border: none;
-                            text-align: center;
-                            width: 40px;
-                            @include font(17px, $white, normal);
+                            @include counter(15px, 5px, 17px);
                         }
                     }
                     #banner-input{
