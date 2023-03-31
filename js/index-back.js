@@ -60,7 +60,7 @@ function traitementGetFollower(){
                             <section class="tweet-icons">
                                 <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
                                 <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
-                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>
                             </section>
                         </section> 
                         `;    
@@ -116,6 +116,7 @@ function traitementGetTendance(){
     if (httpRequestTendance.readyState === XMLHttpRequest.DONE) {
         if (httpRequestTendance.status === 200) {
             OngletBarreMenu('6');
+            document.getElementById("no-friend").classList.add("none");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
@@ -159,7 +160,7 @@ function traitementGetTendance(){
                                     <section class="tweet-icons">
                                         <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
                                         <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
-                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>     
+                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>     
                                     </section>
                                 </section> 
                                 `;    
@@ -205,7 +206,7 @@ function traitementGetTendance(){
                                 <section class="tweet-icons">
                                     <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
                                     <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
-                                    <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>    
+                                    <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>    
                                 </section>
                             </section> 
                             `;    
@@ -243,6 +244,7 @@ function traitementGetRecent(){
     if (httpRequestRecent.readyState === XMLHttpRequest.DONE) {
         if (httpRequestRecent.status === 200) {
             OngletBarreMenu('5');
+            document.getElementById("no-friend").classList.add("none");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
             if(document.getElementsByClassName("center-comment")[0]){
@@ -282,7 +284,7 @@ function traitementGetRecent(){
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                             <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -332,6 +334,32 @@ function traitementLike(){
         }
     }       
 }
+
+function requetePreen(e){
+    let user = logUser;
+    let plume = e.srcElement.id.split("-");
+    httpRequestPostPreen = new XMLHttpRequest();
+    httpRequestPostPreen.onreadystatechange = traitementPreen;
+    httpRequestPostPreen.open('POST', `${urlCourante}api/preen.php`, true);
+    httpRequestPostPreen.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"user": user, "plume": plume[1]});
+    httpRequestPostPreen.send(data);
+}
+function traitementPreen(){
+    if (httpRequestPostPreen.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestPostPreen.status === 200) {
+            responsePostPreen = JSON.parse(httpRequestPostPreen.responseText);
+            if(responsePostPreen.state == "valide"){
+                changeRetweet(responsePostPreen.idPlume);
+                requeteNbPreen();
+            }
+        } 
+        else {
+            alert('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
 
 function requeteNbLike(){
     httpRequestLike = new XMLHttpRequest();
@@ -560,7 +588,7 @@ function traitementGetSave(){
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="${localStorage.getItem("themeColor")} select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                             <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -721,7 +749,7 @@ function traitementAffichReply(){
                             <section class="tweet-icons">
                                 <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                                 <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                             </section>
                         </section>
                     `;
@@ -776,7 +804,7 @@ function traitementAffichReply(){
                             <section class="tweet-icons">
                                 <i id="HeartElement-${plume['id']}" class="${localStorage.getItem("themeColor")} select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                                 <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                             </section>
                         </section>
                         `;  
@@ -949,7 +977,7 @@ function traitementGetFollow(){
                     <section class="tweet-icons">
                         <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                         <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                     </section>
                 </section> 
                 `;    
@@ -1011,7 +1039,7 @@ function traitementGetLiked(){
                     <section class="tweet-icons">
                         <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                         <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                     </section>
                 </section> 
                 `;      
@@ -1073,7 +1101,7 @@ function traitementGetSaved(){
                         <section class="tweet-icons">
                             <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
                             <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="changeRetweet()">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                         </section>
                     </section> 
                     `;    

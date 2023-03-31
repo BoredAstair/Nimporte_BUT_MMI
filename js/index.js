@@ -65,8 +65,8 @@ function changeHeart(id) {
 }
 
 // retweet
-function changeRetweet() {
-    var retweetElement = document.getElementById("RetweetElement");
+function changeRetweet(id) {
+    var retweetElement = document.getElementById(`RetweetElement-${id}`);
     retweetElement.classList.toggle("rotate");
 }
 
