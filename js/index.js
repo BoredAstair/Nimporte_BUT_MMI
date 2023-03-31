@@ -58,6 +58,8 @@ function affProfil(x){
     requeteNbPlume(x);
     requeteNbFollower(x);
     requeteNbFollowed(x);
+    dispInput("result-search-droite");
+    document.getElementById("recherche-droite").value = "";
     setTimeout(() => {OngletBarre(1)},100);
 }
 
@@ -397,16 +399,17 @@ function searchInput(id){
 }
 
 function dispInput(e){
-    switch(e.srcElement.id){
-        case "recherche-profil":
-            rechercheInput = document.getElementById("result-search-profil");
-            break;
-        case "recherche-droite":
-            rechercheInput = document.getElementById("result-search-droite");
-            break;
-        case "recherche-save-droite":
-            rechercheInput = document.getElementById("result-search-save-droite");
-            break;
-    }
+    // switch(e.srcElement.id){
+    //     case "recherche-profil":
+    //         rechercheInput = document.getElementById("result-search-profil");
+    //         break;
+    //     case "recherche-droite":
+    //         rechercheInput = document.getElementById("result-search-droite");
+    //         break;
+    //     case "recherche-save-droite":
+    //         rechercheInput = document.getElementById("result-search-save-droite");
+    //         break;
+    // }
+    rechercheResult = document.getElementById(e);
     rechercheResult.classList.add("none");
 }

@@ -640,7 +640,7 @@ function traitementAffichUser(){
                     var srcProfil = "ressource/icones/default-profile.jpg";
                 }
                 document.getElementById("profils").innerHTML += `
-                <section class="account">
+                <section class="account" onclick="affProfil('${response[i].username}')">
                 <img src="${srcProfil}" class="photo">
                     <section class="account-title">
                         <h3>${response[i].pseudo}</h3>
@@ -677,7 +677,7 @@ function traitementAffichUserSave(){
                     var srcProfil = "ressource/icones/default-profile.jpg";
                 }
                 document.getElementById("profils-save").innerHTML += `
-                <section class="account">
+                <section class="account" onclick="affProfil('${response[i].username}')">
                 <img src="${srcProfil}" class="photo">
                     <section class="account-title">
                         <h3>${response[i].pseudo}</h3>
@@ -921,7 +921,7 @@ function traitementSearch(){
                         srcPP = account["pp"];
                     }
                     document.querySelector("#result-search-droite .rapide").innerHTML += `
-                        <div class="account">
+                        <div class="account" onclick="affProfil('${account['username']}')">
                             <img src=${srcPP} alt="">
                             <div class="account-title">
                                 <h3>${account["pseudo"]}</h3>
