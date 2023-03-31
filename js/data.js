@@ -40,10 +40,11 @@ function getdatatraitementprofile(){
             let response = JSON.parse(httpRequest.responseText);
             console.log(response);
             if (localStorage.getItem('userID') != response[0]["username"]){
-            if (response[1][0]["user_following"].includes(localStorage.getItem("userID"))){
+            if (response[1][0]){
+            if (response[1][0]["user_followed"].includes(localStorage.getItem("userID"))){
                 document.getElementById("follow").classList.add("none");
                 document.getElementById("unfollow").classList.remove("none");
-            }}
+            }}  }
             document.getElementById("username-profile").innerText = "@" + response[0]["username"];
             document.getElementById("pseudo-profile").innerText = response[0]["pseudo"];
             if(response[0]["pp"]){
@@ -60,7 +61,6 @@ function getdatatraitementprofile(){
         }
     }
 }
-
 //-----
 
 function reqsetdata(){

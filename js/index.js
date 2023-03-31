@@ -54,6 +54,10 @@ function resgetdatatweet(){
 function affProfil(x){
     ongletsMenu('profile','');
     getdatarequest('profile',x);
+    requeteNbPlume(x);
+    requeteNbFollower(x);
+    requeteNbFollowed(x);
+    setTimeout(() => {OngletBarre(1)},100);
 }
 
 

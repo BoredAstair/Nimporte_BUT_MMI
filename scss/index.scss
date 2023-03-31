@@ -569,6 +569,10 @@ html{
                     @include menu();
                 }
             }
+            .plumes{
+                width: 60%;
+                @include plume();
+            }
         }
         #parameters{
             @include font(22px, $white, normal);

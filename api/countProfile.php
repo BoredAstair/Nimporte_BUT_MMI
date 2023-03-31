@@ -25,33 +25,33 @@ $data = json_decode($request_body, true);
 $erreur = [];
 
 if($request_method=="POST" && count($segments_uri)==1 && $segments_uri[0]=="plume"){
-    if($_POST['user']){
+    if($data['user']){
         $requestPlume = 'SELECT *, COUNT(id) as nb_plumes FROM plume WHERE user=:user';
         $selectPlume = $bdd -> prepare($requestPlume);
         $selectPlume -> execute([
-            ":user"=> $_POST['user']
+            ":user"=> $data['user']
         ]);
         $plumes = $selectPlume -> fetchAll(PDO::FETCH_ASSOC);
         encodeJson($plumes);
     }
 }
 else if($request_method=="POST" && count($segments_uri)==1 && $segments_uri[0]=="follower"){
-    if($_POST['user']){
+    if($data['user']){
         $requestFollower = 'SELECT *, COUNT(follow_since) as nb_follower FROM follow WHERE user_following=:user';
         $selectFollower = $bdd -> prepare($requestFollower);
         $selectFollower -> execute([
-            ":user"=> $_POST['user']
+            ":user"=> $data['user']
         ]);
         $followers = $selectFollower -> fetchAll(PDO::FETCH_ASSOC);
         encodeJson($followers);
     }
 }
 else if($request_method=="POST" && count($segments_uri)==1 && $segments_uri[0]=="followed"){
-    if($_POST['user']){
+    if($data['user']){
         $requestFollowed = 'SELECT *, COUNT(follow_since) as nb_followed FROM follow WHERE user_followed=:user';
         $selectFollowed = $bdd -> prepare($requestFollowed);
         $selectFollowed -> execute([
-            ":user"=> $_POST['user']
+            ":user"=> $data['user']
         ]);
         $followeds = $selectFollowed -> fetchAll(PDO::FETCH_ASSOC);
         encodeJson($followeds);
