@@ -151,6 +151,7 @@ function sendPlumeRes(){
             let response = JSON.parse(httpRequest.responseText);
             if (response.etat == 'valide'){
                 document.getElementById('tweetarea').value='';
+                document.getElementById('counter').value="256";
                 closeTheTweetPopup();
             }
         } else {
@@ -212,6 +213,7 @@ function closeTweetPopup(e){
       popupContainer.style.display = 'none';
       html[0].style.overflowY='visible';
       document.getElementById("tweetarea").value = "";
+      document.getElementById('counter').value="256";
     }
 }  
 
