@@ -1,5 +1,6 @@
 # N'importe_BUT_MMI
 Owltree | BOUTRY Lucas, ESTAYO Karl, GERMAIN Tessa, SAINTEMARIE Noémie, VERGNAUD Amélie
+
 Projet de Seconde année de BUT MMI, réalisation par groupe d'un site qui reprend le concept de Twitter
 
 Fonctionnalités :
