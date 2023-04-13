@@ -65,6 +65,8 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
 // la barre de recherche
 @mixin searchBar($margin, $left, $width){
     form{
+        position: relative;
+        z-index: 20;
         @include flex(row, center, normal);
         position: relative;
         height: 42px;
@@ -74,21 +76,66 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
             top: 50%;
             left: $left;
             transform: translateY(-50%);
+            z-index: 15;
         }
-        #recherche{
+        .recherche{
             border-radius: 15px;
             border: none;
             width: $width;
             height: 35px;
             padding-left: 15px;
             text-indent: 30px;
+            position: relative;
+            z-index: 10;
             background-color: #CCCCCC;
             @include font(15px, $darkest-blue, normal);
             &::placeholder{
                 @include font(15px, $darkest-blue, normal);
             }
             &:focus{
-                outline: none;
+                outline: solid $darkest-blue;
+            }
+        }
+        .result-search{
+            @include RecoProfils();
+            position: absolute;
+            z-index: 5;
+            bottom: 0;
+            left: 50%;
+            height: 100px;
+            transform: translate(-50%, 60%);
+            background-color: $fond-plumes;
+            &#result-search-profil{
+                width: 80%;
+            }
+            &#result-search-droite{
+                width: 85%;
+            }
+            &#result-search-save-droite{
+                width: 85%;
+            }
+            .rapide{
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                padding-top: 20px;
+                box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+                background-color: $fond-plumes;
+                border-radius: 0px 0px 20px 20px;
+                .account{
+                    width: 100%;
+                    margin: 0;
+                    padding: 5px;
+                    img{
+                        grid-column-start: 1;
+                        position: relative;
+                    }
+                    .account-title{
+                        grid-column-start: 2;
+                        justify-content: center;
+                    }
+                }
             }
         }
     }
@@ -150,68 +197,163 @@ $btn-colors : ("yellow" : $yellowbtn, "pink" : $pinkbtn, "blue" : $bluebtn, "gre
         margin-top: 50px;
         margin-bottom: 20px;
         @include flex(column, space-between, center);
-            .tweet-profil{
-                width: 90%;
-                max-height: 50%;
-                margin-top: 20px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        .tweet-profil{
+            width: 90%;
+            max-height: 50%;
+            margin-top: 20px;
+            @include flex(row, space-between, normal);
+            .tweet-title{
+                @include flex(row, normal, center);
+                img{
+                    border-radius: 50%;
+                    width: 70px;
+                    height: 70px;
+                    margin-left: 15px;
+                    cursor:pointer;
+                }
+                h3{
+                    color: $white;
+                    margin-left: 15px;
+                    cursor:pointer;
+                }
+                span{
+                    color: $disabled-text;
+                    margin-left: 15px;
+                }
+            }
+            .tweet-save{
                 @include flex(row, space-between, normal);
-                    .tweet-title{
-                        @include flex(row, normal, center);
-                        img{
-                            border-radius: 50%;
-                            width: 70px;
-                            margin-left: 15px;
-                            cursor:pointer;
-                        }
-                        h3{
-                            color: $white;
-                            margin-left: 15px;
-                            cursor:pointer;
-                        }
-                        span{
-                            color: $disabled-text;
-                            margin-left: 15px;
-                        }
-                    }
-                    .tweet-save{
-                        @include flex(row, space-between, normal);
-                        margin-top: 20px;
-                            i{
-                                color: $theme-color;
-                                font-size: 30px;
-                                cursor:pointer;
-                            }
-                            span{
-                                color: $white;
-                                font-size: 20px;
-                            }
-                    }
+                margin-top: 20px;
+                i{
+                    font-size: 30px;
+                    cursor:pointer;
+                    @include ColorChange();
+                }
+                span{
+                    color: $white;
+                    font-size: 20px;
+                }
             }
-            
-            .tweet-message{
-                height: auto;
-                margin: 20px 0px 25px 0px;
-                width: 90%;
-                color: $white;
-                    p{
-                        font-size: 17px;
-                        text-align: justify;
-                        width: 100%;
-                    }
-                    img{
-                        max-width: 40%;
-                    }
+        }
+        .tweet-message{
+            height: auto;
+            margin: 20px 0px 25px 0px;
+            width: 90%;
+            color: $white;
+                p{
+                    font-size: 17px;
+                    text-align: justify;
+                    width: 100%;
+                }
+                img{
+                    max-width: 40%;
+                }
+        }
+        .tweet-icons{  
+            width: 50%;
+            max-height: 20px;
+            @include flex(row, space-around, end);
+            margin-bottom: 20px;
+            i{
+                font-size: 20px;
+                cursor:pointer;
+                @include ColorChange();
             }
-            .tweet-icons{  
-                width: 50%;
-                max-height: 20px;
-                @include flex(row, space-around, end);
-                margin-bottom: 20px;
-                    i{
-                        color: $theme-color;
-                        font-size: 20px;
-                        cursor:pointer;
-                    }
-            }
+        }
     }
+}
+
+//recommendation profil
+@mixin RecoProfils(){
+    .rapide{
+        width: 80%;
+        height: auto;
+        background-color: $darkest-blue;
+        margin-top: 10%;
+        text-align: center;
+        border-radius: 20px;
+        color: $white;
+        font-size: 15px;
+        position:fixed;
+        width: 14%;
+        h3{
+            margin-top: 30px;
+            font-size: 15px;
+            cursor:pointer;
+            padding: 25px 15px;
+            text-align: center;
+            margin: 0;
+        }
+        .account{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin: 20px;
+            img{ 
+                border-radius: 50%;
+                height: 60px;
+                width: 60px;
+                cursor:pointer;
+                align-self: flex-start;
+            }
+            .account-title{
+                @include flex(column, center, normal);
+                h3{
+                    margin: 0;
+                    padding: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 130px;
+                }
+                span{
+                    color: $disabled-text;
+                    margin: 0;
+                    cursor:pointer;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 130px;
+                }
+            }
+        }
+    }
+}
+
+//container droite
+@mixin ContainerDroite(){
+    @include searchBar(50px, 15px, 90%);
+    width: 17%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: $fond;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include RecoProfils();
+    .tweeter{
+        height: 90px;
+        width: 90px;
+        border-radius: 50%;
+        position: fixed;
+        bottom: 3%;
+        right: 3%;
+        text-align: center;
+        cursor:pointer;
+        @include flex(row, center, center);
+        @include BgColorChange();
+    }
+}
+@mixin counter($bottom, $right, $size){
+    position: absolute;
+    bottom: $bottom;
+    right: $right;
+    @include font($size, $white, normal);
+    background-color: $fond;
+    border-radius: 20px;
+    border:none;
+    text-align: center;
+    width: 40px;
 }

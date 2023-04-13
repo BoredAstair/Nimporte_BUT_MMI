@@ -40,6 +40,7 @@
 
 // le code
 html{
+    background-color: $fond;
     button{
         @each $key, $value in $btn-colors{
             &.#{$key}{
@@ -89,6 +90,7 @@ html{
                     img{
                         border-radius: 50%;
                         width: 90px;
+                        height: 90px;
                         margin-left: 15px;
                         cursor:pointer;
                     }
@@ -104,7 +106,8 @@ html{
                 }
                 
                 .tweet-send{
-                    #textarea{
+                    position: relative;
+                    #tweetarea{
                         background-color: $fond;
                         color: $white;
                         border-radius: 15px;
@@ -117,22 +120,14 @@ html{
                         position: relative;
                         &::placeholder{
                             padding-top: 1px;
+                            @include font(17px, $disabled-text, normal);
                         }
                         &:focus::placeholder{
                             color: transparent;
                         }
                     }
                     #counter{
-                        background-color: $fond;
-                        color: $white;
-                        border-radius: 20px;
-                        width: 40px;
-                        height: auto;
-                        text-align: center;
-                        font-size: 20px;
-                        position: absolute;
-                        right: 30%;
-                        margin: 11% 4px;
+                        @include counter(10px, 10%, 17px);
                     }
                 }
                 .bottom-tweet{
@@ -252,8 +247,7 @@ html{
         #home{
             @include flex(row, normal, normal);
             width: 100%;
-            .container-centre {
-                padding-top: 8vh;
+            .container-centre{
                 padding-left: 17%;
                 width: 66%;
                 min-height: 100vh;
@@ -263,7 +257,7 @@ html{
                 .rotate {
                     animation: rotate 1s ease-in-out;
                 }
-                  @keyframes rotate {
+                @keyframes rotate {
                     from {
                       transform: rotate(0deg);
                     }
@@ -271,192 +265,191 @@ html{
                       transform: rotate(360deg);
                     }
                 }
-                    .top {
-                        height: 8vh;
-                        background-color: $darkest-blue;
-                        color: $white;
-                        @include flex(row, space-around, center);
-                        border-radius: 0 0 20px 20px;
-                        position: fixed;
-                        top: 0;
-                        width: 66%;
-                            .title-top{
-                                margin-top: auto;
-                                margin-bottom: 0;
-                                cursor:pointer;
-                            }
-                        @include menu();
-                    }
-                    @include plume;
-                    .comment-tweet{
-                        .retour{
-                            color: $white;
-                            font-size: 30px;
-                            margin: -5% 0 0 5%;
-                            cursor: pointer;
+                .top {
+                    height: 8vh;
+                    background-color: $darkest-blue;
+                    color: $white;
+                    @include flex(row, space-around, center);
+                    border-radius: 0 0 20px 20px;
+                    position: fixed;
+                    top: 0;
+                    width: 66%;
+                        .title-top{
+                            margin-top: auto;
+                            margin-bottom: 0;
+                            cursor:pointer;
                         }
-                        .comment{
-                            margin: 0 10% 0 10%;
-                            background-color: $darkest-blue;
-                            border-radius: 20px 20px 20px 20px;
-                            height: fit-content; 
-                            .top-comment{
-                                @include flex(row, space-between, center);
-                                .top-left{
-                                    @include flex(row, center, center);
-                                        img{
-                                            border-radius: 50%;
-                                            width: 70px;
-                                            margin: 10px 15px 10px 25px;
-                                            cursor:pointer;
-                                        }
-                                    #textarea{
-                                        margin-left: 2px;
-                                        width: 650px;
-                                        background-color: $darkest-blue;
-                                        border: none;
-                                        resize: none;
-                                        padding: 15px 0 0 5px;
-                                        color: $white;
-                                    }
-                                }
-                                .top-right{
-                                    #send{
-                                        font-family: 'Outfit', sans-serif;
-                                        margin-right: 25px;
-                                        background-color: $theme-color;
-                                        border-radius: 25px;
-                                        height: 40px;
-                                        border: none;
-                                        cursor: pointer;
-                                    }
-                                }
-                            }
-                            #trait{
-                                margin-top: 10px;
-                                border: 0.5px solid black;
-                            }
-                            .center-comment{
-                                margin: 0 20px 0 20px;
-                                #comment-compte{
-                                @include flex(row, normal, center);
-                                margin-top: 10px;
-                                img{
-                                    border-radius: 50%;
-                                    width: 70px;
-                                    margin: 10px 25px 10px 7px;
-                                    cursor:pointer;
-                                }
-                                h3{
-                                    color: $white;
-                                    margin-left: 15px;
-                                    cursor:pointer;
-                                }
-                                span{
-                                    color: $disabled-text;
-                                    margin-left: 15px;
-                                }
-                            }
-                            #texte{
-                                p{
-                                    margin: 5px 0 0 50px;
-                                    color: $white;
-                                    span{
-                                        color: $disabled-text;
-                                    }
-                                }
-                            }
-                            #comment-message{
-                                margin: 3% 50px 10px 50px;
-                                padding-bottom: 10px;
-                                color: $white;
-                                text-align: justify;
-                                font-size: 16px;
-                            }
-                            .tweet-icons{  
-                                padding-bottom: 30px;
-                                width: 50%;
-                                max-height: 20px;
-                                @include flex(row, space-around, center);
-                                margin-left: 25%;
-                                    i{
-                                        color: $theme-color;
-                                        font-size: 20px;
+                    @include menu();
+                }
+                @include plume;
+                .comment-tweet{
+                    background-color: $darkest-blue;
+                    min-height: 100vh;
+                    padding-bottom: 20px;
+                    .retour{
+                        padding-top: 30px;
+                        padding-left: 30px;
+                        color: $white;
+                        font-size: 30px;
+                        cursor: pointer;
+                        p{
+                            margin: 0;
+                            padding-top: 10px;
+                            padding-left: 10px;
+                        }
+                    }
+                    i{
+                        &.fa-comment{
+                            display: flex;
+                        }
+                    }
+                    .comment{
+                        margin: 0 10% 0 10%;
+                        background-color: $fond-plumes;
+                        border-radius: 20px;
+                        height: fit-content; 
+                        .top-comment{
+                            @include flex(row, space-between, center);
+                            width: 100%;
+                            .top-left{
+                                width: 85%;
+                                @include flex(row, center, center);
+                                    img{
+                                        border-radius: 50%;
+                                        width: 60px;
+                                        height: 60px;
+                                        margin: 10px 15px 10px 25px;
                                         cursor:pointer;
                                     }
+                                #textarea{
+                                    margin-left: 2px;
+                                    width: 95%;
+                                    background-color: $fond-plumes;
+                                    border: none;
+                                    resize: none;
+                                    border-radius: 15px;
+                                    padding: 15px 0 0 5px;
+                                    color: $white;
+                                    &::placeholder{
+                                        @include font(18px, $white, normal);
+                                    }
+                                    &:focus{
+                                        outline: solid $darkest-blue;
+                                    }
+                                    &:focus::placeholder{
+                                        color: transparent;
+                                    }
+                                }
                             }
+                            .top-right{
+                                @include flex(row,center,center);
+                                width: 15%;
+                                #send{
+                                    @include BgColorChange();
+                                    @include font(16px, $darkest-blue, normal);
+                                    font-family: 'Outfit', sans-serif;
+                                    margin-right: 25px;
+                                    background-color: $theme-color;
+                                    border-radius: 25px;
+                                    height: 40px;
+                                    border: none;
+                                    cursor: pointer;
+                                }
                             }
                         }
-
+                        #trait{
+                            margin-top: 10px;
+                            border: 0.5px solid $darkest-blue;
+                        }
+                        .center-comment{
+                            margin: 0 20px 0 20px;
+                            .tweet{
+                                width: 90%;
+                                margin-top: 0;
+                                margin-bottom: 0;
+                                background-color: $fond-plumes;
+                                box-shadow: none;
+                                @include flex(column, start, start);
+                                #comment-compte{
+                                    @include flex(row, normal, center);
+                                    margin-top: 10px;
+                                    img{
+                                        border-radius: 50%;
+                                        width: 70px;
+                                        margin: 10px 25px 10px 7px;
+                                        cursor:pointer;
+                                    }
+                                    h3{
+                                        width: 100%;
+                                        color: $white;
+                                        margin-left: 15px;
+                                        cursor:pointer;
+                                    }
+                                    span{
+                                        width: 100%;
+                                        color: $disabled-text;
+                                        margin-left: 15px;
+                                    }
+                                }
+                                #texte{
+                                    p{
+                                        margin: 5px 0 0 50px;
+                                        color: $white;
+                                        span{
+                                            @include ColorChange();
+                                        }
+                                    }
+                                }
+                                #comment-message{
+                                    margin: 3% 50px 10px 50px;
+                                    padding-bottom: 10px;
+                                    color: $white;
+                                    text-align: justify;
+                                    font-size: 16px;
+                                }
+                                .tweet-icons{  
+                                    padding-bottom: 30px;
+                                    width: 50%;
+                                    max-height: 20px;
+                                    @include flex(row, space-around, center);
+                                    margin-left: 25%;
+                                    i{
+                                        @include ColorChange();
+                                        font-size: 20px;
+                                        cursor:pointer;
+                                        &.fa-comment{
+                                            display: flex;
+                                        }
+                                    }
+                                }    
+                            }
+                        }
                     }
+                }
+                #group-tweet{
+                    padding-top: 8vh;
+                }
+                #no-friend{
+                    width: 100%;
+                    @include flex(column, center, center);
+                    @include font(27px, $white, normal);
+                    height: 100vh;
+                    text-align: center;
+                    background-color: $fond-plumes;
+                    #yaR{
+                        width: 20%;
+                        height: auto;
+                        margin-bottom: 3%;
+                    }
+                    p{
+                        margin: 0 10%;
+                    }
+                }
             }
             .container-droite {
-                @include searchBar(50px, 15px, 90%);
-                width: 17%;
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100%;
-                background-color: $fond;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .rapide{
-                    width: 80%;
-                    height: auto;
-                    background-color: $darkest-blue;
-                    margin-top: 10%;
-                    text-align: center;
-                    border-radius: 20px;
-                    color: $white;
-                    font-size: 15px;
-                    position:fixed;
-                    width: 14%;
-                    img{
-                        border-radius: 50%;
-                        height: 70px;
-                        cursor:pointer;
-                    }
-                    h3{
-                        margin-top: 30px;
-                        font-size: 15px;
-                        cursor:pointer;
-                    }
-                    .account{
-                        display: flex;
-                        flex-direction: row;
-                        margin: 25px 25px 25px 25px;
-                        justify-content: space-around;
-                        .account-title{
-                            margin-top: -25px;
-                            margin-left: 30px;
-                            span{
-                                color: $disabled-text;
-                            }
-                        }
-                    }
-                }
-                .tweeter{
-                    height: 90px;
-                    width: 90px;
-                    border-radius: 50%;
-                    position: fixed;
-                    bottom: 3%;
-                    right: 3%;
-                    text-align: center;
-                    cursor:pointer;
-                    @include BgColorChange();
-                    i{
-                        margin-top: 20px;
-                        color: $darkest-blue;
-                        font-size: 40px;
-                        cursor:pointer;
-                        
-                    }
-                }
+                @include ContainerDroite();
             }
         }
-
         #save{
             @include font(22px, $white, normal);
             background-color: $fond-plumes;
@@ -465,27 +458,28 @@ html{
             #all-save{
                 width: 80%;
                 height: 100vh;
-
                 #save-container-centre {
-
                     padding-top: 2vh;
                     background-color: $fond-plumes;
                     #no-save {
-                        width: 66%;
-                        position: absolute;
-                        z-index: 3;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        width: 100%;
+                        @include flex(column, center, center);
                         height: 100vh;
-                        font-size: 24px;
-                        // margin: 0 50px 0 50px;
+                        font-size: 27px;
                         text-align: center;
                         background-color: $fond-plumes;
-                      }
-                    // #no-save{
-                    //     display: none;
-                    // }
+                        #yaR{
+                            width: 20%;
+                            height: auto;
+                            margin-bottom: 3%;
+                        }
+                        p{
+                            margin: 0 10% 0 10%;
+                        }
+                        i{
+                            @include ColorChange();
+                        }
+                    }
                     .rotate {
                         animation: rotate 1s ease-in-out;
                     }
@@ -497,147 +491,10 @@ html{
                           transform: rotate(360deg);
                         }
                     }
-                        .tweet{
-                            width: 80%;
-                            height: auto;
-                            background-color: $darkest-blue;
-                            border-radius: 20px;
-                            margin: auto;	
-                            margin-top: 50px;
-                            margin-bottom: 20px;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            align-items: center;  
-                                .tweet-profil{
-                                    width: 90%;
-                                    max-height: 50%;
-                                    margin-top: 20px;
-                                    display: flex;        
-                                    justify-content: space-between;
-                                        .tweet-title{
-                                            display: flex; 
-                                            flex-direction: row;
-                                            align-items: center;
-                                            img{
-                                                border-radius: 50%;
-                                                width: 70px;
-                                                margin-left: 15px;
-                                                cursor:pointer;
-                                            }
-                                            h3{
-                                                color: $white;
-                                                margin-left: 15px;
-                                                cursor:pointer;
-                                            }
-                                            span{
-                                                color: $disabled-text;
-                                                margin-left: 15px;
-                                            }
-                                        }
-                                        .tweet-save{
-                                            display: flex;
-                                            justify-content: space-between;
-                                            margin-top: 20px;
-                                                i{
-                                                    font-size: 30px;
-                                                    cursor:pointer;
-                                                }
-                                                span{
-                                                    color: $white;
-                                                    font-size: 20px;
-                                                }
-                                        }
-                                }
-                                
-                                .tweet-message{
-                                    height: auto;
-                                    margin: 25px 0px 30px 0px;
-                                    width: 90%;
-                                    color: $white;
-                                        p{
-                                            font-size: 20px;
-                                            width: 90%;
-                                        }
-                                }
-                                .tweet-icons{  
-                                    width: 50%;
-                                    max-height: 20px;
-                                    display: flex;
-                                    flex-direction: row;
-                                    align-items: end;
-                                    justify-content: space-around;
-                                    margin-bottom: 20px;
-                                        i{
-                                            font-size: 20px;
-                                            cursor:pointer;
-                                        }
-                                }
-                        }
+                    @include plume();
                 }
                 .save-container-droite {
-                    @include searchBar(50px, 15px, 90%);
-                    width: 17%;
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    height: 100%;
-                    background-color: $fond;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    .save-rapide{
-                        width: 80%;
-                        height: auto;
-                        background-color: $darkest-blue;
-                        margin-top: 10%;
-                        text-align: center;
-                        border-radius: 20px;
-                        color: $white;
-                        font-size: 15px;
-                        position:fixed;
-                        width: 14%;
-                        img{ 
-                            border-radius: 50%;
-                            height: 70px;
-                            cursor:pointer;
-                        }
-                        h3{
-                            margin-top: 30px;
-                            font-size: 15px;
-                            cursor:pointer;
-                        }
-                        .account{
-                            display: flex;
-                            flex-direction: row;
-                            margin: 25px 25px 25px 25px;
-                            justify-content: space-around;
-                            .account-title{
-                                margin-top: -25px;
-                                margin-left: 30px;
-                                span{
-                                    color: $disabled-text;
-                                }
-                            }
-                        }
-                    }
-                    .save-tweeter{
-                        height: 90px;
-                        width: 90px;
-                        border-radius: 50%;
-                        position: fixed;
-                        bottom: 3%;
-                        right: 3%;
-                        text-align: center;
-                        cursor:pointer;
-                        @include BgColorChange();
-                        i{
-                            margin-top: 20px;
-                            color: $darkest-blue;
-                            font-size: 40px;
-                            cursor:pointer;
-                        }
-                    }
+                    @include ContainerDroite();
                 }
             }
         }                 
@@ -712,6 +569,22 @@ html{
                     @include menu();
                 }
             }
+            .plumes{
+                width: 60%;
+                @include plume();
+            }
+            .tweeter{
+                height: 90px;
+                width: 90px;
+                border-radius: 50%;
+                position: fixed;
+                bottom: 3%;
+                right: 3%;
+                text-align: center;
+                cursor:pointer;
+                @include flex(row, center, center);
+                @include BgColorChange();
+            }
         }
         #parameters{
             @include font(22px, $white, normal);
@@ -759,13 +632,20 @@ html{
                     margin-top: 8%;
                     @include flex(column, space-between, normal);
                     width: 100%;
-                    #biography{
-                        @include inputProfil(120px, 100%);
-                        resize: none;
-                        padding-top: 15px;
-                        @include font(16px, $white, normal);
-                        &::placeholder{
+                    #container-bio{
+                        position: relative;
+                        #biography{
+                            @include inputProfil(120px, 100%);
+                            resize: none;
+                            padding: 15px;
+                            text-indent: 0;
                             @include font(16px, $white, normal);
+                            &::placeholder{
+                                @include font(16px, $white, normal);
+                            }
+                        }
+                        #counterBio{
+                            @include counter(15px, 5px, 17px);
                         }
                     }
                     #banner-input{
@@ -848,7 +728,6 @@ html{
                         }
                     }
                 }
-
             }
         }
     }

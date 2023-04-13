@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <title>OwlTree</title>
 </head>
-<body>
+<body onclick="dispInput('result-search-droite')">
     <div id="popup-fond" class="none">
         <div id="popup">
             <p id="texte-popup"></p>
@@ -26,11 +26,14 @@
         <img id="logo" src="ressource/icones/logo.png" alt="logo">
         <form id="search">
             <img class="HideSearch" src="ressource/icones/loupe.png">
-            <input class="HideSearch" type="text" id="recherche" placeholder="Recherchez...">
+            <input class="HideSearch recherche" type="text" class="recherche" id="recherche-profil" placeholder="Recherchez..." oninput="requeteSearch(event)" onchange="dispInput(event)">
+            <div id="result-search-profil" class="result-search none">
+            </div>
         </form>
 
         <div id="menu-btn">
-            <div class="onglet" id="home-btn" onclick="ongletsMenu('home')">
+            <div class="onglet actif" id="home-btn" onclick="requeteGetFollower()">
+
                 <img src="ressource/icones/accueil.png" alt="accueil">
                 <span>Accueil</span>
             </div>
@@ -38,11 +41,11 @@
                 <img src="ressource/icones/enregistrer.png" alt="enregistrer">
                 <span>Enregistrés</span>
             </div>
-            <div class="onglet" id="profile-btn" onclick="ongletsMenu('profile')">
+            <div class="onglet" id="profile-btn" onclick="affProfil(localStorage.getItem('userID'))">
                 <img src="ressource/icones/compte.png" alt="votre profil">
                 <span>Profil</span>
             </div>
-            <div class="onglet actif" id="parameters-btn" onclick="ongletsMenu('parameters')">
+            <div class="onglet" id="parameters-btn" onclick="ongletsMenu('parameters','')">
                 <img src="ressource/icones/parametres.png" alt="paramètres">
                 <span>Paramètres</span>
             </div>
@@ -52,80 +55,39 @@
             </div>
         </div>
     </div>
-    <section class="contenu none" id="home">
+    <section class="contenu" id="home">
         <section class="container-centre">
             <section class="top">
-
-                <h2 class="title-top" onclick="requeteGetFollower()">Followers</h2>
-                <h2 class="title-top" onclick="requeteGetRecent()">Dernière plumes</h2>
-                <h2 class="title-top" onclick="requeteGetTendance()">Tendances</h2>
+                <div class="btn-menu-profil" onclick="requeteGetFollower()">
+                    <h2 class="title-top">Followers</h2>
+                    <div class="selecteur-menu selecteur-actif select-color yellow" id="btn4"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="requeteGetRecent()">
+                    <h2 class="title-top">Dernière plumes</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn5"></div>
+                </div>
+                <div class="btn-menu-profil" onclick="requeteGetTendance()">
+                    <h2 class="title-top">Tendances</h2>
+                    <div class="selecteur-menu select-color yellow" id="btn6"></div>
+                </div>
+            </section>
+            <section class="comment-tweet none">
             </section>
             <section id="group-tweet">   
             </section>   
-            
-            <section class="comment-tweet none">
-                <section class="retour" onclick="retour()">
-                    <p><i class="fa-solid fa-arrow-left" onclick="retour()"></i> Retour</p>
-                </section>
-                <section class="tweet">
-                    <section class="tweet-profil">
-                        <section class="tweet-title">
-                            <img src="https://dummyimage.com/500x500/000/fff" class="photo">
-                            <h3>PSEUDO</h3>
-                            <span>@pseudo</span>
-                        </section>
-                        <section class="tweet-save">
-                            <span>Enregistrer</span>&ensp;<i id="SaveElement" class="fa-regular fa-bookmark" onclick="changeSave()"></i>
-                        </section>
-                    </section>       
-                    <section class="tweet-message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <img id="" src="">
-                    </section>
-                    <section class="tweet-icons">
-                        <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                        <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                        <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                    </section>
-                </section>
-
-                <section class="comment">
-                    <section class="top-comment">
-                    <section class="top-left">
-                        <img src="https://dummyimage.com/500x500/000/fff" class="photo">
-                        <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
-                    </section>
-                    <section class="top-right">
-                        <button id="send">Répondre <i class="fa-solid fa-arrow-right"></i></button>
-                    </section>
-                    </section>
-                    <section id="trait"></section>
-                    <section class="center-comment">
-                        <section id="comment-compte">
-                            <img src="https://dummyimage.com/500x500/000/fff" class="photo">
-                            <h3>PSEUDO</h3>
-                            <span>@pseudo</span>
-                        </section>
-                        <section id="texte">
-                            <p>En réponse à <span>@pseudo</span></p>
-                        </section>
-                        <section id="comment-message">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </section>
-                        <section class="tweet-icons">
-                            <i id="HeartElement" class="fa-regular fa-heart" onclick="changeHeart()">&ensp;<span>2</span></i>
-                            <i class="fa-regular fa-comment">&ensp;<span>2</span></i>
-                            <i id="RetweetElement" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span>2</span></i>
-                        </section>
-                    </section>
-                </section>
+            <section id="no-friend" class="none">
+                <img id="yaR" src="ressource/icones/yaR.png">
+                <p>Vous ne suivez personne, utilisez la barre de recherche pour trouver des amis !</p>
             </section>
+
         </section>
 
         <section class="container-droite">
             <form>
                 <img src="ressource/icones/loupe.png">
-                <input type="text" id="recherche" placeholder="Recherchez...">
+                <input type="text" class="recherche" id="recherche-droite" placeholder="Recherchez..." oninput="requeteSearch(event)">
+                <div id="result-search-droite" class="result-search none">
+                </div>
             </form>
 
             <section class="rapide">
@@ -135,7 +97,7 @@
                 </section>
             </section>
             <section class="tweeter select-color yellow" onclick="DoTweet()">
-                <i class="fa-solid fa-feather plumez"></i>
+                <img src="ressource/icones/plume.png" alt="">
             </section>
         </section>
     </section>
@@ -148,17 +110,19 @@
             <section class="save-container-droite">
                 <form>
                     <img src="ressource/icones/loupe.png">
-                    <input type="text" id="recherche" placeholder="Recherchez...">
+                    <input type="text" class="recherche" id="recherche-save-droite" placeholder="Recherchez..." oninput="requeteSearch(event)" onchange="dispInput(event)">
+                    <div id="result-search-save-droite" class="result-search none">
+                    </div>
                 </form>
     
-                <section class="save-rapide">
+                <section class="rapide">
                     <h3>Ces profils pourraient vous intéresser...</h3>
                     <div id="profils-save">
 
                     </div>
                 </section>
-                <section class="save-tweeter select-color yellow" onclick="DoTweet()">
-                    <i class="fa-solid fa-feather plumez"></i>
+                <section class="tweeter select-color yellow" onclick="DoTweet()">
+                    <img src="ressource/icones/plume.png" alt="">
                 </section>
             </section>
         </section>
@@ -169,9 +133,9 @@
             <img id="profile-picture" src="ressource/icones/default-profile.jpg" alt="photo de profil">
             <img id="banniere-profil" src="ressource/images/default-banner.webp" alt="bannière du profil">
             <div id="stats-profil">
-                <span>666 Plumes</span>
-                <span>2 followers</span>
-                <span>42 abonnements</span>
+                <span><span id="countPlume">0</span><span> plumes</span></span>
+                <span><span id="countFollower">0</span> followers</span>
+                <span><span id="countFollowed">0</span><span> abonnements</span></span>
             </div>
             <div id="desc-profile">
                 <div id="profile-container">
@@ -179,9 +143,10 @@
                         <span id="pseudo-profile">Pseudo</span>
                         <span id="username-profile">@utilisateur</span>
                     </div>
-                    <button class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
+                    <button id="follow" onclick="follow()" class="select-color yellow"><i class="fa-solid fa-plus"></i> Suivre</button>
+                    <button id="unfollow" onclick='unfollow()' class="select-color yellow"><i class="fa-solid fa-plus"></i> Ne plus suivre</button>
                 </div>
-                <p id="biography-profile">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium impedit tenetur aspernatur architecto, fuga modi facere dolorem harum ullam? Quam expedita ex asperiores molestias velit aperiam dicta aliquam unde temporibus!</p>
+                <p id="biography-profile"></p>
             </div>
         </div>
 
@@ -202,18 +167,18 @@
             </div>
 
             <div class="plumes" id="1">
-                <p>Ceci est un test</p>
             </div>
             <div class="plumes none" id="2">
-                <p>Test numéro 2</p>
             </div>
             <div class="plumes none" id="3">
-                <p>oui bon ça marche</p>
             </div>
         </div>
+        <section class="tweeter select-color yellow" onclick="DoTweet()">
+            <img src="ressource/icones/plume.png" alt="">
+        </section>
     </section>
 
-    <section class="contenu" id="parameters">
+    <section class="contenu none" id="parameters">
         <div id="all-parameters">
             <h2>Profil</h2>
             <div id="profile-part1">
@@ -237,7 +202,10 @@
 
             <div id="profile-part2">
                 <p>Biographie</p>
-                <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !"></textarea>
+                <div id="container-bio">
+                    <textarea type="text" id="biography" placeholder="Ajoutez une courte description à votre profil !" maxlength="256" onkeyup="textCounter(this,'counterBio',256);"></textarea>
+                    <input disabled maxlength="3" size="3" value="256" id="counterBio">
+                </div>
 
                 <p>Bannière</p>
                 <div id="banner-input">
@@ -279,9 +247,6 @@
         </div>
     </section>
 
-
-
-
     <section class="popup-container" onclick="closeTweetPopup(event)">
         <section class="container-tweet">
             <section class="tweet-title">
@@ -290,7 +255,7 @@
                 <span id="usernamesendtweet">@pseudo</span>
             </section>
             <section class="tweet-send">
-                <textarea class="select-color yellow" id="textarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                <textarea class="select-color yellow" id="tweetarea" id="message" type="text" name="tweet" placeholder=" Quoi de neuf ?" maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
                 <input disabled maxlength="3" size="3" value="256" id="counter">
             </section>
             <section class="bottom-tweet">
@@ -299,7 +264,7 @@
                     <p onclick="insertImage()">Ajouter une image</p>
                 </section>
                 <section class="bottom-right">
-                    <button class="select-color yellow" id="btn-send">Envoyer</button>
+                    <button class="select-color yellow" id="btn-send" onclick="sendPlume()">Envoyer</button>
                 </section>
             </section>
             <section class="space-image">
@@ -307,11 +272,6 @@
             </section>
         </section>
     </section>
-
-
-
-
-
 
     <script src="js/data.js"></script>
     <script src="js/index.js"></script>

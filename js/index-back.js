@@ -1,6 +1,10 @@
 urlCourante = "http://localhost/owlTree/Nimporte_BUT_MMI/";
-logUser = "chouette";
-console.log(localStorage.getItem("userID"));
+logUser = localStorage.getItem("userID");
+if(!localStorage.getItem("themeColor")){
+    localStorage.setItem("themeColor", "yellow");
+}
+
+//Requête permettant de récupérer les tweets
 function requeteGetFollower(){
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = traitementGetFollower;
@@ -13,48 +17,57 @@ function requeteGetFollower(){
 function traitementGetFollower(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
+            ongletsMenu("home", "jsp");
+            OngletBarreMenu('4');
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
-            console.log("follower");
+            if(document.getElementsByClassName("center-comment")[0]){
+                document.getElementsByClassName("center-comment")[0].innerHTML = "";
+            }
             let response = JSON.parse(httpRequest.responseText);
-            // console.log(response);
-            for(plume of response){
-                if(plume['answer_to'] == null){
-                    if(plume['pp'] == null){
-                        src = "ressource/icones/default-profile.jpg";
-                    }
-                    else{
-                        src = plume['pp'];
-                    }
-                    if(plume['image'] != null){
-                        srcImage = plume['image'];
-                    }
-                    else{
-                        srcImage = '';
-                    }
-                    document.getElementById("group-tweet").innerHTML += `
-                    <section class="tweet" id="id-${plume['id']}">
-                        <section class="tweet-profil">
-                            <section class="tweet-title">
-                                <img src="${src}" classe="photo">
-                                <h3>${plume['pseudo']}</h3>
-                                <span>@${plume['user']}</span>
+            if(response['etat']!=undefined){
+                document.getElementById("no-friend").classList.remove("none");
+            }
+            else{
+                for(plume of response){
+                    if(plume['answer_to'] == null){
+                        if(plume['pp'] == null){
+                            src = "ressource/icones/default-profile.jpg";
+                        }
+                        else{
+                            src = plume['pp'];
+                        }
+                        if(plume['image'] != null){
+                            srcImage = plume['image'];
+                        }
+                        else{
+                            srcImage = '';
+                        }
+                        let userProfile = plume['user'];
+                        document.getElementById("group-tweet").innerHTML += `
+                        <section class="tweet" id="id-${plume['id']}">
+                            <section class="tweet-profil">
+                                <section class="tweet-title" onclick="affProfil('${userProfile}')">
+                                    <img src="${src}" classe="photo">
+                                    <h3>${plume['pseudo']}</h3>
+                                    <span>@${plume['user']}</span>
+                                </section>
+                                <section class="tweet-save">
+                                    <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
+                                </section>
+                            </section>       
+                            <section class="tweet-message">
+                                <p>${plume['content']}</p>
+                                <img id="" src="${srcImage}">
                             </section>
-                            <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
+                            <section class="tweet-icons">
+                                <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
+                                <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>
                             </section>
-                        </section>       
-                        <section class="tweet-message">
-                            <p>${plume['content']}</p>
-                            <img id="" src="${srcImage}">
-                        </section>
-                        <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
-                        </section>
-                    </section> 
-                    `;    
+                        </section> 
+                        `;    
+                    }    
                 }
             }
             setTimeout(()=>{
@@ -71,11 +84,12 @@ function traitementGetFollower(){
             });
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant de récupérer tout les tweets
 function requeteGetAll(){
     httpRequestAll = new XMLHttpRequest();
     httpRequestAll.onreadystatechange = traitementGetAll;
@@ -90,11 +104,12 @@ function traitementGetAll(){
             tableau = response;
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant de récupérer les tweets en tendances
 function requeteGetTendance(){
     httpRequestTendance = new XMLHttpRequest();
     httpRequestTendance.onreadystatechange = traitementGetTendance;
@@ -105,14 +120,16 @@ function requeteGetTendance(){
 function traitementGetTendance(){
     if (httpRequestTendance.readyState === XMLHttpRequest.DONE) {
         if (httpRequestTendance.status === 200) {
-            console.log("tendance");
+            OngletBarreMenu('6');
+            document.getElementById("no-friend").classList.add("none");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
+            if(document.getElementsByClassName("center-comment")[0]){
+                document.getElementsByClassName("center-comment")[0].innerHTML = "";
+            }
             let response = JSON.parse(httpRequestTendance.responseText);
-            // console.log(response);
             requeteGetAll();
             setTimeout(() => {
-                // console.log(tableau);    
                 for(like of response){
                     for(plume of tableau){
                         if(like['plume_id']==plume['id']){
@@ -129,16 +146,17 @@ function traitementGetTendance(){
                                 else{
                                     srcImage = '';
                                 }    
+                                let userProfile = plume['user'];
                                 document.getElementById("group-tweet").innerHTML += `
                                 <section class="tweet" id="id-${plume['id']}">
                                     <section class="tweet-profil">
-                                        <section class="tweet-title">
+                                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                             <img src="${src}" classe="photo">
                                             <h3>${plume['pseudo']}</h3>
                                             <span>@${plume['user']}</span>
                                         </section>
                                         <section class="tweet-save">
-                                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
+                                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
                                         </section>
                                     </section>       
                                     <section class="tweet-message">
@@ -146,9 +164,9 @@ function traitementGetTendance(){
                                         <img id="" src="${srcImage}">
                                     </section>
                                     <section class="tweet-icons">
-                                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                                        <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
-                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
+                                        <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
+                                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>     
                                     </section>
                                 </section> 
                                 `;    
@@ -161,7 +179,6 @@ function traitementGetTendance(){
                     idLike.push(like["plume_id"]);
                 }    
                 for(plume of tableau){
-                    // console.log(idLike.includes(plume['id']));
                     if(idLike.includes(plume["id"]) == false){
                         if(plume['answer_to'] == null){
                             if(plume['pp'] == null){
@@ -176,16 +193,17 @@ function traitementGetTendance(){
                             else{
                                 srcImage = '';
                             }
+                            let userProfile = plume['user'];
                             document.getElementById("group-tweet").innerHTML += `
                             <section class="tweet" id="id-${plume['id']}">
                                 <section class="tweet-profil">
-                                    <section class="tweet-title">
+                                    <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                         <img src="${src}" classe="photo">
                                         <h3>${plume['pseudo']}</h3>
                                         <span>@${plume['user']}</span>
                                     </section>
                                     <section class="tweet-save">
-                                        <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark" onclick="requeteSave(event)"></i>
+                                        <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
                                     </section>
                                 </section>       
                                 <section class="tweet-message">
@@ -193,9 +211,9 @@ function traitementGetTendance(){
                                     <img id="" src="${srcImage}">
                                 </section>
                                 <section class="tweet-icons">
-                                    <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                                    <i class="fa-regular fa-comment">&ensp;<span class="comment">0</span></i>
-                                    <i id="RetweetElement-${plume['id']}" class="fas fa-retweet" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                                    <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume['id']}">0</span></i>
+                                    <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume['id']}">0</span></i>
+                                    <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume['id']}">0</span></i>    
                                 </section>
                             </section> 
                             `;    
@@ -217,11 +235,12 @@ function traitementGetTendance(){
             }, 150);
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant de récupérer les tweets les plus récents
 function requeteGetRecent(){
     httpRequestRecent = new XMLHttpRequest();
     httpRequestRecent.onreadystatechange = traitementGetRecent;
@@ -232,11 +251,14 @@ function requeteGetRecent(){
 function traitementGetRecent(){
     if (httpRequestRecent.readyState === XMLHttpRequest.DONE) {
         if (httpRequestRecent.status === 200) {
-            console.log("recent");
+            OngletBarreMenu('5');
+            document.getElementById("no-friend").classList.add("none");
             document.getElementById("save-container-centre").innerHTML = "";
             document.getElementById("group-tweet").innerHTML = "";
+            if(document.getElementsByClassName("center-comment")[0]){
+                document.getElementsByClassName("center-comment")[0].innerHTML = "";
+            }
             let response = JSON.parse(httpRequestRecent.responseText);
-            // console.log(response);
             for(plume of response){
                 if(plume['answer_to'] == null){
                     if(plume['pp'] == null){
@@ -251,16 +273,17 @@ function traitementGetRecent(){
                     else{
                         srcImage = '';
                     }
+                    let userProfile = plume['user'];
                     document.getElementById("group-tweet").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
-                            <section class="tweet-title">
+                            <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                 <img src="${src}" classe="photo">
                                 <h3>${plume['pseudo']}</h3>
                                 <span>@${plume['user']}</span>
                             </section>
                             <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
+                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
                             </section>
                         </section>       
                         <section class="tweet-message">
@@ -268,9 +291,9 @@ function traitementGetRecent(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                            <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -291,11 +314,12 @@ function traitementGetRecent(){
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant de liker un tweet
 function requeteLike(e){
     let user = logUser;
     let plume = e.srcElement.id.split("-");
@@ -310,18 +334,44 @@ function traitementLike(){
     if (httpRequestPostLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostLike.status === 200) {
             responsePostLike = JSON.parse(httpRequestPostLike.responseText);
-            // console.log(httpRequestPostLike.responseText);
             if(responsePostLike.state == "valide"){
                 changeHeart(responsePostLike.idPlume);
                 requeteNbLike();
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant de récupérer les plumes retweeté par un utilisateur
+function requetePreen(e){
+    let user = logUser;
+    let plume = e.srcElement.id.split("-");
+    httpRequestPostPreen = new XMLHttpRequest();
+    httpRequestPostPreen.onreadystatechange = traitementPreen;
+    httpRequestPostPreen.open('POST', `${urlCourante}api/preen.php`, true);
+    httpRequestPostPreen.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"user": user, "plume": plume[1]});
+    httpRequestPostPreen.send(data);
+}
+function traitementPreen(){
+    if (httpRequestPostPreen.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestPostPreen.status === 200) {
+            responsePostPreen = JSON.parse(httpRequestPostPreen.responseText);
+            if(responsePostPreen.state == "valide"){
+                changeRetweet(responsePostPreen.idPlume);
+                requeteNbPreen();
+            }
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant de récupérer le nombre de likes
 function requeteNbLike(){
     httpRequestLike = new XMLHttpRequest();
     httpRequestLike.onreadystatechange = traitementNbLike;
@@ -333,28 +383,29 @@ function traitementNbLike(){
     if (httpRequestLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestLike.status === 200) {
             responseLike = JSON.parse(httpRequestLike.responseText);
-            // console.log(responseLike);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
                 exist = false;
                 let id = tweet.id.split("-");
                 for(like of responseLike){
+                    textLike = document.getElementById(`like-${id[1]}`);
                     if(id[1]==like["plume_id"]){
-                        tweet.children[2].children[0].children[0].innerText = like['nb_like'];
+                        textLike.innerText = like['nb_like'];
                         exist = true;
                     }
                 }
                 if(exist == false){
-                    tweet.children[2].children[0].children[0].innerText = 0;
+                    textLike.innerText = 0;
                 }
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant d'afficher sur les tweets si l'utilisateur l'a liké 
 function requeteStateLike(){
     httpRequestStateLike = new XMLHttpRequest();
     httpRequestStateLike.onreadystatechange = traitementStateLike;
@@ -366,8 +417,6 @@ function traitementStateLike(){
     if (httpRequestStateLike.readyState === XMLHttpRequest.DONE) {
         if (httpRequestStateLike.status === 200) {
             responseStateLike = JSON.parse(httpRequestStateLike.responseText);
-            // console.log("state like");
-            // console.log(responseStateLike);
             let user = logUser;
             for(like of responseStateLike){
                 if(user == like["user_like"]){
@@ -379,12 +428,12 @@ function traitementStateLike(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
-
+//Requête permettant de sauvegarder un tweet
 function requeteSave(e){
     let user = logUser;
     let plume = e.srcElement.id.split("-");
@@ -399,10 +448,8 @@ function traitementSave(){
     if (httpRequestPostSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestPostSave.status === 200) {
             responsePostSave = JSON.parse(httpRequestPostSave.responseText);
-            // console.log(httpRequestPostSave.responseText);
             if(responsePostSave.state == "valide"){
                 changeSave(responsePostSave.idPlume);
-                console.log(responsePostSave.type);
             }
             if(responsePostSave.type == "ajout"){
                 document.getElementById(`SaveText-${responsePostSave.idPlume}`).innerText = "Enregistré";
@@ -412,11 +459,12 @@ function traitementSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant d'afficher sur un tweet si l'utilisateur l'a sauvegardé
 function requeteStateSave(){
     httpRequestStateSave = new XMLHttpRequest();
     httpRequestStateSave.onreadystatechange = traitementStateSave;
@@ -428,13 +476,10 @@ function traitementStateSave(){
     if (httpRequestStateSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestStateSave.status === 200) {
             responseStateSave = JSON.parse(httpRequestStateSave.responseText);
-            // console.log("state save");
-            // console.log(responseStateSave);
             let user = logUser;
             for(save of responseStateSave){
                 if(user == save["user_save"]){
                     tweetSave = document.getElementById(`SaveElement-${save['plume_id']}`);
-                    // console.log(tweetSave);        
                     if(tweetSave != null){
                         changeSave(save['plume_id']);
                         document.getElementById(`SaveText-${save['plume_id']}`).innerText = "Enregistré";
@@ -443,12 +488,12 @@ function traitementStateSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
-
+//Requête permettant d'afficher le nomnbre de retweet
 function requeteNbPreen(){
     httpRequestPreen = new XMLHttpRequest();
     httpRequestPreen.onreadystatechange = traitementNbPreen;
@@ -462,20 +507,27 @@ function traitementNbPreen(){
             responsePreen = JSON.parse(httpRequestPreen.responseText);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
+                exist = false;
                 let id = tweet.id.split("-");
                 for(preen of responsePreen){
+                    textPreen = document.getElementById(`preen-${preen.retweet_id}`);
                     if(id[1]==preen.retweet_id){
-                        tweet.children[2].children[2].children[0].innerText = preen.nb_preen;
+                        textPreen.innerText = preen.nb_preen;
+                        exist = true;
                     }
+                }
+                if(exist == false){
+                    textPreen.innerText = 0;
                 }
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant d'afficher le nombre de commentaire
 function requeteNbComment(){
     httpRequestComment = new XMLHttpRequest();
     httpRequestComment.onreadystatechange = traitementNbComment;
@@ -487,26 +539,25 @@ function traitementNbComment(){
     if (httpRequestComment.readyState === XMLHttpRequest.DONE) {
         if (httpRequestComment.status === 200) {
             responseComment = JSON.parse(httpRequestComment.responseText);
-            // console.log(responseComment);
             tweets = document.getElementsByClassName("tweet");
             for(tweet of tweets){
                 let id = tweet.id.split("-");
-                // console.log("id: "+id[1]);
-                for(comment of responseComment){
-                    if(id[1]==comment.answer_to){
-                        // console.log("answer: "+comment.nb_comment);
-                        tweet.children[2].children[1].children[0].innerText = comment.nb_comment;
-                        // tweet.children[2].children[2].children[0].innerText = comment.nb_comment;
+                textComment = document.getElementById(`comment-${id[1]}`);
+                for(comments of responseComment){
+                    if(id[1]==comments.answer_to){
+                        textComment.innerText = comments.nb_comment;
                     }
                 }
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+
+//Requête permettant d'afficher les tweets qui ont été sauvegardé par l'utilisateur actif
 function requeteGetSave(){
     let user = logUser;
     httpRequestGetSave = new XMLHttpRequest();
@@ -520,10 +571,15 @@ function traitementGetSave(){
     if (httpRequestGetSave.readyState === XMLHttpRequest.DONE) {
         if (httpRequestGetSave.status === 200) {
             ongletsMenu('save');
+            requeteAffichUserSave();
             document.getElementById("group-tweet").innerHTML = "";
-            document.getElementById("save-container-centre").innerHTML = `<div id="no-save" class="none">Vous n'avez rien enregistré !</div>`;
+            document.getElementById("save-container-centre").innerHTML = 
+                `<div id="no-save" class="none">
+                    <img id="yaR" src="ressource/icones/yaR.png">
+                    <p>Vous n'avez rien enregistré pour l'instant, cliquez sur &ensp;<i class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color"></i> &ensp;pour enregistrer une plume pour plus tard...</p>
+                </div>`;
             let response = JSON.parse(httpRequestGetSave.responseText);
-            // console.log(response);
+            console.log(response);
             if(response['etat']!=undefined){
                 document.getElementById("no-save").classList.remove("none");
             }
@@ -541,16 +597,17 @@ function traitementGetSave(){
                     else{
                         srcImage = '';
                     }
+                    let userProfile = plume['user'];
                     document.getElementById("save-container-centre").innerHTML += `
                     <section class="tweet" id="id-${plume['id']}">
                         <section class="tweet-profil">
-                            <section class="tweet-title">
+                            <section class="tweet-title" onclick="affProfil('${userProfile}')">
                                 <img src="${src}" classe="photo">
                                 <h3>${plume['pseudo']}</h3>
                                 <span>@${plume['user']}</span>
                             </section>
                             <section class="tweet-save">
-                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark yellow select-color" onclick="requeteSave(event)"></i>
+                                <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
                             </section>
                         </section>       
                         <section class="tweet-message">
@@ -558,9 +615,9 @@ function traitementGetSave(){
                             <img id="" src="${srcImage}">
                         </section>
                         <section class="tweet-icons">
-                            <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart yellow select-color" onclick="requeteLike(event)">&ensp;<span class="like">0</span></i>
-                            <i class="fa-regular fa-comment yellow select-color">&ensp;<span class="comment">0</span></i>
-                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet yellow select-color" onclick="changeRetweet()">&ensp;<span class="preen">0</span></i>
+                            <i id="HeartElement-${plume['id']}" class="${localStorage.getItem("themeColor")} select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                            <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                            <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
                         </section>
                     </section> 
                     `;    
@@ -573,19 +630,17 @@ function traitementGetSave(){
                 requeteNbComment();
                 setTimeout(()=>{
                     requeteStateSave();
-                    setTimeout(()=>{
-                        requeteAffichUserSave();
-                    })
                 },250);
                         });
             
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant d'afficher les tweets envoyé par un utilisateur donné
 function requeteAffichUser(){
     httpRequestAffichUser = new XMLHttpRequest();
     httpRequestAffichUser.onreadystatechange = traitementAffichUser;
@@ -595,7 +650,6 @@ function requeteAffichUser(){
 }
 function traitementAffichUser(){
     if (httpRequestAffichUser.readyState === XMLHttpRequest.DONE) {
-        console.log(httpRequestAffichUser.status);
         if (httpRequestAffichUser.status === 200) {
             let response = JSON.parse(httpRequestAffichUser.response);
             document.getElementById("profils-save").innerHTML = ""
@@ -608,7 +662,7 @@ function traitementAffichUser(){
                     var srcProfil = "ressource/icones/default-profile.jpg";
                 }
                 document.getElementById("profils").innerHTML += `
-                <section class="account">
+                <section class="account" onclick="affProfil('${response[i].username}')">
                 <img src="${srcProfil}" class="photo">
                     <section class="account-title">
                         <h3>${response[i].pseudo}</h3>
@@ -619,11 +673,12 @@ function traitementAffichUser(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
+//Requête permettant d'afficher les tweets sauvegardés par un utilisateur
 function requeteAffichUserSave(){
     httpRequestAffichUserSave = new XMLHttpRequest();
     httpRequestAffichUserSave.onreadystatechange = traitementAffichUserSave;
@@ -633,7 +688,6 @@ function requeteAffichUserSave(){
 }
 function traitementAffichUserSave(){
     if (httpRequestAffichUserSave.readyState === XMLHttpRequest.DONE) {
-        console.log(httpRequestAffichUserSave.status);
         if (httpRequestAffichUserSave.status === 200) {
             let response = JSON.parse(httpRequestAffichUserSave.response);
             document.getElementById("profils-save").innerHTML = ""
@@ -646,7 +700,7 @@ function traitementAffichUserSave(){
                     var srcProfil = "ressource/icones/default-profile.jpg";
                 }
                 document.getElementById("profils-save").innerHTML += `
-                <section class="account">
+                <section class="account" onclick="affProfil('${response[i].username}')">
                 <img src="${srcProfil}" class="photo">
                     <section class="account-title">
                         <h3>${response[i].pseudo}</h3>
@@ -657,15 +711,543 @@ function traitementAffichUserSave(){
             }
         } 
         else {
-            alert('Il y a eu un problème avec la requête.');
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant d'afficher les réponses présentes sur un tweet
+function requeteAffichReply(id){
+    let plume = id;
+    httpRequestAffichReply = new XMLHttpRequest();
+    httpRequestAffichReply.onreadystatechange = traitementAffichReply;
+    httpRequestAffichReply.open('POST', `${urlCourante}api/affichReply.php`, true);
+    httpRequestAffichReply.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"plume": plume});
+    httpRequestAffichReply.send(data);
+}
+function traitementAffichReply(){
+    if (httpRequestAffichReply.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestAffichReply.status === 200) {
+            let response = JSON.parse(httpRequestAffichReply.responseText);
+            newComment();
+            if(localStorage.getItem("userPP")=="null"){
+                srcPP = "ressource/icones/default-profile.jpg";
+            }
+            else{
+                srcPP = localStorage.getItem("userPP");
+            }
+            document.getElementById("group-tweet").innerHTML = "";
+            containerComment = document.getElementsByClassName("comment-tweet");
+            containerComment[0].innerHTML = "";
+            for(plume of response){
+                if(plume["answer_to"]==null){
+                    userPlume = plume["username"];
+                    plumeId = plume["id"];
+                    if(plume["pp"]!=null){
+                        src = plume["pp"];
+                    }
+                    else{
+                        src = "ressource/icones/default-profile.jpg";
+                    }
+                    if(plume["image"]!=null){
+                        srcImg = plume["image"];
+                    }
+                    else{
+                        srcImg = "";
+                    }
+                    let userProfile = plume['user'];
+                    containerComment[0].innerHTML += `
+                        <section class="retour" onclick="retour()">
+                            <p><i class="fa-solid fa-arrow-left" onclick="retour()"></i> Retour</p>
+                        </section>
+                        <section class="tweet" id="id-${plume['id']}">
+                            <section class="tweet-profil">
+                                <section class="tweet-title" onclick="affProfil('${userProfile}')">
+                                    <img src="${src}" class="photo">
+                                    <h3>${plume["pseudo"]}</h3>
+                                    <span>@${plume["username"]}</span>
+                                </section>
+                                <section class="tweet-save">
+                                    <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
+                                </section>
+                            </section>       
+                            <section class="tweet-message">
+                                <p>${plume["content"]}</p>
+                                <img id="" src="${srcImg}">
+                            </section>
+                            <section class="tweet-icons">
+                                <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                                <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                            </section>
+                        </section>
+                    `;
+                }
+            }
+            containerComment[0].innerHTML += `
+                <section class="comment">
+                    <section class="top-comment">
+                        <section class="top-left">
+                            <img src="${srcPP}" class="photo">
+                            <textarea id="textarea" id="message" type="text" name="tweet" placeholder=" Ajouter un commentaire..." maxlength="256" onkeyup="textCounter(this,'counter',256);"></textarea>
+                        </section>
+                        <section class="top-right">
+                            <button id="send" onclick="requeteReply(${plumeId})" class="${localStorage.getItem("themeColor")} select-color" >Répondre <i class="fa-solid fa-arrow-right"></i></button>
+                        </section>
+                    </section>
+                    <section id="trait"></section>
+                    <section class="center-comment">
+                    </section>
+                </section>
+            `;
+            setTimeout(()=>{
+                centerComment = document.getElementsByClassName("center-comment");
+                centerComment[0].innerHTML = "";
+                for(plume of response){
+                    if(plume["answer_to"]!=null){
+                        if(plume["pp"]!=null){
+                            src = plume["pp"];
+                        }
+                        else{
+                            src = "ressource/icones/default-profile.jpg";
+                        }
+                        if(plume["image"]!=null){
+                            srcImg = plume["image"];
+                        }
+                        else{
+                            srcImg = "";
+                        }
+                        centerComment[0].innerHTML += `
+                        <section class="tweet" id="id-${plume['id']}">
+                            <section id="comment-compte">
+                                <img src="${src}" class="photo">
+                                <h3>${plume["pseudo"]}</h3>
+                                <span>@${plume["username"]}</span>
+                            </section>
+                            <section id="texte">
+                                <p>En réponse à <span class="${localStorage.getItem("themeColor")} select-color">@${userPlume}</span></p>
+                            </section>
+                            <section id="comment-message">
+                                <p>${plume["content"]}</p>
+                            </section>
+                            <section class="tweet-icons">
+                                <i id="HeartElement-${plume['id']}" class="${localStorage.getItem("themeColor")} select-color fa-regular fa-heart" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                                <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                                <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                            </section>
+                        </section>
+                        `;  
+                        setTimeout(()=>{
+                            requeteStateLike();
+                            requeteNbLike();
+                            requeteNbPreen();
+                            requeteNbComment();
+                            setTimeout(()=>{
+                                requeteStateSave();
+                                setTimeout(()=>{
+                                    requeteAffichUser();
+                                });            
+                            },250);
+                        });              
+                    }
+                }
+            });
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant d'afficher les réponses sur un tweet donné
+function requeteReply(id){
+    let plume = id;
+    let user = logUser;
+    let content = document.getElementById("textarea").value;
+    httpRequestReply = new XMLHttpRequest();
+    httpRequestReply.onreadystatechange = traitementReply;
+    httpRequestReply.open('POST', `${urlCourante}api/reply.php`, true);
+    httpRequestReply.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"plume": plume, "user":user, "content":content});
+    httpRequestReply.send(data);
+}
+function traitementReply(){
+    if (httpRequestReply.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestReply.status === 200) {
+            let response = JSON.parse(httpRequestReply.response);
+            requeteAffichReply(response['plume']);
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant de supprimer un compte
+function requeteDelete(){
+    httpRequestDelete = new XMLHttpRequest();
+    httpRequestDelete.onreadystatechange = traitementDelete;
+    let user = logUser;
+    httpRequestDelete.open('POST', `${urlCourante}api/delete.php`, true);
+    let data = JSON.stringify({"user":user});
+    httpRequestDelete.setRequestHeader("Content-Type", "application/json");
+    httpRequestDelete.send(data);
+}
+
+function traitementDelete(){
+    if (httpRequestDelete.readyState === XMLHttpRequest.DONE){
+        if (httpRequestDelete.status === 200){
+            let response = JSON.parse(httpRequestDelete.responseText);
+            if (response.state == "ça marche"){
+                window.location.href = "connexion.html";
+            }
+        }
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
+//Requête permettant de rechercher des utilisateurs
+function requeteSearch(e){
+    let value = e.srcElement.value;
+    let id = e.srcElement.id;
+    if(value.length >= 3){
+        httpRequestSearch = new XMLHttpRequest();
+        httpRequestSearch.onreadystatechange = traitementSearch;
+        httpRequestSearch.open('POST', `${urlCourante}api/search.php`, true);
+        let data = JSON.stringify({"value":value, "id":id});
+        httpRequestSearch.setRequestHeader("Content-Type", "application/json");
+        httpRequestSearch.send(data);    
+    }
+}
+function traitementSearch(){
+    if (httpRequestSearch.readyState === XMLHttpRequest.DONE){
+        if (httpRequestSearch.status === 200){
+            let response = JSON.parse(httpRequestSearch.responseText);
+            searchInput("recherche-droite");
+            resultSearch = document.getElementById("result-search-droite");
+            // switch(response.state){
+            //     case "recherche-droite":
+            //         resultSearch = document.getElementById("result-search-droite");
+            //         break;
+            //     case "recherche-save-droite":
+            //         resultSearch = document.getElementById("result-search-save-droite");
+            //         break;
+            //     case "recherche-profil":
+            //         resultSearch = document.getElementById("result-search-profil");
+            //         break;
+            // }
+            if(response["0"]){
+                resultSearch.innerHTML = `<div class="rapide">`;
+                for(account of response){
+                    if(account["pp"]==null){
+                        srcPP = "ressource/icones/default-profile.jpg";
+                    }
+                    else{
+                        srcPP = account["pp"];
+                    }
+                    document.querySelector("#result-search-droite .rapide").innerHTML += `
+                        <div class="account" onclick="affProfil('${account['username']}')">
+                            <img src=${srcPP} alt="">
+                            <div class="account-title">
+                                <h3>${account["pseudo"]}</h3>
+                                <span>@${account['username']}</span>
+                            </div>
+                        </div>    
+                    `;
+                }
+                resultSearch.innerHTML += `</div>`;
+            }
+            else{
+                resultSearch.innerHTML = `
+                <div class="rapide">
+                    Aucun résultat
+                </div>
+                `;
+            }
+        }
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }
+}
+
+//Requête permettant d'afficher les tweets des utilisateur suivi par un utilisateur
+function requeteGetFollow(x){
+    httpRequestFollow = new XMLHttpRequest();
+    httpRequestFollow.onreadystatechange = traitementGetFollow;
+    httpRequestFollow.open('POST', `${urlCourante}api/profilePlume.php`, true);
+    httpRequestFollow.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": x});
+    httpRequestFollow.send(data);
+}
+
+function traitementGetFollow(){
+    if (httpRequestFollow.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestFollow.status === 200) {
+            let res = JSON.parse(httpRequestFollow.responseText);
+            document.getElementById("1").innerHTML = "";
+            for(plume of res){
+                if(plume['image']!=null){
+                    srcImg = plume['image'];
+                }
+                else{
+                    srcImg = "";
+                }
+                let userProfile = plume['user'];
+                document.getElementById("1").innerHTML += `
+                <section class="tweet" id="id-${plume['id']}">
+                    <section class="tweet-profil">
+                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
+                            <img src="${plume['pp']}" classe="photo">
+                            <h3>${plume['pseudo']}</h3>
+                            <span>@${plume['user']}</span>
+                        </section>
+                        <section class="tweet-save">
+                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
+                        </section>
+                    </section>       
+                    <section class="tweet-message">
+                        <p>${plume['content']}</p>
+                        <img id="" src="${srcImg}">
+                    </section>
+                    <section class="tweet-icons">
+                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                        <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                    </section>
+                </section> 
+                `;
+                }
+            }
+            setTimeout(()=>{
+                requeteStateLike();
+                requeteNbLike();
+                requeteNbPreen();
+                requeteNbComment();
+                setTimeout(()=>{
+                    requeteStateSave();
+                    setTimeout(()=>{
+                        requeteAffichUser();
+                    });            
+                },250);
+            });
+            
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+}
+
+//Requête permettant d'afficher les tweets liké par un utilisateur
+function requeteGetLiked(x){
+    httpRequestLiked = new XMLHttpRequest();
+    httpRequestLiked.onreadystatechange = traitementGetLiked;
+    httpRequestLiked.open('POST', `${urlCourante}api/profileLiked.php`, true);
+    httpRequestLiked.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": x});
+    httpRequestLiked.send(data);
+}
+
+function traitementGetLiked(){
+    if (httpRequestLiked.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestLiked.status === 200) {
+            let res = JSON.parse(httpRequestLiked.responseText);
+            document.getElementById("2").innerHTML = "";
+            for(plume of res){
+                if(plume['image']!=null){
+                    srcImg = plume['image'];
+                }
+                else{
+                    srcImg = "";
+                }
+                let userProfile = plume['user'];
+                document.getElementById("2").innerHTML += `
+                <section class="tweet" id="id-${plume['id']}">
+                    <section class="tweet-profil">
+                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
+                            <img src="${plume['pp']}" classe="photo">
+                            <h3>${plume['pseudo']}</h3>
+                            <span>@${plume['user']}</span>
+                        </section>
+                        <section class="tweet-save">
+                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
+                        </section>
+                    </section>       
+                    <section class="tweet-message">
+                        <p>${plume['content']}</p>
+                        <img id="" src="${srcImg}">
+                    </section>
+                    <section class="tweet-icons">
+                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                        <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                    </section>
+                </section> 
+                `;
+            }
+        }
+        setTimeout(()=>{
+            requeteStateLike();
+            requeteNbLike();
+            requeteNbPreen();
+            requeteNbComment();
+            setTimeout(()=>{
+                requeteStateSave();
+                setTimeout(()=>{
+                    requeteAffichUser();
+                });            
+            },250);
+        });     
+    } 
+    else {
+        console.log('Il y a eu un problème avec la requête.');
+    }
+}
+
+//Requête permettant d'afficher les tweets sauvegardés
+function requeteGetSaved(x){
+    httpRequestSaved = new XMLHttpRequest();
+    httpRequestSaved.onreadystatechange = traitementGetSaved;
+    httpRequestSaved.open('POST', `${urlCourante}api/profileSaved.php`, true);
+    httpRequestSaved.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": x});
+    httpRequestSaved.send(data);
+}
+
+function traitementGetSaved(){
+    if (httpRequestSaved.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestSaved.status === 200) {
+            let res = JSON.parse(httpRequestSaved.responseText);
+            document.getElementById("3").innerHTML = "";
+            for(plume of res){
+                if(plume['image']!=null){
+                    srcImg = plume['image'];
+                }
+                else{
+                    srcImg = "";
+                }
+                let userProfile = plume['user'];
+                document.getElementById("3").innerHTML += `
+                <section class="tweet" id="id-${plume['id']}">
+                    <section class="tweet-profil">
+                        <section class="tweet-title" onclick="affProfil('${userProfile}')">
+                            <img src="${plume['pp']}" classe="photo">
+                            <h3>${plume['pseudo']}</h3>
+                            <span>@${plume['user']}</span>
+                        </section>
+                        <section class="tweet-save">
+                            <span id="SaveText-${plume['id']}">Enregistrer</span>&ensp;<i id="SaveElement-${plume['id']}" class="fa-regular fa-bookmark ${localStorage.getItem("themeColor")} select-color" onclick="requeteSave(event)"></i>
+                        </section>
+                    </section>       
+                    <section class="tweet-message">
+                        <p>${plume['content']}</p>
+                        <img id="" src="${srcImg}">
+                    </section>
+                    <section class="tweet-icons">
+                        <i id="HeartElement-${plume['id']}" class="fa-regular fa-heart ${localStorage.getItem("themeColor")} select-color" onclick="requeteLike(event)">&ensp;<span class="like" id="like-${plume["id"]}">0</span></i>
+                        <i class="fa-regular fa-comment ${localStorage.getItem("themeColor")} select-color" onclick="requeteAffichReply(${plume['id']})">&ensp;<span class="comment" id="comment-${plume["id"]}">0</span></i>
+                        <i id="RetweetElement-${plume['id']}" class="fas fa-retweet ${localStorage.getItem("themeColor")} select-color" onclick="requetePreen(event)">&ensp;<span class="preen" id="preen-${plume["id"]}">0</span></i>
+                    </section>
+                </section> 
+                `;
+            }
+        }
+            setTimeout(()=>{
+                requeteStateLike();
+                requeteNbLike();
+                requeteNbPreen();
+                requeteNbComment();
+                setTimeout(()=>{
+                    requeteStateSave();
+                    setTimeout(()=>{
+                        requeteAffichUser();
+                    });            
+                },250);
+            });
+            
+    } 
+    else {
+        console.log('Il y a eu un problème avec la requête.');
+    }
+}
+
+
+//Requête permettant de récupérer le nb de plume d'un utilisateur
+function requeteNbPlume(user){
+    httpRequestNbPlume = new XMLHttpRequest();
+    httpRequestNbPlume.onreadystatechange = traitementNbPlume;
+    httpRequestNbPlume.open('POST', `${urlCourante}api/countProfile.php/plume`, true);
+    httpRequestNbPlume.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": user});
+    httpRequestNbPlume.send(data);
+}
+function traitementNbPlume(){
+    if (httpRequestNbPlume.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestNbPlume.status === 200) {
+            responseNbPlume = JSON.parse(httpRequestNbPlume.responseText);
+            document.getElementById("countPlume").innerText = responseNbPlume[0]['nb_plumes'];
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant de récupérer le nombre de follower d'un utilisateur
+function requeteNbFollower(user){
+    httpRequestNbFollower = new XMLHttpRequest();
+    httpRequestNbFollower.onreadystatechange = traitementNbFollower;
+    httpRequestNbFollower.open('POST', `${urlCourante}api/countProfile.php/follower`, true);
+    httpRequestNbFollower.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": user});
+    httpRequestNbFollower.send(data);
+}
+function traitementNbFollower(){
+    if (httpRequestNbFollower.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestNbFollower.status === 200) {
+            responseNbFollower = JSON.parse(httpRequestNbFollower.responseText);
+            document.getElementById("countFollower").innerText = responseNbFollower[0]['nb_follower'];
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
+        }
+    }       
+}
+
+//Requête permettant de récupérer le nombre de personne que suit un utilisateur
+function requeteNbFollowed(user){
+    httpRequestNbFollowed = new XMLHttpRequest();
+    httpRequestNbFollowed.onreadystatechange = traitementNbFollowed;
+    httpRequestNbFollowed.open('POST', `${urlCourante}api/countProfile.php/followed`, true);
+    httpRequestNbFollowed.setRequestHeader("Content-Type", "application/json");
+    let data = JSON.stringify({"user": user});
+    httpRequestNbFollowed.send(data);
+}
+function traitementNbFollowed(){
+    if (httpRequestNbFollowed.readyState === XMLHttpRequest.DONE) {
+        if (httpRequestNbFollowed.status === 200) {
+            console.log(httpRequestNbFollowed.responseText);
+            responseNbFollowed = JSON.parse(httpRequestNbFollowed.responseText);
+            document.getElementById("countFollowed").innerText = responseNbFollowed[0]['nb_followed'];
+        } 
+        else {
+            console.log('Il y a eu un problème avec la requête.');
         }
     }       
 }
 
 
-
 requeteGetFollower();
 setTimeout(()=>{
+    if(localStorage.getItem("themeColor")){
+        ThemeColor(localStorage.getItem("themeColor"));
+    }
+    else{
+        ThemeColor("yellow");
+    }
     requeteStateLike();
     requeteNbLike();
     requeteNbPreen();
